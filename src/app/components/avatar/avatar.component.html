@@ -1,0 +1,11 @@
+<div class="avatar-container">
+  <div class="avatar-icon" [class]="size + ' ' + shape" [ngClass]="{'with-label': label}">
+    <!-- Display the image if there is no label; otherwise, display the label -->
+    <ng-container *ngIf="!label; else showLabel">
+      <img [src]="avatarIcon || defaultIcon" alt="avatar icon">
+    </ng-container>
+    <ng-template #showLabel>
+      <div class="avatar-name">{{ label }}</div>
+    </ng-template>
+  </div>
+</div>

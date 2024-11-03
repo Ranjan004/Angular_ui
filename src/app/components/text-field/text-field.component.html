@@ -1,0 +1,34 @@
+     
+<div class="form" [class]="variant + ' '+ shape" [ngClass]="{'error': isError}">
+  <input type="text"
+         [(ngModel)]="title"
+         (input)="filterInput($event)"
+         (focus)="handleFocus()"
+         (blur)="handleBlur()"
+         autocomplete="off"
+         required>
+  <label for="name" class="label-name">
+    <div class="ui-flex">
+      <div>
+        <span class="content-name">Title 
+          <span class="required">
+            <img src="assets/images/icons/required.svg" alt="required">
+          </span>
+        </span>
+      </div>
+      <div class="counter">
+    
+      <div class="word" [ngClass]="{'focused': isFocused}">
+        {{ wordCount }}/200
+      </div>
+        <img src="assets/images/icons/dark.svg" alt="icon" class="icon-img">
+        <img src="assets/images/icons/Subtract.svg" alt="icon" class="error-icon">
+      </div>
+    </div>
+  </label>
+</div>
+
+<div class="error-msg">
+  {{errorMessage}}
+</div>
+

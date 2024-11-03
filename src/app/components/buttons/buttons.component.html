@@ -1,0 +1,21 @@
+<button 
+  [class]="variant + ' ' + size + ' ' + shape" 
+  [ngClass]="{ 'disabled': disabled, 'loading': isLoading }" 
+  (click)="onSubmit()" 
+  [disabled]="disabled">
+  <!-- Left icon if provided -->
+  <ng-container *ngIf="iconLeft">
+    <img class="icon-left" [src]="iconLeft" alt="Left Icon">
+  </ng-container>
+  <!-- Button label -->
+  <span class="btn-lable">{{ lable }}</span>
+  <!-- Show loader when loading -->
+  <ng-container *ngIf="isLoading">
+    <img [src]="loader" alt="Loading..." class="loader-icon">
+  </ng-container>
+  <!-- Right icon if provided -->
+  <ng-container *ngIf="iconRight">
+    <img class="icon-right" [src]="iconRight" alt="Right Icon">
+  </ng-container>
+
+</button>
