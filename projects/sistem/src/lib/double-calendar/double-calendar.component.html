@@ -1,0 +1,47 @@
+<div class="range-calendar">
+  <div class="header">
+    <input placeholder="Start date" [value]="startDate | date:'yyyy-MM-dd'" readonly (click)="toggleCalendar()" class="start-date">
+    <span>→</span>
+    <input placeholder="End date" [value]="endDate | date:'yyyy-MM-dd'" readonly (click)="toggleCalendar()" class="end-date">
+  </div>
+
+  <div class="calendar-container" *ngIf="showCalendar">
+    <div class="month" *ngFor="let offset of [0, 1]">
+      <div class="month-header">
+
+       <div class="left-date">
+        <ui-notification *ngIf="offset === 0" size="xsm" shape="circle"
+        notificationIcon="../../assets/images/icons/double-left.svg" (click)="changeYear(-1)" class="mr-5"/>
+
+      <ui-notification *ngIf="offset === 0" size="xsm" shape="circle"
+        notificationIcon="../../assets/images/icons/angle.svg" (click)="changeMonth(-1, offset)" />
+       </div>
+
+        <span class="year">{{ getMonthName(offset) }} {{ getYear(offset) }}</span>
+
+        <div class="right-date">
+          <ui-notification *ngIf="offset === 1" size="xsm" shape="circle"
+          notificationIcon="../../assets/images/icons/angle-right.svg" (click)="changeMonth(1, offset)" class="mr-5"/>
+
+        <ui-notification *ngIf="offset === 1" size="xsm" shape="circle"
+          notificationIcon="../../assets/images/icons/double-right.svg" (click)="changeYear(1)" />
+        </div>
+      </div>
+
+      <div class="weekdays">
+        <span *ngFor="let day of ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']">{{ day }}</span>
+      </div>
+
+      <div class="days">
+        <div *ngFor="let date of getDaysInMonth(getYear(offset), (currentMonth + offset) % 12)" [ngClass]="{
+            'selected': date && isSelected(date),
+            'in-range': date && isInRange(date),
+            'today': date && isToday(date),
+            'disabled': date && isDisabled(date, offset)
+          }" (click)="date && !isDisabled(date, offset) ? onDateSelect(date) : null">
+          {{ date ? date.getDate() : '' }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+<div class="side-navigation" [class.collapsed]="isCollapsed" [class]="variant">
+  <div class="navigation-list">
+    <ul>
+      <!-- Collapsed Button -->
+      <li (click)="collapsed()" class="collapsed-btn">
+        <img [src]="collapsIcon" alt="menu icon" (error)="onImageError()" *ngIf="collapsIcon">
+      </li>
+      
+
+      <!-- Menu Items -->
+      <li *ngFor="let item of menuItems" [routerLink]="item.route" routerLinkActive="active">
+        <span><img [src]="item.icon" alt="{{ item.label }} Icon"></span>
+        <div class="menu-text">{{ item.label }}</div>
+      </li>
+    </ul> 
+  </div>
+</div>
+ 
+

@@ -1,94 +1,6 @@
-.row {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 10px;
-}
-
-.col h5 {
-  margin-bottom: 10px;
-}
-
-section {
-  margin: 30px 60px;
-}
-
-label {
-  line-height: 50px;
-}
-
-
-input[type="radio"] {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  position: relative;
-  box-shadow: 0 0 0 1px var(--border), 0 0 0 0px transparent;
-  cursor: pointer;
-  margin: 0 10px 0 0;
-}
-
-input[type="radio"]:hover {
-  box-shadow: 0 0 0 1px var(--border), 0 0 0 6px var(--secondary);
-}
-
-input[type="radio"]:checked::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background-color: var(--fill-bg);
-}
-
-input[type="checkbox"] {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 20px;
-  height: 20px;
-  border-radius: 2px;
-  position: relative;
-  box-shadow: 0 0 0 1px var(--border), 0 0 0 0px transparent;
-  cursor: pointer;
-  margin: 0 10px 0 0;
-}
-
-
-input[type="checkbox"]:checked::before {
-  content: " ";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 10px;
-  height: 10px;
-  background: var(--check-icon-url) no-repeat center center;
-  background-size: contain;
-}
-
-
-input[type="checkbox"]:disabled {
-  background-color: var(--disable);
-  cursor: not-allowed;
-  color: var(--disable-text);
-}
-
-input[type="checkbox"]:hover {
-  border-radius: 2px;
-  box-shadow: 0 0 0 1px var(--border), 0 0 0 6px var(--secondary);
-}
-
-
-
-
-
 /* header css */
 .header {
-  background-color: #171E27;
+  /* background-color: #171E27; */
   height: 60px;
   width: var(--full-width);
   display: flex;
@@ -100,6 +12,9 @@ input[type="checkbox"]:hover {
 .desktop-logo {
   width: var(--full-width);
   height: var(--full-height);
+  display: flex;
+  justify-content: start;
+  align-items: center;
 }
 
 .menu-list {
@@ -307,6 +222,9 @@ input[type="checkbox"]:hover {
 .close-menu:hover{
   background-color: var(--heading);
 }
+
+
+
 
 @media (max-width: 575.98px) {
   .desktop {

@@ -1,20 +1,11 @@
 import { Component, AfterViewInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { ThemeService } from '../../theme.service';
-import { ButtonsComponent } from '../buttons/buttons.component';
-import { TabComponent } from '../tab/tab.component';
-import { BreadcrumbsComponent } from '../breadcrumbs/breadcrumbs.component';
-import { AvatarComponent } from '../avatar/avatar.component';
-import { RouterLink, RouterOutlet } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { ToastComponent } from '../toast/toast.component';
-import { SideNavigationComponent } from '../side-navigation/side-navigation.component';
-import { ToggleComponent } from '../toggle/toggle.component';
-
+import { NotificationComponent, ToggleComponent,SearchComponent,AvatarComponent,SideNavigationComponent } from 'sistem';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [ButtonsComponent, TabComponent, BreadcrumbsComponent, AvatarComponent, RouterLink, ToastComponent, CommonModule, SideNavigationComponent, RouterOutlet, ToggleComponent ],
+  imports: [ToggleComponent, SearchComponent, SearchComponent, AvatarComponent, NotificationComponent, SideNavigationComponent],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
@@ -53,15 +44,15 @@ export class HeaderComponent implements AfterViewInit {
   constructor(private themeService: ThemeService, private renderer: Renderer2) {}
 
   ngAfterViewInit(): void {
-    this.checkScrollButtons();
-    this.renderer.listen(this.menuContainer.nativeElement, 'scroll', () => this.checkScrollButtons());
+    // this.checkScrollButtons();
+    // this.renderer.listen(this.menuContainer.nativeElement, 'scroll', () => this.checkScrollButtons());
   }
 
-  checkScrollButtons(): void {
-    const container = this.menuContainer.nativeElement;
-    this.showScrollButtonNext = container.scrollWidth > container.clientWidth && container.scrollLeft < (container.scrollWidth - container.clientWidth - 10);
-    this.showScrollButtonPrev = container.scrollLeft > 10;
-  }
+  // checkScrollButtons(): void {
+  //   const container = this.menuContainer.nativeElement;
+  //   this.showScrollButtonNext = container.scrollWidth > container.clientWidth && container.scrollLeft < (container.scrollWidth - container.clientWidth - 10);
+  //   this.showScrollButtonPrev = container.scrollLeft > 10;
+  // }
 
   scrollNext(): void {
     const container = this.menuContainer.nativeElement;
@@ -81,7 +72,6 @@ export class HeaderComponent implements AfterViewInit {
 
   setInitialTheme() {
     const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    console.log(prefersDarkMode)
     this.toggleTheme(prefersDarkMode);
   }
 
@@ -191,4 +181,13 @@ export class HeaderComponent implements AfterViewInit {
       this.renderer.removeClass(document.body, 'no-scroll');
     }
   }
+
+
+  contactData = [
+    { name: 'Sudesh kumar', role: 'Contact', company: 'Aadinath Retails', category: 'Sales', image: 'assets/images/icons/Avatar.svg', description: 'Description' },
+    { name: 'Anita Rao', role: 'Contact', company: 'Global Trade', category: 'eCommerce', image: 'assets/images/icons/Avatar.svg', description: 'Description' },
+  ];
+
+  collapsIcon = 'assets/images/icons/Loader.svg';
 }
+

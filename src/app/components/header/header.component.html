@@ -1,44 +1,39 @@
+
 <nav class="header">
-  <div class="ui-md-container ui-grid space-between">
-    <!-- Logo Section -->
-    <div class="ui-col-2">
+  <div class="ui-md-container ui-grid space-between pl-12 pr-12">
+
+    <div class="ui-col-3">
       <div class="desktop-logo light">
         <img src="../../../assets/logo/sale.svg" alt="Logo">
+        <img src="../../../assets/logo/logo2.svg" alt="Logo" class="ml-10">
+      </div>
+      <div class="desktop-logo dark">
+        <img src="../../../assets/logo/sale.svg" alt="Logo">
+        <img src="../../../assets/logo/logo2.svg" alt="Logo" class="ml-10">
       </div>
     </div>
 
+ 
+
+
+    <div class="ui-col-6">
+     <ui-search isCategory="isCategory" [contacts]="contactData" 
+     [categories]="['Select parking', 'Sales', 'eCommerce', 'Parking', 'Sistem']"  />
+    </div>
+
+
+
+    <div class="ui-col-3 center justify-end">
+      <!-- avatar icon -->
+
+    <ui-notification size="md" shape="circle" class="mr-10" notificationIcon="../../../../assets/images/icons/question-mark-circle.svg" />
     
-    <div class="ui-col-0-5 justify-end desktop">
-      <div class="scroll-btn prev" *ngIf="showScrollButtonPrev" (click)="scrollPrev()">
-        <img src="../../../assets/images/icons/prev.svg" alt="">
-      </div>
-    </div>
 
-    <!-- Menu Links with Scroll -->
-    <div class="ui-col-7 scroll desktop" #menuContainer>
-      <div class="menu-list desktop">
-        <ul class="menu-item">
-          <li class="menu-link" *ngFor="let link of menuLinks">
-            <a [routerLink]="link.route">{{ link.label }}</a>
-          </li>
-        </ul>
-      </div>
-    </div>
+    <ui-notification size="md" shape="circle" class="mr-10" notificationIcon="../../../../assets/images/icons/Button-Icon.svg" />
 
-    <div class="ui-col-0-5 justify-end desktop">
-      <div class="scroll-btn next" *ngIf="showScrollButtonNext" (click)="scrollNext()">
-        <img src="../../../assets/images/icons/next.svg" alt="">
-      </div>
-    </div>
+    <ui-avatar class="mr-10"  size="md" shape="circle" avatarIcon="../../../assets/images/icons/avatar-2.svg" />
 
-    <!-- Call to Action Button -->
-    <div class="ui-col-2 center justify-end">
-      <div class="cta-btn">
-        <a routerLink="/join" class="btn">Join Now</a>
-      </div>
-
-
-      <ui-toggle (toggleChange)="toggleTheme($event)"></ui-toggle>
+    <ui-toggle (toggleChange)="toggleTheme($event)"/>
 
 
      <div class="humberger" (click)="toggleMobileMenu()">
@@ -47,7 +42,7 @@
       </svg>
      </div>
 
-     <div class="mobile-menu" [class.open]="isMobileMenuOpen">
+     <!-- <div class="mobile-menu" [class.open]="isMobileMenuOpen">
       <div class="close-menu" (click)="closeMobileMenu()">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
           <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
@@ -55,10 +50,10 @@
       </div>
       <ul class="menu-item">
         <li class="menu-link" *ngFor="let link of menuLinks">
-          <a [routerLink]="link.route">{{ link.label }}</a>
+          <a>{{ link.label }}</a>
         </li>
       </ul>
-     </div>
+     </div> -->
 
 
     </div>
@@ -66,383 +61,3 @@
 </nav>
 
 
-
-<div class="ui-xl-container ui-grid">
-  <app-side-navigation variant="primary"/>
-  <div class="ui-col-10">
-    <router-outlet></router-outlet>
-  </div>
-
-</div>
-
-
-
-
-<!-- <app-toast toast="success" heading="Success" message="Operation completed successfully!"></app-toast>
-<app-toast toast="error" heading="Error" message="An error occurred. Please try again."></app-toast>
-<app-toast toast="info" heading="Info" message="This is an informational message."></app-toast>
-<app-toast toast="warning" heading="Warning" message="Be cautious about this action."></app-toast>
-
-
- -->
-
-
-
-
-<!-- <button (click)="toggleTheme()">
-  Switch to {{ isDarkTheme ? 'Light' : 'Dark' }} Theme 
-</button> -->
-
-
-<!-- 
-<ui-avatar label="RK" shape="circle" size="xl"></ui-avatar>
-
-<ui-breadcrumbs [breadcrumbs]="breadcrumbs">
-  
-
-
-<ui-tab [tabs]="tabs"></ui-tab>
-
-
- 
-
- <section>
-  <div class="container">
-    <h2>Primary</h2>
-    <h5>Icon with text</h5>
-
-    <div class="row">
-      <div class="col">
-        <h5>Large</h5>
-        <ui-button
-        variant="primary"
-        size="large"
-        iconRight="assets/images/icons/dimond-light.svg"
-        iconLeft="assets/images/icons/dimond-light.svg"
-        lable="text"
-> 
-      </ui-button>
-      </div>
-      <div class="col">
-        <h5>Medium</h5>
-        <ui-button
-        variant="primary"
-        size="medium"
-        iconRight="assets/images/icons/dimond-light.svg"
-shape="corner"
-        >
-      </ui-button> 
-      </div>
-      <div class="col">
-        <h5>Small</h5>
-
-
-        <ui-button
-        variant="primary"
-        size="small"
-        iconRight="assets/images/icons/dimond-light.svg"
-shape="round"
-        >
-      </ui-button> 
-
-
-      
-      </div>
-      <div class="col">
-        <h5>XSmall</h5>
-        <ui-button
-        variant="primary"
-        size="xsmall"
-        iconRight="assets/images/icons/dimond-light.svg"
-shape="round"
-        >
-      </ui-button> 
-      </div>
-      
-    </div>
-  </div>
-
-  <ui-tab [tabs]="tabs"></ui-tab>
-
-</section>
-
-<section>
-  <div class="container">
-    <h2>Secoundary</h2>
-    <h5>Icon with text</h5>
-
-    <div class="row">
-      <div class="col">
-        <h5>Large</h5>
-        <ui-button
-        variant="secondary"
-        size="large"
-        iconLeft="assets/images/icons/dark.svg"
-   
-        lable="Text"
-   
-        > 
-      </ui-button>
-      </div>
-      <div class="col">
-        <h5>Medium</h5>
-        <ui-button
-        variant="secondary"
-        size="medium"
-        iconRight="assets/images/icons/dark.svg"
-shape="corner"
-        >
-      </ui-button> 
-      </div>
-      <div class="col">
-        <h5>Small</h5>
-
-
-        <ui-button
-        variant="secondary"
-        size="small"
-        iconRight="assets/images/icons/dark.svg"
-shape="round"
-        >
-      </ui-button> 
-
-
-      
-      </div>
-      <div class="col">
-        <h5>XSmall</h5>
-        <ui-button
-        variant="secondary"
-        size="xsmall"
-        iconRight="assets/images/icons/dark.svg"
-shape="round"
-        >
-      </ui-button> 
-      </div>
-      
-    </div>
-  </div>
-</section>
-
-
-<section>
-  <div class="container">
-    <h2>Outline</h2>
-    <h5>Icon with text</h5>
-
-    <div class="row">
-      <div class="col">
-        <h5>Large</h5>
-        
-        <ui-button
-        variant="outlined"
-        size="large"
-        iconLeft="assets/images/icons/outline.svg"
-        iconRight="assets/images/icons/outline.svg"
-        lable="text"
-        > 
-      </ui-button>
-
-      </div>
-      <div class="col">
-        <h5>Medium</h5>
-        <ui-button
-        variant="outlined"
-        size="medium"
-        iconRight="assets/images/icons/outline.svg"
-shape="corner"
-        >
-      </ui-button> 
-      </div>
-      <div class="col">
-        <h5>Small</h5>
-
-
-        <ui-button
-        variant="outlined"
-        size="small"
-        iconRight="assets/images/icons/outline.svg"
-shape="round"
-        >
-      </ui-button> 
-
-
-      
-      </div>
-      <div class="col">
-        <h5>XSmall</h5>
-        <ui-button
-        variant="outlined"
-        size="xsmall"
-        iconRight="assets/images/icons/outline.svg"
-        >
-      </ui-button> 
-      </div>
-      
-    </div>
-  </div>
-</section>
-
-
-
-   
-<section>
-  <div class="container">
-    
-
-    <div class="row">
-      <div class="col">
-        <ui-button
-        [variant]="selectedVariant" 
-        [size]="selectedSize"
-        [iconLeft]="showIconLeft ? 'assets/images/icons/dark.svg' : undefined"
-        [iconRight]="showIconRight ? 'assets/images/icons/dark.svg' : undefined"
-        [lable]="labelText"
-        [shape]="selectedShpae"
-        [disabled]="isDisabled"
-        > 
-      </ui-button>
-      </div>  
-    </div>
-
-      
-
- <div class="row">
-  <div class="col">
-    <label>
-      <input type="checkbox" (change)="toggleRadioState($event)">
-      Enable/Disable
-    </label>
-  </div>
- </div>  
-
-
-
-<div class="row">
-  <div class="col">
-    <label>
-      <input 
-        type="radio" 
-        name="variant"
-        [checked]="selectedVariant === 'primary'" 
-        (change)="changeVariant('primary')"
-      >
-      Primary
-    </label>
-  </div>
-  <div class="col">
-    <label>
-      <input 
-        type="radio" 
-        name="variant"
-        [checked]="selectedVariant === 'secondary'" 
-        (change)="changeVariant('secondary')"
-      >
-      Secondary
-    </label>
-  </div>
-  <div class="col">
-    <label>
-      <input 
-        type="radio" 
-        name="variant"
-        [checked]="selectedVariant === 'outlined'" 
-        (change)="changeVariant('outlined')"
-      >
-      Outline
-    </label>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col">
-    <label>
-      <input type="radio" name="size" 
-        [checked]="selectedSize === 'large'" 
-        (change)="changeSize('large')">
-      Large
-    </label>
-  </div>
-  <div class="col">
-    <label>
-      <input type="radio" name="size" 
-        [checked]="selectedSize === 'medium'" 
-        (change)="changeSize('medium')">
-      Medium
-    </label>
-  </div>
-  <div class="col">
-    <label>
-      <input type="radio" name="size" 
-        [checked]="selectedSize === 'small'" 
-        (change)="changeSize('small')">
-      Small
-    </label>
-  </div>
-  <div class="col">
-    <label>
-      <input type="radio" name="size" 
-        [checked]="selectedSize === 'xsmall'" 
-        (change)="changeSize('xsmall')">
-      Xsmall
-    </label>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col">
-    <label>
-      <input 
-        type="checkbox" 
-        (change)="toggleIconLeft($event)" 
-        [checked]="showIconLeft"
-      >
-      Icon Left
-    </label>
-  </div>
-  <div class="col">
-    <label>
-      <input 
-        type="checkbox" 
-        (change)="toggleIconRight($event)" 
-        [disabled]="selectedShpae === 'round' || selectedShpae === 'corner'"
-      >
-      Icon Right
-    </label>
-  </div>
-</div>
-
-
-<div class="row">
-  <div class="col">
-    <label>
-      <input type="radio" name="shape" 
-        [checked]="selectedShpae === 'round'" 
-        (change)="changeShape('round')">
-        round
-    </label>
-  </div>
-  <div class="col">
-    <label>
-      <input type="radio" name="shape" 
-        [checked]="selectedShpae === 'corner'" 
-        (change)="changeShape('corner')">
-        corner    
-      </label>
-  </div>
-  <div class="col">
-    <label>
-      <input type="radio" name="shape" 
-        [checked]="selectedShpae === 'ovel'" 
-        (change)="changeShape('ovel')">
-        ovel
-    </label>
-  </div>
-</div>
-
-
-  </div>
-</section>
-
-
- -->
