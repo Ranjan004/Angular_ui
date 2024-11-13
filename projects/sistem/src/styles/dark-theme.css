@@ -9,7 +9,7 @@
     --disable:#213550;
     --disable-text:#566881;
     --input-hover:#18273C;
-    --border:#566881;
+    --border:rgba(86, 104, 129, 0.25);
     --fill-bg:#FFFFFF;
     --check-icon-url: url('../assets/images/icons/light-check.svg');
     --toggle-bg:#FFFFFF;
@@ -36,10 +36,10 @@
     --error-text:#DE1135;
     --success:#EDFFF0;
     --success-text:#30D158;
-    --switch-bg:#213550
+    --switch-bg:#213550;
+    --dark-bg:#171e27
 }
 
 .dark-theme label{
     color: #fff;
 }
-

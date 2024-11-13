@@ -1,4 +1,4 @@
-<div class="toast-container" *ngIf="!isClose" [ngClass]="[toast, isShown ? 'show' : '']">
+<div class="toast-container" *ngIf="isShown && !isClose" [ngClass]="toast">
   <div class="toast-content">
     <div class="toast-icon">
       <img [src]="iconPath" alt="{{ toast }} icon">

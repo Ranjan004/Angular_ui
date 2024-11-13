@@ -1,16 +1,19 @@
-<div class="search_field" [class]="isDropdown + ' ' + size" [ngClass]="{ 'focused': isFocused }">
-  <div class="search">
+<div class="search_field" 
+     [class]="isDropdown + ' ' + size" 
+     [ngClass]="{ 'focused': isFocused}">
+  <div class="search" [ngClass]="{ 'highlighted': selectedCategory !== dropdownList[0] }">
     <!-- Dropdown menu for categories -->
     <div class="search-category">
       <div class="category" (click)="toggleDropdown()">
-        <div [ngClass]="{ 'hidden': selectedCategory !== 'All Categories' }" class="text mr-15"></div>
         <span class="text mr-15">{{ selectedCategory }}</span>
         <div>
-          <img src="../../assets/images/icons/angle-down.svg" alt="Dropdown Icon">
+          <!-- <img src="../../assets/images/icons/angle-down.svg" alt="Dropdown Icon"> -->
+          <div class="icon"> <ui-icon icon="chevron-down"/></div>
         </div>
       </div>
       <ul *ngIf="showDropdown" class="list-item">
-        <li *ngFor="let category of dropdownList" (mousedown)="selectCategory(category)">
+        <li *ngFor="let category of dropdownList" 
+            (mousedown)="selectCategory(category)">
           {{ category }}
         </li>
       </ul>

@@ -1,11 +1,11 @@
 import { Component, AfterViewInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { ThemeService } from '../../theme.service';
-import { NotificationComponent, ToggleComponent,SearchComponent,AvatarComponent,SideNavigationComponent } from 'sistem';
+import { NotificationComponent, ToggleComponent,AvatarComponent,SideNavigationComponent, IconComponent, SearchComponent } from 'sistem';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [ToggleComponent, SearchComponent, SearchComponent, AvatarComponent, NotificationComponent, SideNavigationComponent],
+  imports: [ToggleComponent,SearchComponent, SearchComponent, AvatarComponent, NotificationComponent, SideNavigationComponent,IconComponent],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })

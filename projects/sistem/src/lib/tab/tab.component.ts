@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -10,17 +10,17 @@ import { CommonModule } from '@angular/common';
 })
 export class TabComponent implements OnInit {
 
-  private _tabs: { id: number; title: string; content: string }[] = [];
+  private _tabs: { id: number; title: string; content: TemplateRef<any> }[] = [];
   
   @Input() 
-  set tabs(value: { id: number; title: string; content: string }[]) {
+  set tabs(value: { id: number; title: string; content: TemplateRef<any> }[]) {
     this._tabs = value;
     if (this._tabs.length) {
       this.activeTab = this._tabs[0].id;
     }
   }
 
-  get tabs(): { id: number; title: string; content: string }[] {
+  get tabs(): { id: number; title: string; content: TemplateRef<any> }[] {
     return this._tabs;
   }
 

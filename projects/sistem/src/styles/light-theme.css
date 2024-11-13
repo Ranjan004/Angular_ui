@@ -9,7 +9,7 @@
   --disable:#EDF1F5;
   --disable-text:#B9C1CC;
   --input-hover:#B9C1CC;
-  --border:#B9C1CC;
+  --border:rgba(185, 193, 204, .3);
   --fill-bg:#171E27;
   --check-icon-url: url('../assets/images/icons/check.svg');
   --toggle-bg:#EDF1F5;
@@ -46,5 +46,6 @@
   --error-text:#DE1135;
   --success:#EDFFF0;
   --success-text:#30D158;
-  --switch-bg:#171E27
+  --switch-bg:#171E27;
+  --dark-bg:#fff
 }

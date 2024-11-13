@@ -1,8 +1,9 @@
 <div class="range-calendar">
   <div class="header">
     <input placeholder="Start date" [value]="startDate | date:'yyyy-MM-dd'" readonly (click)="toggleCalendar()" class="start-date">
-    <span>→</span>
+    <div class="icon"><ui-icon icon="arrows-right-left"/></div>
     <input placeholder="End date" [value]="endDate | date:'yyyy-MM-dd'" readonly (click)="toggleCalendar()" class="end-date">
+    <div class="icon pr-15"><ui-icon icon="calendar-days"/></div>
   </div>
 
   <div class="calendar-container" *ngIf="showCalendar">
@@ -11,20 +12,20 @@
 
        <div class="left-date">
         <ui-notification *ngIf="offset === 0" size="xsm" shape="circle"
-        notificationIcon="../../assets/images/icons/double-left.svg" (click)="changeYear(-1)" class="mr-5"/>
-
+        icon='chevron-double-left' (click)="changeYear(-1)" class="mr-5"/>
+ 
       <ui-notification *ngIf="offset === 0" size="xsm" shape="circle"
-        notificationIcon="../../assets/images/icons/angle.svg" (click)="changeMonth(-1, offset)" />
+        icon='chevron-left' (click)="changeMonth(-1, offset)" />
        </div>
 
         <span class="year">{{ getMonthName(offset) }} {{ getYear(offset) }}</span>
 
         <div class="right-date">
           <ui-notification *ngIf="offset === 1" size="xsm" shape="circle"
-          notificationIcon="../../assets/images/icons/angle-right.svg" (click)="changeMonth(1, offset)" class="mr-5"/>
+          icon='chevron-right'(click)="changeMonth(1, offset)" class="mr-5"/>
 
         <ui-notification *ngIf="offset === 1" size="xsm" shape="circle"
-          notificationIcon="../../assets/images/icons/double-right.svg" (click)="changeYear(1)" />
+          icon='chevron-double-right' (click)="changeYear(1)" />
         </div>
       </div>
 

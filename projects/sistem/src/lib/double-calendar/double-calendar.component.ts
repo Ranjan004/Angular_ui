@@ -1,12 +1,13 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, HostListener, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NotificationComponent } from '../notification/notification.component';
+import { IconComponent } from '../icon/icon.component';
 
 @Component({
   selector: 'ui-range-calendar',
   standalone: true,
-  imports: [CommonModule, FormsModule, NotificationComponent],
+  imports: [CommonModule, FormsModule, NotificationComponent,IconComponent],
   templateUrl: './double-calendar.component.html',
   styleUrls: ['./double-calendar.component.css']
 })
@@ -19,6 +20,7 @@ export class DoubleCalendarComponent {
   today: Date = new Date();
   hoveredDate: Date | null = null;
   @Output() dateRangeSelected = new EventEmitter<{ startDate: Date | null, endDate: Date | null }>();
+  constructor(private elementRef: ElementRef) { }
 
 
   toggleCalendar() {
@@ -27,14 +29,14 @@ export class DoubleCalendarComponent {
       setTimeout(() => this.adjustCalendarPosition(), 100); // Slight delay to ensure rendering
     }
   }
-  
-  
+
+
   adjustCalendarPosition() {
     const calendarElement = document.querySelector('.calendar-container');
     if (calendarElement) {
       const rect = calendarElement.getBoundingClientRect();
       const viewportWidth = window.innerWidth;
-      
+
       // If calendar overflows the viewport, align it to the right
       if (rect.right > viewportWidth) {
         calendarElement.classList.add('align-right');
@@ -43,15 +45,15 @@ export class DoubleCalendarComponent {
       }
     }
   }
-  
-  
+
+
   onDateSelect(date: Date) {
     if (!this.startDate || (this.startDate && this.endDate)) {
       this.startDate = date;
       this.endDate = null;
     } else if (this.startDate && !this.endDate && date > this.startDate) {
-      this.endDate = new Date(date); 
-      this.endDate.setHours(23, 59, 59, 999); 
+      this.endDate = new Date(date);
+      this.endDate.setHours(23, 59, 59, 999);
       this.dateRangeSelected.emit({ startDate: this.startDate, endDate: this.endDate });
       this.showCalendar = false;
     } else {
@@ -59,15 +61,14 @@ export class DoubleCalendarComponent {
       this.endDate = null;
     }
   }
-  
- 
+
   isInRange(date: Date): boolean {
     return !!(this.startDate && this.endDate && date > this.startDate && date < this.endDate);
   }
 
   isSelected(date: Date): boolean {
-    return !!((this.startDate && date.getTime() === this.startDate.getTime()) || 
-              (this.endDate && date.getTime() === this.endDate.getTime()));
+    return !!((this.startDate && date.getTime() === this.startDate.getTime()) ||
+      (this.endDate && date.getTime() === this.endDate.getTime()));
   }
 
   isToday(date: Date): boolean {
@@ -101,7 +102,6 @@ export class DoubleCalendarComponent {
     }
   }
 
-
   onDateHover(date: Date) {
     this.hoveredDate = date;
   }
@@ -115,8 +115,6 @@ export class DoubleCalendarComponent {
       date <= this.hoveredDate
     );
   }
-
-
 
   changeYear(delta: number) {
     this.currentYear += delta;
@@ -167,5 +165,13 @@ export class DoubleCalendarComponent {
     }
 
     return dates;
+  }
+
+  // Close dropdown if clicked outside
+  @HostListener('document:click', ['$event.target'])
+  onClickOutside(target: HTMLElement): void {
+    if (!this.elementRef.nativeElement.contains(target)) {
+      this.showCalendar = false;
+    }
   }
 }

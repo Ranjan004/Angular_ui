@@ -78,6 +78,10 @@ export class SessionComponent implements OnInit {
   totalPages: number = 1;
   isChecked: boolean = false;
   checkedRows: Set<number> = new Set();
+  tempPage: number | null = this.currentPage;
+  errorMessage: string | null = null;
+  sortField: string | null = null; 
+  sortOrder: 'asc' | 'desc' = 'asc'; 
 
   ngOnInit() {
     this.paginat();
@@ -86,7 +90,7 @@ export class SessionComponent implements OnInit {
   }
 
   menuItems = [
-    { route: '/session', label: 'Session', icon: '../../../assets/images/icons/dark.svg' },
+    { route: '/session', label: 'Session', icon: 'bell' },
     { route: '/radio-button', label: 'Radio btn', icon: '../../../assets/images/icons/dark.svg' },
     { route: '/checkbox', label: 'Checkbox', icon: '../../../assets/images/icons/dark.svg' },
     { route: '/toggle', label: 'Toggle', icon: '../../../assets/images/icons/dark.svg' },
@@ -97,6 +101,7 @@ export class SessionComponent implements OnInit {
     { route: '/search', label: 'Search', icon: '../../../assets/images/icons/dark.svg' },
     { route: '/sidebar', label: 'Sidebar', icon: '../../../assets/images/icons/dark.svg' },
   ];
+
 
 
   // sessions: SessionData[] = [
@@ -318,5 +323,49 @@ areAllRowsChecked(): boolean {
   );
 }
 
-  
+onEnterPress(event: KeyboardEvent) {
+  if (event.key === 'Enter') {
+    this.tempPage = this.tempPage ? Math.max(1, Math.min(this.tempPage, this.totalPages)) : 1;
+    this.goToPage(this.tempPage);
+  }
+}
+
+goToPage(page: number) {
+  if (isNaN(page) || page < 1) {
+    this.currentPage = 1;
+  } else if (page > this.totalPages) {
+    this.currentPage = this.totalPages;
+  } else {
+    this.currentPage = page;
+  }
+  this.updatePaginatedSessions();
+}
+
+// data shorting
+sortSessions(field: keyof SessionData) {
+  if (this.sortField === field) {
+    this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
+  } else {
+    this.sortField = field;
+    this.sortOrder = 'asc';
+  }
+  this.paginatedSessions.sort((a, b) => {
+    const valueA = a[field] ?? ''; 
+    const valueB = b[field] ?? ''; 
+
+    if (valueA < valueB) return this.sortOrder === 'asc' ? -1 : 1;
+    if (valueA > valueB) return this.sortOrder === 'asc' ? 1 : -1;
+    return 0;
+  });
+}
+
+
+getSortIcon(field: keyof SessionData): string {
+  if (this.sortField === field) {
+    return this.sortOrder === 'asc' ? '↑' : '↓';
+  }
+  return '';
+}
+
+
 }

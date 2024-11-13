@@ -1,23 +1,25 @@
 import { Component, Input, OnInit, OnChanges, SimpleChanges, HostListener, ElementRef, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { IconComponent } from '../icon/icon.component';
+
 
 @Component({
   selector: 'ui-dropdown',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, IconComponent],
   templateUrl: './dropdown.component.html',
   styleUrls: ['./dropdown.component.css']
 })
 export class DropdownComponent implements OnInit, OnChanges {
   @Input() icons: 'suffix' | 'prefix' = 'suffix';
   @Input() dropdownList: string[] = ['All Parking', 'Sales', 'eCommerce', 'Parking'];
-  @Input() size: 'large' | 'medium' | 'small' = 'medium';
+  @Input() size: 'large' | 'medium' | 'small' = 'large';
   @Input() isDropdown: string = 'notHave';
   @Input() searchList: { label: string; url?: string }[] = [];
   @Input() contacts: { name: string; role: string; company: string; category: string; image: string; description: string }[] = [];
   
-  @Output() selectionChange = new EventEmitter<string>();  // Output property
+  @Output() selectionChange = new EventEmitter<string>(); 
 
   searchTerm: string = '';
   isFocused: boolean = false;
@@ -30,8 +32,8 @@ export class DropdownComponent implements OnInit, OnChanges {
   constructor(private elementRef: ElementRef) {}
 
   ngOnInit(): void {
-    this.setDefaultCategory(); // Set the first value as the default category
-    this.filterContacts(); // Filter contacts based on the default category
+    this.setDefaultCategory(); 
+    this.filterContacts(); 
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -44,16 +46,16 @@ export class DropdownComponent implements OnInit, OnChanges {
       this.filterContacts(); 
     }
   }
-
+ 
   private setDefaultCategory(): void {
     if (this.dropdownList.length > 0) {
-      this.selectedCategory = this.dropdownList[0]; // Select the first value by default
+      this.selectedCategory = this.dropdownList[0]; 
     }
   }
 
   toggleDropdown(): void {
     this.showDropdown = !this.showDropdown;
-  }
+  } 
 
   selectCategory(category: string): void {
     this.selectedCategory = category; 

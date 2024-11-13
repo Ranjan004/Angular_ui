@@ -45,6 +45,31 @@ button.large img {
   height: 24px;
 }
 
+button.large .icon-left,
+button.large .icon-right {
+  width: 24px;
+  height: 24px;
+}
+
+button.medium .icon-left,
+button.medium .icon-right {
+  width: 21.5px;
+  height: 21.5px;
+}
+
+button.small .icon-left,
+button.small .icon-right {
+  width: 21.5px;
+  height: 21.5px;
+}
+
+button.xsmall .icon-left,
+button.xsmall .icon-right {
+  width: 20px;
+  height: 20px;
+}
+
+
 button.medium {
   width: auto;
   min-height: 44px;
@@ -107,6 +132,10 @@ button.round img {
   margin: 0;
 }
 
+button.round .icon-left,.icon-right {
+  margin: 0;
+}
+
 button.large.round {
   padding: 16px;
 }
@@ -130,6 +159,9 @@ button.corner {
 }
 
 button.corner img {
+  margin: 0;
+}
+button.corner .icon-left,.icon-right {
   margin: 0;
 }
 

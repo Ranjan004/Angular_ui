@@ -23,14 +23,14 @@
 
     <!-- Search input field -->
     <input type="search" placeholder="Search Sistem" [(ngModel)]="searchTerm" (blur)="hideDropdown()"
-      (input)="filterContacts()" [ngClass]="{ 'typing': typing }">
+      (input)="filterContacts()" [ngClass]="{ 'typing': typing }" value="{{searchTerms}}">
 
     <!-- Suffix Icon -->
     <img *ngIf="icons === 'suffix'" src="../../assets/images/icons/search.svg" alt="Search Icon"
       class="suffix_search_icon">
  
     <!-- Display filtered contacts -->
-    <div class="filter_data" *ngIf="filteredContacts.length > 0 && searchTerm">
+    <div class="filter_data" *ngIf="filteredContacts.length > 0 && searchTerm || filteredContacts.length > 0 && searchTerms">
       <ul>
         <li *ngFor="let contact of filteredContacts">
           <div class="list-content"> 

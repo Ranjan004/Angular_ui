@@ -1,5 +1,5 @@
 .primary.form {
-  width: 50%;
+  /* width: 50%; */
   height: 50px;
   position: relative;
   overflow: hidden;
@@ -51,16 +51,16 @@
   transition: all .3s ease;
 }
 
-.primary.form input:focus + .label-name .content-name,
-.primary.form input:valid + .label-name .content-name {
+.primary.form input:focus+.label-name .content-name,
+.primary.form input:valid+.label-name .content-name {
   transform: translateY(-100%);
   font-size: 12px;
   line-height: 14.52px;
   color: var(--input-text);
 }
 
-.primary.form input:focus + .label-name::after,
-.primary.form input:valid + .label-name::after {
+.primary.form input:focus+.label-name::after,
+.primary.form input:valid+.label-name::after {
   transform: translateX(0%);
 }
 
@@ -78,7 +78,7 @@
 }
 
 .counter {
- text-align: right;
+  text-align: right;
 }
 
 .counter img {
@@ -86,20 +86,20 @@
   height: 16px;
 }
 
-.word{
+.word {
   font-size: 12px;
   line-height: 12.1px;
-  color:var(--input-text);
-  margin-bottom:3px;
+  color: var(--input-text);
+  margin-bottom: 3px;
   visibility: hidden;
 }
 
-.word.focused{
+.word.focused {
   visibility: visible;
 }
 
 
-.error label{
+.error label {
   color: var(--error);
 }
 
@@ -130,7 +130,8 @@
   line-height: 24px;
   background-color: transparent;
 }
-.secondary.form input:focus{
+
+.secondary.form input:focus {
   border: 1px solid var(--heading);
 }
 
@@ -147,17 +148,17 @@
   align-items: center;
 }
 
-.secondary.form .icon-img{
+.secondary.form .icon-img {
   position: absolute;
-    bottom: -45px;
-    right: -12px;
+  bottom: -45px;
+  right: -12px;
 }
 
 
-.secondary.form .error-icon{
+.secondary.form .error-icon {
   position: absolute;
-    bottom: -45px;
-    right: -12px;
+  bottom: -45px;
+  right: -12px;
 }
 
 
@@ -183,7 +184,7 @@
 }
 
 .counter {
- text-align: right;
+  text-align: right;
 }
 
 .counter img {
@@ -191,20 +192,20 @@
   height: 16px;
 }
 
-.word{
+.word {
   font-size: 12px;
   line-height: 12.1px;
-  color:var(--input-text);
-  margin-bottom:3px;
+  color: var(--input-text);
+  margin-bottom: 3px;
   visibility: hidden;
 }
 
-.word.focused{
+.word.focused {
   visibility: visible;
 }
 
 
-.error label{
+.error label {
   color: var(--error);
 }
 
@@ -216,21 +217,22 @@
 
 /* error msg  */
 .primary.form.error .label-name {
-  border-color:var(--error); 
+  border-color: var(--error);
 }
 
 .secondary.form.error input:focus {
-  border-color:var(--error); 
+  border-color: var(--error);
 }
 
 .secondary.form.error input:invalid {
-  border-color:var(--error); 
-}
-.secondary.form.error .word {
- color: var(--error); 
+  border-color: var(--error);
 }
 
-.secondary.form .word{
+.secondary.form.error .word {
+  color: var(--error);
+}
+
+.secondary.form .word {
   margin-right: -22px;
 }
 
@@ -240,9 +242,20 @@
 }
 
 
-.form.default input{
-border-radius: 8px;
+.form.default input {
+  border-radius: 8px;
 }
-.form.round input{
+
+.form.round input {
   border-radius: 40px;
-  }
+}
+
+.error .icon-img {
+  display: none;
+}
+
+.disable label {
+  color: var(--disable)!important;
+  border-color: var(--disable)!important;
+}
+

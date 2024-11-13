@@ -18,7 +18,7 @@ export class ToggleComponent implements OnInit {
     // Check if the system prefers dark mode
     const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
     this.isChecked = prefersDarkMode;
-    this.toggleChange.emit(this.isChecked); // Emit the initial theme setting to the parent
+    this.toggleChange.emit(this.isChecked); 
   }
 
   onToggle(event: Event) {

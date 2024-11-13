@@ -17,6 +17,8 @@ export class SearchComponent implements OnInit, OnChanges {
   @Input() searchList: { label: string; url?: string }[] = [];
   @Input() contacts: { name: string; role: string; company: string; category: string; image: string; description: string }[] = [];
   
+@Input() searchTerms: string = '';
+  
   searchTerm: string = '';
   isFocused: boolean = false;
   showDropdown: boolean = false;
@@ -29,12 +31,13 @@ export class SearchComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.setDefaultCategory();
+    this.searchTerm = this.searchTerms || '';
     this.filterContacts();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['contacts']) {
-      this.filterContacts(); 
+    if (changes['contacts'] || changes['searchTerms']) {
+      this.filterContacts();
     }
 
     if (changes['categories']) {
@@ -67,18 +70,17 @@ export class SearchComponent implements OnInit, OnChanges {
 
 
   filterContacts(): void {
-    this.isFocused = this.searchTerm.length > 0;
+    const term = this.searchTerm || this.searchTerms;
+    this.isFocused = term.length > 0;
 
     this.filteredContacts = this.contacts.filter(contact => {
-      const matchesCategory = 
-      contact.category.toLowerCase() === this.selectedCategory.toLowerCase() || 
-      this.selectedCategory === this.categories[0];
-       contact.category === this.selectedCategory;
-      const matchesSearch = contact.name.toLowerCase().includes(this.searchTerm.toLowerCase());
+      const matchesCategory =
+        contact.category.toLowerCase() === this.selectedCategory.toLowerCase() ||
+        this.selectedCategory === this.categories[0];
+      const matchesSearch = contact.name.toLowerCase().includes(term.toLowerCase());
       return matchesCategory && matchesSearch;
     });
   }
-
 
    // Close dropdown if clicked outside
    @HostListener('document:click', ['$event.target'])

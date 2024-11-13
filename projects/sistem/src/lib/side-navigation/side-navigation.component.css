@@ -17,13 +17,13 @@
 }
 
 .side-navigation.collapsed .navigation-list {
-  padding: 24px;
+  padding: 12px 24px 24px 24px;
 }
 
 
 
 .primary .navigation-list {
-  padding: 20px;
+  padding: 12px 20px 20px 20px;
 }
 
 .secondary .navigation-list {
@@ -62,6 +62,20 @@
 
 .navigation-list ul li img {
   padding-right: 20px;
+  width: 20px;
+  height: 20px;
+  margin-top: 4px;
+}
+
+.navigation-list ul li  .icon{
+  padding-right: 20px;
+  width: 20px;
+  height: 20px;
+  margin-top: 4px;
+}
+
+.collapsed .navigation-list ul li  .icon{
+  padding-right: 0px;
   width: 20px;
   height: 20px;
   margin-top: 4px;

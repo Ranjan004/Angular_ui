@@ -14,56 +14,48 @@ export class ToastComponent {
   @Input() heading: string = 'Info';
 
   isClose: boolean = false;
-  isShown:boolean = false;
+  private _isShown: boolean = false;
 
-
-  ngOnInit() {
-    setTimeout(() => {
-      this.isShown = true;
-    }, 1000); 
-
-    setTimeout(() => {
-      this.closeToast();
-
-    }, 5000); 
+  @Input() 
+  set isShown(value: boolean) {
+    if (value) {
+      this.showToast();
+    }
+    this._isShown = value;
   }
-
-
+  get isShown(): boolean {
+    return this._isShown;
+  }
 
   get iconPath(): string {
     switch (this.toast) {
-      case 'info':
-        return '../assets/images/icons/info.svg';
-      case 'success':
-        return '../assets/images/icons/success.svg';
-      case 'warning':
-        return '../assets/images/icons/warning.svg';
-      case 'error':
-        return '../assets/images/icons/error.svg';
-      default:
-        return '';
+      case 'info':  return '../assets/images/icons/info.svg';
+      case 'success': return '../assets/images/icons/success.svg';
+      case 'warning': return '../assets/images/icons/warning.svg';
+      case 'error': return '../assets/images/icons/error.svg';
+      default: return '';
     }
   }
 
   get closeIconPath(): string {
     switch (this.toast) {
-      case 'info':
-        return '../../../assets/images/icons/infi-cross.svg';
-      case 'success':
-        return '../../../assets/images/icons/success-cross.svg';
-      case 'warning':
-        return '../../../assets/images/icons/warning-cross.svg';
-      case 'error':
-        return '../../../assets/images/icons/error-cross.svg';
-      default:
-        return '';
+      case 'info': return '../../../assets/images/icons/infi-cross.svg';
+      case 'success': return '../../../assets/images/icons/success-cross.svg';
+      case 'warning': return '../../../assets/images/icons/warning-cross.svg';
+      case 'error': return '../../../assets/images/icons/error-cross.svg';
+      default: return '';
     }
+  }
+
+  showToast() {
+    this.isClose = false;
+    setTimeout(() => {
+      this.closeToast();
+    }, 2000);
   }
 
   closeToast() {
     this.isClose = true;
-    this.isShown = false;
+    this._isShown = false;
   }
-
- 
 }

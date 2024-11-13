@@ -11,7 +11,7 @@ import { Component, Input } from '@angular/core';
 })
 export class AvatarComponent {
   @Input() size: 'xxl' | 'xl' | 'md' | 'sm' | 'xsm' = 'xxl';
-  @Input() shape: 'default' | 'circle'  = 'default';
+  @Input() shape: 'default' | 'round'  = 'default';
   @Input() avatarIcon?: string;
   @Input() label?: string;
   defaultIcon: string = '../assets/images/icons/larg.svg';
