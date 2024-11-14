@@ -1,13 +1,15 @@
-import { Component,Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { IconComponent } from '../icon/icon.component';
 
 @Component({
   selector: 'ui-stages',
   standalone: true,
-  imports: [],
+  imports: [IconComponent],
   templateUrl: './stages.component.html',
-  styleUrl: './stages.component.css'
+  styleUrls: ['./stages.component.css'] // Corrected here
 })
 export class StagesComponent {
-  @Input() variant: 'complete' | 'active' | 'pending' | 'lead' = 'active';
-  @Input() lable?: string ='Stage name';
+  @Input() label?: string = 'Stage Name';
+  @Input() stage: 'complete' | 'active' | 'pending' | 'lead' = 'complete';
+
 }

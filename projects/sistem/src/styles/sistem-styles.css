@@ -3,11 +3,12 @@
 @import 'dark-theme.css';
 
 
-
-
 * {
   padding: 0;
   margin: 0;
+}
+html{
+  overflow-x: hidden;
 }
 
 body {
@@ -123,6 +124,11 @@ svg{
   width: 100%;
   height: 100%;
 }
+
+.stage-button svg{
+  stroke: var(--white);
+}
+
 
 button.primary svg{
   stroke: var(--white);
@@ -1277,6 +1283,98 @@ button.primary svg{
 }
 
   
+/* tooltip */
+/* .ui-tooltip {
+  position: absolute;
+  background-color: var(--tooltip);
+  color:  var(--heading);
+  padding: 10px 12px;
+  border-radius: 4px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  box-shadow: var(--shadow);
+  width: auto;
+  font-size: 14px;
+  line-height: 16px;
+  left: 0;
+  top: 0;
+}
+
+.ui-tooltip-show {
+  opacity: 1;
+} */
+
+
+.ui-tooltip {
+  position: absolute;
+  background-color: var(--tooltip);
+  color:  var(--heading);
+  padding: 8px;
+  border-radius: 8px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  transform: translateX(-50%); 
+  white-space: nowrap;
+  box-shadow: var(--shadow-tooltip);
+}
+
+.ui-tooltip-show {
+  opacity: 1;
+}
+
+.ui-tooltip::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+
+.ui-tooltip.top::after {
+  border-width: 5px 5px 0 5px;
+  border-color: var(--tooltip) transparent transparent transparent;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.ui-tooltip.bottom::after {
+  border-width: 0 5px 5px 5px;
+  border-color: transparent transparent var(--tooltip) transparent;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.ui-tooltip.right::after {
+  border-width: 5px 5px 5px 0;
+  border-color: transparent var(--tooltip) transparent transparent;
+  left: -5px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.ui-tooltip.left::after {
+  border-width: 5px 0 5px 5px;
+  border-color: transparent transparent transparent var(--tooltip);
+  right: -5px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+
+.ui-tooltip.right{
+  transform: translateX(5%); 
+}
+.ui-tooltip.left{
+  transform: translateX(10%); 
+}
+
+.ui-tooltip.top{
+  transform: translateX(-48%); 
+}
 
 
 @media (max-width: 1200px) {

@@ -145,10 +145,6 @@ table thead th:nth-child(1){
   cursor: pointer;
 }
 
-.highlight {
-  background-color: var(--stage-gry);
-  /* border-bottom: .1em solid var(--border); */
-}
 .current{
   border: none;
   text-align: center;

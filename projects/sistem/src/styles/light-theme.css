@@ -47,5 +47,13 @@
   --success:#EDFFF0;
   --success-text:#30D158;
   --switch-bg:#171E27;
-  --dark-bg:#fff
+  --dark-bg:#fff;
+  --tooltip: rgba(255, 255, 255, 1);
+  --shadow-tooltip:0px 4px 14px 0px rgba(0, 0, 0, 0.22);
+  --stage-complete:rgba(76, 217, 100, 1);
+  --stage-active:rgba(90, 200, 250, 1);
+  --stage-pending:rgba(255, 255, 255, 1);
+  --stage-complete-circle :rgba(48, 209, 88, 1);
+  --stage-active-circle:rgba(100, 210, 255, 1);
+  --stage-pending-circle:#F8F9FA;
 }

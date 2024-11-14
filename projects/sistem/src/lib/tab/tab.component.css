@@ -10,6 +10,8 @@
   align-items: center;
   border-bottom: 1px solid;
   border-color: var(--border);
+  white-space: nowrap;
+  overflow-x: auto;
 }
 
 .tab-header{
@@ -54,4 +56,13 @@
   font-weight: 400;
   padding-top: 20px;
   padding-left: 0px;
+}
+
+.tab-headers::-webkit-scrollbar {
+  display: none;
+}
+
+.tab-headers {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

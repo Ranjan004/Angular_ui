@@ -1,71 +1,86 @@
-.stages-container {
-  width: 150px;
+.stage-button {
+  display: flex;
+  align-items: center;
+  width: auto;
   height: 44px;
-  display: flex;
-  align-items: center;
+  padding-left: 3px;
+  padding-right: 18px;
+  color: var(--white);
+  border: none;
   border-radius: 40px;
-  padding: 0 5px; 
-  position: relative;
-}
-
-.circle-icon {
-  width: 36px;
-  height: 36px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right: 8px; 
-  border-radius: 50%;
-}
-.stages-container img {
-  width: 24px;
-  height: 24px;
-}
-.stage-name {
-  flex: 1; 
   font-size: 14px;
   font-weight: 500;
-  line-height: 24px;
-  color: var(--white);
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s;
 }
-
-
-.complete,.lead .circle-icon{
-  background: var(--stage-green);
-}
-
- .complete,.lead{
-  background-color: var(--stage-complete);
-}
-
-.active .circle-icon{
-  background: var(--stage-blue);
-}
-
- .active{
-  background-color: var(--stage-active);
-}
-
-.pending .circle-icon{
-  background: var(--stage-gry);
-}
-
- .pending{
-  background-color: var(--stage-pending);
-  box-shadow: 1px 1px 20px 0px #56688129;
-
-}
-
-.pending .stage-name {
+.stage-button.pending .label {
   color: var(--heading);
 }
 
+.stage-button:hover{
+  background-color: #00c000;
+}
 
-.lead .circle-icon{
-  position: absolute;
-  right: -3px;
+.stage-icon {
+  border-radius: 50%;
+  padding: 4px;
+  margin-right: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
 }
-.lead .stage-name{
-  text-align: center;
-    margin-right: 25px;
+
+span div {
+  width: 20px;
+  height: 20px;
 }
+
+.active span div {
+
+  opacity: .5;
+}
+
+.stage-button.complete {
+  background-color: var(--stage-complete);
+}
+
+.stage-button.active {
+  background-color: var(--stage-active);
+}
+
+.stage-button.pending {
+  background-color: var(--stage-pending);
+}
+
+.stage-button.complete .stage-icon {
+  background-color: var(--stage-complete-circle);
+}
+.stage-button.active .stage-icon {
+  background-color: var(--stage-active-circle);
+}
+.stage-button.pending .stage-icon {
+  background-color: var(--stage-pending-circle);
+}
+
+.lead .stage-icon{
+  margin-left: 8px;
+  margin-right: 0;
+}
+
+.stage-button.lead{
+  padding-right: 3px;
+  padding-left: 18px;
+}
+
+.stage-button.lead {
+  background-color: var(--stage-complete);
+}
+
+.stage-button.lead .stage-icon {
+  background-color: var(--stage-complete-circle);
+}
+
+

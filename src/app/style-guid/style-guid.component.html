@@ -1,5 +1,5 @@
 <section class="style-guid mt-40">
-    <div class="ui-md-container">
+    <div class="ui-xl-container pl-12 pr-12">
         <ng-template #tabContent1>
             <!-- button Kind -->
             <div class="btn-kind">
@@ -11,6 +11,7 @@
                     <div class="ui-col-3"> <ui-button label="Button text" variant="secondary" /></div>
                     <div class="ui-col-3"> <ui-button label="Button text" variant="outlined" /></div>
                 </div>
+
             </div>
 
             <!-- button sizes -->
@@ -109,7 +110,6 @@
 
         </ng-template>
 
-
         <ng-template #tabContent2>
             <!-- button Icons -->
             <div class="btn-kind">
@@ -180,12 +180,10 @@
             </div>
         </ng-template>
 
-
-
         <ng-template #tabContent3>
             <!-- Text Area -->
             <div class="text-area">
-                <h3 class="mb-20">Button (kind)</h3>
+                <h3 class="mb-20">Text Area</h3>
                 <div class="ui-grid">
                     <div class="ui-col-3">
                         <ui-text-field variant="primary" />
@@ -200,10 +198,17 @@
                     </div>
                 </div>
 
-                <div class="ui-grid">
+                <div class="ui-grid p-5">
                     <ui-range-calendar class="mr-5" />
                 </div>
 
+
+                <h3 class="mt-30">Number</h3>
+                <div class="ui-grid mt-20">
+                    <div class="ui-col-12">
+                        <ui-number />
+                    </div>
+                </div>
             </div>
 
         </ng-template>
@@ -231,7 +236,6 @@
 
 
         </ng-template>
-
 
         <ng-template #tabContent5>
             <div class="ui-grid  mb-30 mt-30">
@@ -339,6 +343,24 @@
                 </div>
             </div>
 
+            <div class="ui-grid mt-20 mb-20">
+                <div class="ui-col-1">
+                    <ui-avatar avatarIcon="../../assets/images/icons/avatar-2.svg" size="xsm" />
+                </div>
+                <div class="ui-col-1">
+                    <ui-avatar avatarIcon="../../assets/images/icons/avatar-2.svg" size="sm" />
+                </div>
+                <div class="ui-col-1">
+                    <ui-avatar avatarIcon="../../assets/images/icons/avatar-2.svg" size="md" />
+                </div>
+                <div class="ui-col-1">
+                    <ui-avatar avatarIcon="../../assets/images/icons/avatar-2.svg" size="xl" />
+                </div>
+                <div class="ui-col-1">
+                    <ui-avatar avatarIcon="../../assets/images/icons/avatar-2.svg" size="xxl" />
+                </div>
+            </div>
+
         </ng-template>
 
         <ng-template #tabContent8>
@@ -392,7 +414,6 @@
 
         </ng-template>
 
-
         <ng-template #tabContent10>
             <h2 class="mt-20">Controls</h2>
 
@@ -406,19 +427,116 @@
             <h5 class="mt-10 mb-10">Radio Button (state)</h5>
             <div class="ui-grid p-7">
                 <div class="ui-col-1"> <ui-radio-button size="large" />
-                <p class="xsmall-p mt-6">Radio-Default</p>
+                    <p class="xsmall-p mt-6">Radio-Default</p>
                 </div>
-                <div class="ui-col-1"> <ui-radio-button size="large" class="hover"/>
+                <div class="ui-col-1"> <ui-radio-button size="large" class="hover" />
                     <p class="xsmall-p mt-6">Radio-Hover</p>
                 </div>
-                <div class="ui-col-1"> <ui-radio-button size="large" class="select"/>
+                <div class="ui-col-1"> <ui-radio-button size="large" class="select" />
                     <p class="xsmall-p mt-6">Radio-Selected</p>
-                </div>        
+                </div>
             </div>
-            
+
+            <h3 class="mt-20 mb-10">Check Button</h3>
+            <h5 class="mt-10 mb-10">Check Button (size)</h5>
+            <div class="ui-grid p-7">
+                <div class="ui-col-1"> <ui-checkbox size="small" /></div>
+                <div class="ui-col-1"> <ui-checkbox size="large" /></div>
+            </div>
+
+            <h5 class="mt-10 mb-10">Check Button (state)</h5>
+            <div class="ui-grid p-7">
+                <div class="ui-col-1"> <ui-checkbox size="large" />
+                    <p class="xsmall-p mt-6">Check-Default</p>
+                </div>
+                <div class="ui-col-1"> <ui-checkbox size="large" class="hover" />
+                    <p class="xsmall-p mt-6">Check-Hover</p>
+                </div>
+                <div class="ui-col-1"> <ui-checkbox size="large" class="select" />
+                    <p class="xsmall-p mt-6">Check-Selected</p>
+                </div>
+            </div>
+
+            <h3 class="mt-20 mb-10">Switch</h3>
+            <div class="ui-grid p-7">
+                <div class="ui-col-1"> <ui-toggle /></div>
+            </div>
 
         </ng-template>
 
+        <ng-template #tabContent11>
+            <div class="ui-grid">
+                <div class="ui-col-2">
+                    <ui-tags variant="canclled" lable="Canclled" />
+                </div>
+                <div class="ui-col-2"><ui-tags variant="closed" lable="Closed" /></div>
+                <div class="ui-col-2"><ui-tags variant="new" lable="New" /></div>
+            </div>
+
+        </ng-template>
+
+        <ng-template #tabContent12>
+            <ui-breadcrumbs [breadcrumbs]="breadcrumbs" />
+        </ng-template>
+
+        <ng-template #tabContent13>
+            <div class="ui-grid">
+                <div class="ui-col-3">
+                    <ui-navigation [menuItems]="menuItems" variant="primary" />
+                </div>
+                <div class="ui-col-1"></div>
+                <div class="ui-col-3">
+                    <ui-navigation [menuItems]="menuItems" variant="secondary" />
+                </div>
+            </div>
+        </ng-template>
+
+        <ng-template #tabContent14>
+            <div class="ui-grid">
+                <div class="ui-col">
+                    <h5 class="mb-20">Tooltip Bottom</h5>
+                    <ui-button variant="primary" size="medium" label="Tooltip Bottom" appTooltip="Tooltip Text" />
+                </div>
+                <div class="ui-col">
+                    <h5 class="mb-20">Tooltip Top</h5>
+                    <ui-button variant="primary" size="medium" label="Tooltip Top" appTooltip="Tooltip Text"
+                        placement="top" />
+                </div>
+                <div class="ui-col">
+                    <h5 class="mb-20">Tooltip Left</h5>
+                    <ui-button variant="primary" size="medium" label="Tooltip Left" appTooltip="Tooltip Text"
+                        placement="left" />
+                </div>
+                <div class="ui-col">
+                    <h5 class="mb-20">Tooltip Right</h5>
+                    <ui-button variant="primary" size="medium" label="Tooltip Right" appTooltip="Tooltip Text"
+                        placement="right" />
+                </div>
+            </div>
+        </ng-template>
+
+        <ng-template #tabContent15>
+            <div class="ui-grid">
+                <div class="ui-col-2">
+                    <h3 class="mb-20">Complete</h3>
+                    <ui-stages stage="complete" />
+                </div>
+                <div class="ui-col-2">
+                    <h3 class="mb-20">Active</h3>
+                    <ui-stages stage="active" />
+                </div>
+                <div class="ui-col-2">
+                    <h3 class="mb-20">Pending</h3>
+                    <ui-stages stage="pending" />
+                </div>
+
+                <div class="ui-col-2">
+                    <h3 class="mb-20">Lead Completed</h3>
+                    <ui-stages stage="lead" />
+                </div>
+            </div>
+
+        </ng-template>
         <ui-tab [tabs]="[
     { id: 1, title: 'Button', content: tabContent1 },
     { id: 2, title: 'Icons', content: tabContent2 },
@@ -430,21 +548,21 @@
     { id: 8, title: 'Typography', content: tabContent8 },
     { id: 9, title: 'Search Bar', content: tabContent9 },
     { id: 10, title: 'Controls', content: tabContent10 },
+    { id: 11, title: 'Tags', content: tabContent11 },
+    { id: 12, title: 'Breadcrumbs', content: tabContent12 },
+    { id: 13, title: 'Side navigation', content: tabContent13 },
+    { id: 14, title: 'Tooltip', content: tabContent14 },
+    { id: 15, title: 'Stages', content: tabContent15 },
           ]" />
     </div>
 
-
     <ui-toast [toast]="'info'" [message]="'This is an info toast!'" [heading]="'Info'" [isShown]="isToastInfo" />
-
 
     <ui-toast [toast]="'warning'" [message]="'This is an warning toast!'" [heading]="'Info'"
         [isShown]="isToastWarning" />
 
-
-
     <ui-toast [toast]="'success'" [message]="'This is an success toast!'" [heading]="'Info'"
         [isShown]="isToastSuccess" />
-
 
     <ui-toast [toast]="'error'" [message]="'This is an error toast!'" [heading]="'Info'" [isShown]="isToastError" />
 

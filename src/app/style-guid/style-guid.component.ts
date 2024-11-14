@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, ChangeDetectorRef } from '@angular/core';
-import { ButtonsComponent, TabComponent, IconComponent, TextFieldComponent, CalendarComponent, DoubleCalendarComponent,DropdownComponent, ToastComponent, AvatarComponent, TypographyComponent, SearchComponent, RadioButtonComponent, CheckboxComponent } from 'sistem';
+import { ButtonsComponent, TabComponent, IconComponent, TextFieldComponent, CalendarComponent, DoubleCalendarComponent,DropdownComponent, ToastComponent, AvatarComponent, TypographyComponent, SearchComponent, RadioButtonComponent, CheckboxComponent, ToggleComponent, NumberComponent, TagsComponent, BreadcrumbsComponent, SideNavigationComponent, TooltipDirective, StagesComponent } from 'sistem';
 
 @Component({
   selector: 'app-style-guid',
   standalone: true,
-  imports: [TabComponent, ButtonsComponent, IconComponent, TextFieldComponent, DoubleCalendarComponent, DropdownComponent, ToastComponent, AvatarComponent, TypographyComponent,SearchComponent, RadioButtonComponent, CheckboxComponent],
+  imports: [TabComponent, ButtonsComponent, IconComponent, TextFieldComponent, DoubleCalendarComponent, DropdownComponent, ToastComponent, AvatarComponent, TypographyComponent, SearchComponent, RadioButtonComponent, CheckboxComponent, ToggleComponent, NumberComponent,TagsComponent, BreadcrumbsComponent, SideNavigationComponent, TooltipDirective, StagesComponent],
   templateUrl: './style-guid.component.html',
   styleUrl: './style-guid.component.css'
 })
@@ -80,6 +80,26 @@ export class StyleGuidComponent {
   contactData = [
     { name: 'Sudesh kumar', role: 'Contact', company: 'Aadinath Retails', category: 'Sales', image: 'assets/images/icons/Avatar.svg', description: 'Description' },
     { name: 'Anita Rao', role: 'Contact', company: 'Global Trade', category: 'eCommerce', image: 'assets/images/icons/Avatar.svg', description: 'Description' },
+  ];
+
+
+  breadcrumbs = [
+    {label: 'Home', url: '/style-guid'},
+    {label: 'About', url: ''},
+
+  ]
+
+  menuItems = [
+    { route: '/style-guid', label: 'Session', icon: 'bell' },
+    { route: '/radio-button', label: 'Radio btn', icon: 'home' },
+    { route: '/style-guid', label: 'Checkbox', icon: 'chat-bubble-bottom-center' },
+    { route: '/toggle', label: 'Toggle', icon: 'device-phone-mobile' },
+    { route: '/text', label: 'Text', icon: 'information-circle' },
+    { route: '/otp', label: 'OTP', icon: 'question-mark-circle' },
+    { route: '/calendar', label: 'Calendar', icon: 'chat-bubble-oval-left-ellipsis' },
+    { route: '/number', label: 'Number', icon: 'arrow-up-tray' },
+    { route: '/search', label: 'Search', icon: 'magnifying-glass' },
+    { route: '/sidebar', label: 'Sidebar', icon: 'shield-exclamation' },
   ];
 
   

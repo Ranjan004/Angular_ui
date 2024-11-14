@@ -201,7 +201,7 @@ z-index: 0;
 
 
 .highlighted {
-  background: var(--selected-menu);
+  background: #ff3a300b;
 }
 
 .medium .icon{

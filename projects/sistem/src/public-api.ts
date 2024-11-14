@@ -21,10 +21,13 @@ export * from './lib/vehicle/vehical.component';
 export * from './lib/dropdown/dropdown.component';
 export * from './lib/double-calendar/double-calendar.component';
 export * from './lib/tab/tab.component';
+export * from './lib/tags/tags.component';
 export * from './lib/text-field/text-field.component';
 export * from './lib/icon/icon.component';
 export * from './lib/typography/typography.component';
 export * from './lib/icons'
+export * from './tooltip.directive'
+export * from './lib/stages/stages.component'
 
 
 

@@ -20,7 +20,7 @@
     --list-bg:var(--toggle-btn);
     --shadow:#FFFFFF29;
     --bar-line:#007AFF;
-    --selected-menu:#0A84FF33;
+    --selected-menu:rgba(0, 122, 255, 0.2);
     --tab:#fff;
     --stage-complete:#30D158;
     --stage-green:#4CD964;
@@ -37,7 +37,15 @@
     --success:#EDFFF0;
     --success-text:#30D158;
     --switch-bg:#213550;
-    --dark-bg:#171e27
+    --dark-bg:#171e27;
+    --tooltip:rgba(23, 30, 39, 1);
+    --shadow-tooltip:0px 4px 14px 0px rgba(255, 255, 255, 0.22);
+    --stage-complete:rgba(76, 217, 100, 1);
+    --stage-active:rgba(90, 200, 250, 1);
+    --stage-pending:rgba(255, 255, 255, 1);
+    --stage-complete-circle :rgba(48, 209, 88, 1);
+    --stage-pending:rgba(23, 30, 39, 1);
+    --stage-pending-circle:#18273C;
 }
 
 .dark-theme label{
