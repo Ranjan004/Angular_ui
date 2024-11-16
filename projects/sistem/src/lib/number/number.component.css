@@ -73,8 +73,10 @@ border-right: 2px solid var(--fill-bg);
 ::placeholder {
   color: var(--text);
   opacity: 1; 
+  font-size: 14px;
 }
 
 ::-ms-input-placeholder { 
   color: var(--text);
+  font-size: 14px;
 }

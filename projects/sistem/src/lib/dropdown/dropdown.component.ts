@@ -18,6 +18,7 @@ export class DropdownComponent implements OnInit, OnChanges {
   @Input() isDropdown: string = 'notHave';
   @Input() searchList: { label: string; url?: string }[] = [];
   @Input() contacts: { name: string; role: string; company: string; category: string; image: string; description: string }[] = [];
+  @Input() selectedValue: string | null = null;
   
   @Output() selectionChange = new EventEmitter<string>(); 
 
@@ -38,14 +39,19 @@ export class DropdownComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['contacts']) {
-      this.filterContacts(); 
+      this.filterContacts();
     }
-
+  
     if (changes['dropdownList']) {
-      this.setDefaultCategory(); 
-      this.filterContacts(); 
+      this.setDefaultCategory();
+      this.filterContacts();
+    }
+  
+    if (changes['selectedValue'] && changes['selectedValue'].currentValue !== this.selectedCategory) {
+      this.selectedCategory = changes['selectedValue'].currentValue || this.dropdownList[0];
     }
   }
+  
  
   private setDefaultCategory(): void {
     if (this.dropdownList.length > 0) {
@@ -58,11 +64,12 @@ export class DropdownComponent implements OnInit, OnChanges {
   } 
 
   selectCategory(category: string): void {
-    this.selectedCategory = category; 
-    this.showDropdown = false; 
-    this.filterContacts(); 
-    this.selectionChange.emit(this.selectedCategory);  // Emit selected value
+    this.selectedCategory = category;
+    this.showDropdown = false;
+    this.filterContacts();
+    this.selectionChange.emit(this.selectedCategory); // Emit updated value
   }
+  
 
   hideDropdown(): void {
     setTimeout(() => {

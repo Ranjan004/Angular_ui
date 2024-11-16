@@ -23,7 +23,7 @@ a{
 }
 span{
   font-family: "Inter", sans-serif;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
   line-height: 24px;
 }
@@ -125,6 +125,11 @@ svg{
   height: 100%;
 }
 
+ul li svg{
+  width: 20px;
+  height: 20px;
+}
+
 .stage-button svg{
   stroke: var(--white);
 }
@@ -166,10 +171,12 @@ button.primary svg{
 ::placeholder {
   color: var(--text);
   opacity: 1;
+  font-size: 14px;
 }
 
 ::-ms-input-placeholder {
   color: var(--text);
+  font-size: 14px;
 }
 
 .ui-xl-container {
