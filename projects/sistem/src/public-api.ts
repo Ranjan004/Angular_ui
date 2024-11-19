@@ -25,10 +25,7 @@ export * from './lib/tags/tags.component';
 export * from './lib/text-field/text-field.component';
 export * from './lib/icon/icon.component';
 export * from './lib/typography/typography.component';
-export * from './lib/icons'
-export * from './tooltip.directive'
-export * from './lib/stages/stages.component'
-
-
-
-
+export * from './lib/modal/modal.component';
+export * from './lib/icons';
+export * from './tooltip.directive';
+export * from './lib/stages/stages.component';

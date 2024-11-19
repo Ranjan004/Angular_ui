@@ -1,48 +1,73 @@
-
 <nav class="header">
   <div class="ui-xl-container ui-grid space-between pl-12 pr-12">
-
     <div class="ui-col-3">
       <div class="desktop-logo light">
-        <img src="../../../assets/logo/sale.svg" alt="Logo">
-        <img src="../../../assets/logo/logo2.svg" alt="Logo" class="ml-10">
+        <img src="../../../assets/logo/sale.svg" alt="Logo" />
+        <img src="../../../assets/logo/logo2.svg" alt="Logo" class="ml-10" />
       </div>
       <div class="desktop-logo dark">
-        <img src="../../../assets/logo/sale.svg" alt="Logo">
-        <img src="../../../assets/logo/white-logo.svg" alt="Logo" class="ml-10">
+        <img src="../../../assets/logo/sale.svg" alt="Logo" />
+        <img
+          src="../../../assets/logo/white-logo.svg"
+          alt="Logo"
+          class="ml-10"
+        />
       </div>
     </div>
 
-
-
-
     <div class="ui-col-6">
-     <ui-search isCategory="isCategory" [contacts]="contactData"
-     [categories]="['Select parking', 'Sales', 'eCommerce', 'Parking', 'Sistem']"  />
+      <ui-search
+        isCategory="isCategory"
+        [contacts]="contactData"
+        [categories]="[
+          'Select parking',
+          'Sales',
+          'eCommerce',
+          'Parking',
+          'Sistem'
+        ]"
+      />
     </div>
-
-
 
     <div class="ui-col-3 center justify-end">
       <!-- avatar icon -->
 
+      <ui-notification size="md" shape="circle" class="mr-10" icon="bell" />
 
-    <ui-notification size="md" shape="circle" class="mr-10" icon="bell" />
+      <ui-notification
+        size="md"
+        shape="circle"
+        class="mr-10"
+        icon="question-mark-circle"
+      />
 
-    <ui-notification size="md" shape="circle" class="mr-10" icon="question-mark-circle"  />
+      <ui-avatar
+        class="mr-10"
+        size="md"
+        shape="round"
+        avatarIcon="../../../assets/images/icons/avatar-2.svg"
+      />
 
-    <ui-avatar class="mr-10"  size="md" shape="round" avatarIcon="../../../assets/images/icons/avatar-2.svg" />
+      <ui-toggle (toggleChange)="toggleTheme($event)" />
 
-    <ui-toggle (toggleChange)="toggleTheme($event)"/>
+      <div class="humberger" (click)="toggleMobileMenu()">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="size-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M3.75 6.75h16.5M3.75 12h16.5M12 17.25h8.25"
+          />
+        </svg>
+      </div>
 
-
-     <div class="humberger" (click)="toggleMobileMenu()">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M12 17.25h8.25" />
-      </svg>
-     </div>
-
-     <!-- <div class="mobile-menu" [class.open]="isMobileMenuOpen">
+      <!-- <div class="mobile-menu" [class.open]="isMobileMenuOpen">
       <div class="close-menu" (click)="closeMobileMenu()">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
           <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
@@ -54,8 +79,6 @@
         </li>
       </ul>
      </div> -->
-
-
     </div>
   </div>
 </nav>

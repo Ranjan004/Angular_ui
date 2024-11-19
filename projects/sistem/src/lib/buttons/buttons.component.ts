@@ -8,10 +8,10 @@ import { icons } from '../icons'; // Adjust the import path to the icons library
   standalone: true,
   imports: [CommonModule],
   templateUrl: './buttons.component.html',
-  styleUrls: ['./buttons.component.css']
+  styleUrls: ['./buttons.component.css'],
 })
 export class ButtonsComponent {
-  @Input() variant: 'primary' | 'secondary' | 'outlined' = 'primary';
+  @Input() variant: 'primary' | 'secondary' | 'outlined' | 'text' = 'primary';
   @Input() size: 'xsmall' | 'small' | 'medium' | 'large' = 'large';
   @Input() shape: 'round' | 'corner' | 'ovel' = 'ovel';
   @Input() iconLeft?: string;
@@ -19,7 +19,7 @@ export class ButtonsComponent {
   @Input() label?: string;
   @Input() loader: string = '../assets/images/icons/Loader.svg';
   @Input() disabled = false;
-  
+
   isLoading: boolean = false;
 
   constructor(private sanitizer: DomSanitizer) {}

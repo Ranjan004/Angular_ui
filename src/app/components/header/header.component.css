@@ -39,9 +39,6 @@
   color: var(--white);
 }
 
-
-
-
 /* Animation */
 .menu-item li.menu-link {
   padding: 10px 10px;
@@ -93,7 +90,7 @@
   font-size: 16px;
   list-style: 19px;
   font-weight: 400;
-  color: var(--white)
+  color: var(--white);
 }
 
 .cta-btn {
@@ -106,7 +103,7 @@
 }
 
 .cta-btn:hover {
-  background: linear-gradient(0deg, #FF3B30, #FF3B30)
+  background: linear-gradient(0deg, #ff3b30, #ff3b30);
 }
 
 .scroll {
@@ -135,7 +132,6 @@
   cursor: pointer;
 }
 
-
 .humberger .size-6 {
   width: 25px;
   height: 35px;
@@ -160,10 +156,9 @@
   margin: 0 0px 0 8px;
 }
 
-.humberger{
+.humberger {
   display: none;
 }
-
 
 .mobile-menu {
   position: fixed;
@@ -175,7 +170,7 @@
   background-color: #26303d;
   color: #ffffff;
   transform-origin: right;
-  transition: width 0.5s ease-in-out; 
+  transition: width 0.5s ease-in-out;
   display: flex;
   flex-direction: column;
   z-index: 1000;
@@ -183,7 +178,7 @@
 }
 
 .mobile-menu.open {
-  width: 80%; 
+  width: 80%;
 }
 
 .close-menu {
@@ -197,41 +192,35 @@
   height: 24px;
 }
 
-
-
-.mobile-menu .menu-item{
+.mobile-menu .menu-item {
   display: grid;
   justify-content: start;
   margin-top: 40px;
   text-align: left;
 }
 
-.close-menu .size-6{
+.close-menu .size-6 {
   stroke: var(--white);
 }
-.close-menu{
-  width:25px;
+.close-menu {
+  width: 25px;
   height: 25px;
   position: absolute;
   right: 10px;
-  top:10px;
+  top: 10px;
   cursor: pointer;
   padding: 5px;
   border-radius: 50%;
 }
-.close-menu:hover{
+.close-menu:hover {
   background-color: var(--heading);
 }
-
-
-
 
 @media (max-width: 575.98px) {
   .desktop {
     display: none;
   }
-  .humberger{
+  .humberger {
     display: inline-block;
   }
 }
-

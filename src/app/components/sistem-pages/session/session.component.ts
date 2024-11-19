@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { RouterLink, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
@@ -14,6 +14,7 @@ import {
   VehicalComponent,
   CalendarComponent,
   DoubleCalendarComponent,
+  ModalComponent,
 } from 'sistem';
 
 interface SessionData {
@@ -55,13 +56,14 @@ interface SessionData {
     DropdownComponent,
     CalendarComponent,
     DoubleCalendarComponent,
+    ModalComponent,
   ],
   templateUrl: './session.component.html',
   styleUrls: ['./session.component.css'],
 })
 export class SessionComponent implements OnInit {
   constructor(private cdr: ChangeDetectorRef) {}
-  selectedRange: { startDate: Date | null, endDate: Date | null } | null = null;
+  selectedRange: { startDate: Date | null; endDate: Date | null } | null = null;
   topTag: { label: string; url: string }[] = [];
   bottomtag: { label: string; url: string }[] = [];
   sessionTypes = ['type', 'Car', 'Bike', 'Cycle', 'Truck'];
@@ -80,8 +82,8 @@ export class SessionComponent implements OnInit {
   checkedRows: Set<number> = new Set();
   tempPage: number | null = this.currentPage;
   errorMessage: string | null = null;
-  sortField: string | null = null; 
-  sortOrder: 'asc' | 'desc' = 'asc'; 
+  sortField: string | null = null;
+  sortOrder: 'asc' | 'desc' = 'asc';
 
   ngOnInit() {
     this.paginat();
@@ -91,18 +93,52 @@ export class SessionComponent implements OnInit {
 
   menuItems = [
     { route: '/session', label: 'Session', icon: 'bell' },
-    { route: '/radio-button', label: 'Radio btn', icon: '../../../assets/images/icons/dark.svg' },
-    { route: '/checkbox', label: 'Checkbox', icon: '../../../assets/images/icons/dark.svg' },
-    { route: '/toggle', label: 'Toggle', icon: '../../../assets/images/icons/dark.svg' },
-    { route: '/text', label: 'Text', icon: '../../../assets/images/icons/dark.svg' },
-    { route: '/otp', label: 'OTP', icon: '../../../assets/images/icons/dark.svg' },
-    { route: '/calendar', label: 'Calendar', icon: '../../../assets/images/icons/dark.svg' },
-    { route: '/number', label: 'Number', icon: '../../../assets/images/icons/dark.svg' },
-    { route: '/search', label: 'Search', icon: '../../../assets/images/icons/dark.svg' },
-    { route: '/sidebar', label: 'Sidebar', icon: '../../../assets/images/icons/dark.svg' },
+    {
+      route: '/radio-button',
+      label: 'Radio btn',
+      icon: '../../../assets/images/icons/dark.svg',
+    },
+    {
+      route: '/checkbox',
+      label: 'Checkbox',
+      icon: '../../../assets/images/icons/dark.svg',
+    },
+    {
+      route: '/toggle',
+      label: 'Toggle',
+      icon: '../../../assets/images/icons/dark.svg',
+    },
+    {
+      route: '/text',
+      label: 'Text',
+      icon: '../../../assets/images/icons/dark.svg',
+    },
+    {
+      route: '/otp',
+      label: 'OTP',
+      icon: '../../../assets/images/icons/dark.svg',
+    },
+    {
+      route: '/calendar',
+      label: 'Calendar',
+      icon: '../../../assets/images/icons/dark.svg',
+    },
+    {
+      route: '/number',
+      label: 'Number',
+      icon: '../../../assets/images/icons/dark.svg',
+    },
+    {
+      route: '/search',
+      label: 'Search',
+      icon: '../../../assets/images/icons/dark.svg',
+    },
+    {
+      route: '/sidebar',
+      label: 'Sidebar',
+      icon: '../../../assets/images/icons/dark.svg',
+    },
   ];
-
-
 
   // sessions: SessionData[] = [
   //   {
@@ -123,16 +159,17 @@ export class SessionComponent implements OnInit {
   //     operator: 'operator 1',
   //   },
   // ];
-  
+
   sessions: SessionData[] = Array.from({ length: 60 }, (_, index) => {
     const vehicleTypes: ('bike' | 'car' | 'cycle')[] = ['bike', 'car', 'cycle'];
     const vehicleIcons: { bike: string; car: string; cycle: string } = {
       bike: '../../../../assets/images/icons/bike.svg',
       car: '../../../../assets/images/icons/car.svg',
-      cycle: '../../../../assets/images/icons/cycle.svg'
+      cycle: '../../../../assets/images/icons/cycle.svg',
     };
-  
-    const randomVehicleType = vehicleTypes[Math.floor(Math.random() * vehicleTypes.length)];
+
+    const randomVehicleType =
+      vehicleTypes[Math.floor(Math.random() * vehicleTypes.length)];
 
     // Generate random start and end dates
     const baseDate = new Date();
@@ -144,8 +181,14 @@ export class SessionComponent implements OnInit {
     return {
       vehicleNo: `uk07${String(3000 + index).padStart(4, '0')}`,
       booking: Math.random() > 0.5 ? 'yes' : 'no',
-      timeIn: `${Math.floor(9 + index % 12)}:${Math.floor(Math.random() * 60).toString().padStart(2, '0')} ${Math.random() > 0.5 ? 'AM' : 'PM'}`,
-      timeOut: `${Math.floor(10 + (index + 1) % 12)}:${Math.floor(Math.random() * 60).toString().padStart(2, '0')} ${Math.random() > 0.5 ? 'AM' : 'PM'}`,
+      timeIn: `${Math.floor(9 + (index % 12))}:${Math.floor(Math.random() * 60)
+        .toString()
+        .padStart(2, '0')} ${Math.random() > 0.5 ? 'AM' : 'PM'}`,
+      timeOut: `${Math.floor(10 + ((index + 1) % 12))}:${Math.floor(
+        Math.random() * 60
+      )
+        .toString()
+        .padStart(2, '0')} ${Math.random() > 0.5 ? 'AM' : 'PM'}`,
       advance: `${Math.floor(Math.random() * 100)}`,
       totalTime: `${Math.floor(15 + Math.random() * 45)} mins`,
       collection: `${Math.floor(100 + Math.random() * 400)}`,
@@ -161,10 +204,6 @@ export class SessionComponent implements OnInit {
       endDate: endDate.toISOString().split('T')[0], // format as YYYY-MM-DD
     };
   });
-
-
-
-  
 
   paginat() {
     this.totalPages = Math.ceil(this.sessions.length / this.rowsPerPage);
@@ -213,9 +252,9 @@ export class SessionComponent implements OnInit {
     this.selectedStatus = selectedStatus;
   }
 
-  onDateRangeSelected(range: { startDate: Date | null, endDate: Date | null }) {
+  onDateRangeSelected(range: { startDate: Date | null; endDate: Date | null }) {
     this.selectedRange = range;
-    console.log("Selected Date Range:", this.selectedRange);
+    console.log('Selected Date Range:', this.selectedRange);
   }
 
   applyFilter() {
@@ -224,30 +263,42 @@ export class SessionComponent implements OnInit {
 
   filterSessions() {
     this.paginatedSessions = [...this.sessions];
-  
-    const isTypeFiltered = this.selectedType && this.selectedType !== this.sessionTypes[0];
-    const isOperatorFiltered = this.selectedOperator && this.selectedOperator !== this.operatorList[0];
-    const isStatusFiltered = this.selectedStatus && this.selectedStatus !== this.statusList[0];
-    const isDateRangeFiltered = this.selectedRange && this.selectedRange.startDate && this.selectedRange.endDate;
-  
+
+    const isTypeFiltered =
+      this.selectedType && this.selectedType !== this.sessionTypes[0];
+    const isOperatorFiltered =
+      this.selectedOperator && this.selectedOperator !== this.operatorList[0];
+    const isStatusFiltered =
+      this.selectedStatus && this.selectedStatus !== this.statusList[0];
+    const isDateRangeFiltered =
+      this.selectedRange &&
+      this.selectedRange.startDate &&
+      this.selectedRange.endDate;
+
     if (isTypeFiltered) {
       this.paginatedSessions = this.paginatedSessions.filter((session) => {
-        return session.vehicleType.toLowerCase() === this.selectedType.toLowerCase();
+        return (
+          session.vehicleType.toLowerCase() === this.selectedType.toLowerCase()
+        );
       });
     }
-  
+
     if (isOperatorFiltered) {
       this.paginatedSessions = this.paginatedSessions.filter((session) => {
-        return session.operator.toLowerCase() === this.selectedOperator.toLowerCase();
+        return (
+          session.operator.toLowerCase() === this.selectedOperator.toLowerCase()
+        );
       });
     }
-  
+
     if (isStatusFiltered) {
       this.paginatedSessions = this.paginatedSessions.filter((session) => {
-        return session.status.toLowerCase() === this.selectedStatus.toLowerCase();
+        return (
+          session.status.toLowerCase() === this.selectedStatus.toLowerCase()
+        );
       });
     }
-  
+
     // Filter by date range
     if (isDateRangeFiltered && this.selectedRange) {
       const { startDate, endDate } = this.selectedRange;
@@ -256,19 +307,17 @@ export class SessionComponent implements OnInit {
         return sessionDate >= startDate! && sessionDate <= endDate!;
       });
     }
-  
+
     // Update total sessions and pages based on the filtered result
     this.totalSessions = this.paginatedSessions.length;
     this.totalPages = Math.ceil(this.totalSessions / this.rowsPerPage);
-  
+
     this.updateTags();
   }
-  
-  
 
   clearFilters() {
     this.paginatedSessions = [...this.sessions];
-    this.updateTags(); 
+    this.updateTags();
   }
 
   updateTags() {
@@ -276,96 +325,115 @@ export class SessionComponent implements OnInit {
       { label: `${this.totalSessions} items`, url: '/' },
       { label: 'Sorted by CREATED AT', url: '/' },
     ];
-    this.bottomtag = [{ label: `Total: ${this.totalSessions} items`, url: '/' }];
+    this.bottomtag = [
+      { label: `Total: ${this.totalSessions} items`, url: '/' },
+    ];
   }
 
-// Method to handle "Select All" checkbox change
-selectAll(event: any): void {
-  const checked = event?.target?.checked;
+  // Method to handle "Select All" checkbox change
+  selectAll(event: any): void {
+    const checked = event?.target?.checked;
 
-  if (checked) {
-    // Add all indices for the current page to checkedRows
-    this.paginatedSessions.forEach((_, i) => {
-      const globalIndex = (this.currentPage - 1) * this.rowsPerPage + i;
+    if (checked) {
+      // Add all indices for the current page to checkedRows
+      this.paginatedSessions.forEach((_, i) => {
+        const globalIndex = (this.currentPage - 1) * this.rowsPerPage + i;
+        this.checkedRows.add(globalIndex);
+      });
+    } else {
+      // Remove all indices for the current page from checkedRows
+      this.paginatedSessions.forEach((_, i) => {
+        const globalIndex = (this.currentPage - 1) * this.rowsPerPage + i;
+        this.checkedRows.delete(globalIndex);
+      });
+    }
+  }
+
+  // Check if a specific row is checked
+  isRowChecked(index: number): boolean {
+    const globalIndex = (this.currentPage - 1) * this.rowsPerPage + index;
+    return this.checkedRows.has(globalIndex);
+  }
+
+  // Method to handle individual checkbox change
+  onCheckboxChange(event: any, index: number): void {
+    const checked = event?.target?.checked;
+    const globalIndex = (this.currentPage - 1) * this.rowsPerPage + index;
+
+    if (checked) {
       this.checkedRows.add(globalIndex);
-    });
-  } else {
-    // Remove all indices for the current page from checkedRows
-    this.paginatedSessions.forEach((_, i) => {
-      const globalIndex = (this.currentPage - 1) * this.rowsPerPage + i;
+    } else {
       this.checkedRows.delete(globalIndex);
+    }
+  }
+
+  // Check if all rows on the current page are checked
+  areAllRowsChecked(): boolean {
+    return this.paginatedSessions.every((_, i) =>
+      this.checkedRows.has((this.currentPage - 1) * this.rowsPerPage + i)
+    );
+  }
+
+  onEnterPress(event: KeyboardEvent) {
+    if (event.key === 'Enter') {
+      this.tempPage = this.tempPage
+        ? Math.max(1, Math.min(this.tempPage, this.totalPages))
+        : 1;
+      this.goToPage(this.tempPage);
+    }
+  }
+
+  goToPage(page: number) {
+    if (isNaN(page) || page < 1) {
+      this.currentPage = 1;
+    } else if (page > this.totalPages) {
+      this.currentPage = this.totalPages;
+    } else {
+      this.currentPage = page;
+    }
+    this.updatePaginatedSessions();
+  }
+
+  // data shorting
+  sortSessions(field: keyof SessionData) {
+    if (this.sortField === field) {
+      this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.sortField = field;
+      this.sortOrder = 'asc';
+    }
+    this.paginatedSessions.sort((a, b) => {
+      const valueA = a[field] ?? '';
+      const valueB = b[field] ?? '';
+
+      if (valueA < valueB) return this.sortOrder === 'asc' ? -1 : 1;
+      if (valueA > valueB) return this.sortOrder === 'asc' ? 1 : -1;
+      return 0;
     });
   }
-}
 
-// Check if a specific row is checked
-isRowChecked(index: number): boolean {
-  const globalIndex = (this.currentPage - 1) * this.rowsPerPage + index;
-  return this.checkedRows.has(globalIndex);
-}
-
-// Method to handle individual checkbox change
-onCheckboxChange(event: any, index: number): void {
-  const checked = event?.target?.checked;
-  const globalIndex = (this.currentPage - 1) * this.rowsPerPage + index;
-
-  if (checked) {
-    this.checkedRows.add(globalIndex);
-  } else {
-    this.checkedRows.delete(globalIndex);
+  getSortIcon(field: keyof SessionData): string {
+    if (this.sortField === field) {
+      return this.sortOrder === 'asc' ? '↑' : '↓';
+    }
+    return '';
   }
-}
 
-// Check if all rows on the current page are checked
-areAllRowsChecked(): boolean {
-  return this.paginatedSessions.every((_, i) =>
-    this.checkedRows.has((this.currentPage - 1) * this.rowsPerPage + i)
-  );
-}
+  @ViewChild(ModalComponent) modal!: ModalComponent;
 
-onEnterPress(event: KeyboardEvent) {
-  if (event.key === 'Enter') {
-    this.tempPage = this.tempPage ? Math.max(1, Math.min(this.tempPage, this.totalPages)) : 1;
-    this.goToPage(this.tempPage);
+  openTemplateOne(modalContentOne: any) {
+    this.modal.openModal(modalContentOne);
   }
-}
+  formData = {
+    fname: '',
+    lname: '',
+  };
 
-goToPage(page: number) {
-  if (isNaN(page) || page < 1) {
-    this.currentPage = 1;
-  } else if (page > this.totalPages) {
-    this.currentPage = this.totalPages;
-  } else {
-    this.currentPage = page;
+  onFormSubmit() {
+    if (this.formData.fname && this.formData.lname) {
+      console.log('Form Submitted:', this.formData);
+    } else {
+      console.error('Form is incomplete.');
+    }
   }
-  this.updatePaginatedSessions();
-}
-
-// data shorting
-sortSessions(field: keyof SessionData) {
-  if (this.sortField === field) {
-    this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
-  } else {
-    this.sortField = field;
-    this.sortOrder = 'asc';
-  }
-  this.paginatedSessions.sort((a, b) => {
-    const valueA = a[field] ?? ''; 
-    const valueB = b[field] ?? ''; 
-
-    if (valueA < valueB) return this.sortOrder === 'asc' ? -1 : 1;
-    if (valueA > valueB) return this.sortOrder === 'asc' ? 1 : -1;
-    return 0;
-  });
-}
-
-
-getSortIcon(field: keyof SessionData): string {
-  if (this.sortField === field) {
-    return this.sortOrder === 'asc' ? '↑' : '↓';
-  }
-  return '';
-}
-
-
 }
