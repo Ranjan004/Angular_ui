@@ -9,13 +9,13 @@ import { CommonModule } from '@angular/common';
 import { ButtonsComponent } from '../buttons/buttons.component';
 import { NotificationComponent } from '../notification/notification.component';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+
 import { icons } from '../icons';
 
 @Component({
   selector: 'ui-modal',
   standalone: true,
-  imports: [CommonModule, FormsModule, ButtonsComponent, NotificationComponent],
+  imports: [CommonModule, ButtonsComponent, NotificationComponent],
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.css'],
 })

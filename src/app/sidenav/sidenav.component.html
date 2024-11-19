@@ -3,7 +3,11 @@
     <ul>
       <li>
         <span class="logo"></span>
-        <button id="toggle-btn" [class.rotate]="isSidebarClosed" (click)="toggleSidebar()">
+        <button
+          id="toggle-btn"
+          [class.rotate]="isSidebarClosed"
+          (click)="toggleSidebar()"
+        >
           <div class="icon"><ui-icon icon="chevron-double-left"></ui-icon></div>
         </button>
       </li>
@@ -20,32 +24,58 @@
         </a>
       </li>
       <li>
-        <button class="dropdown-btn" [class.rotate]="subMenusState[0]" (click)="toggleSubMenu(0)">
+        <button
+          class="dropdown-btn"
+          [class.rotate]="subMenusState[0]"
+          (click)="toggleSubMenu(0)"
+        >
           <div class="icon"><ui-icon icon="microphone"></ui-icon></div>
           <span>Create</span>
           <div class="icon"><ui-icon icon="chevron-down"></ui-icon></div>
         </button>
         <ul class="sub-menu" [class.show]="subMenusState[0]">
           <div>
-            <li><a href="#"><span>Folder</span></a></li>
-            <li><a href="#"><span>Document</span></a></li>
-            <li><a href="#"><span>Project</span></a></li>
+            <li>
+              <a href="#"><span>Folder</span></a>
+            </li>
+            <li>
+              <a href="#"><span>Document</span></a>
+            </li>
+            <li>
+              <a href="#"><span>Project</span></a>
+            </li>
           </div>
         </ul>
       </li>
       <li>
-        <button class="dropdown-btn" [class.rotate]="subMenusState[1]" (click)="toggleSubMenu(1)">
-          <div class="icon"><ui-icon icon="arrow-path-rounded-square"></ui-icon></div>
+        <button
+          class="dropdown-btn"
+          [class.rotate]="subMenusState[1]"
+          (click)="toggleSubMenu(1)"
+        >
+          <div class="icon">
+            <ui-icon icon="arrow-path-rounded-square"></ui-icon>
+          </div>
           <span>Todo-Lists</span>
           <div class="icon"><ui-icon icon="chevron-down"></ui-icon></div>
         </button>
         <ul class="sub-menu" [class.show]="subMenusState[1]">
           <div>
-            <li><a href="#"><span>Work</span></a></li>
-            <li><a href="#"><span>Private</span></a></li>
-            <li><a href="#"><span>Coding</span></a></li>
-            <li><a href="#"><span>Gardening</span></a></li>
-            <li><a href="#"><span>School</span></a></li>
+            <li>
+              <a href="#"><span>Work</span></a>
+            </li>
+            <li>
+              <a href="#"><span>Private</span></a>
+            </li>
+            <li>
+              <a href="#"><span>Coding</span></a>
+            </li>
+            <li>
+              <a href="#"><span>Gardening</span></a>
+            </li>
+            <li>
+              <a href="#"><span>School</span></a>
+            </li>
           </div>
         </ul>
       </li>
@@ -75,50 +105,123 @@
       </div>
 
       <div class="right">
-        <ui-button variant="primary" size="medium" shape="round" class="mr-10" iconLeft="plus" />
+        <ui-button
+          variant="primary"
+          size="medium"
+          shape="round"
+          class="mr-10"
+          iconLeft="plus"
+        />
         <ui-button variant="primary" size="medium" label="Text" class="mr-10" />
-        <ui-button variant="outlined" size="medium" label="Text" class="mr-10" iconLeft="user" iconRight="user" />
-        <ui-button variant="primary" size="medium" label="Text" class="mr-10" iconLeft="user" iconRight="user" />
-        <ui-button variant="secondary" size="medium" label="Text" class="mr-10" iconLeft="user" iconRight="user" />
-        <ui-button variant="primary" size="medium" shape="round" iconLeft="plus" />
+        <ui-button
+          variant="outlined"
+          size="medium"
+          label="Text"
+          class="mr-10"
+          iconLeft="user"
+          iconRight="user"
+        />
+        <ui-button
+          variant="primary"
+          size="medium"
+          label="Text"
+          class="mr-10"
+          iconLeft="user"
+          iconRight="user"
+        />
+        <ui-button
+          variant="secondary"
+          size="medium"
+          label="Text"
+          class="mr-10"
+          iconLeft="user"
+          iconRight="user"
+        />
+        <ui-button
+          variant="primary"
+          size="medium"
+          shape="round"
+          iconLeft="plus"
+        />
       </div>
     </div>
     <!-- filter list -->
     <div class="filter-list pl-20">
       <div class="left">
         <div class="small-heading mr-3">Filters</div>
-        <ui-search size="small" class="mr-3" style="max-width: 180px;" />
-        <ui-dropdown class="mr-3" isDropdown="isDropdown" size="medium" [dropdownList]="sessionTypes" [selectedValue]="selectedType"
-          (selectionChange)="onTypeSelectionChange($event)"  />
+        <ui-search size="small" class="mr-3" style="max-width: 190px" />
+        <ui-dropdown
+          class="mr-3"
+          isDropdown="isDropdown"
+          size="medium"
+          [dropdownList]="sessionTypes"
+          [selectedValue]="selectedType"
+          (selectionChange)="onTypeSelectionChange($event)"
+        />
 
-        <ui-dropdown class="mr-3" isDropdown="isDropdown" size="medium" [dropdownList]="operatorList" [selectedValue]="selectedOperator"
-          (selectionChange)="onOperatorSelectionChange($event)" />
-        <ui-dropdown class="mr-3" isDropdown="isDropdown" size="medium" [dropdownList]="statusList" [selectedValue]="selectedStatus"
-          (selectionChange)="onStatusSelectionChange($event)" />
-        <ui-range-calendar class="mr-3" (dateRangeSelected)="onDateRangeSelected($event)"></ui-range-calendar>
-        <ui-button variant="primary" size="small" label="Apply" (click)="applyFilter()" />
-        <div class="small-heading filter ml-10" (click)="clearFilters()">Clear</div>
+        <ui-dropdown
+          class="mr-3"
+          isDropdown="isDropdown"
+          size="medium"
+          [dropdownList]="operatorList"
+          [selectedValue]="selectedOperator"
+          (selectionChange)="onOperatorSelectionChange($event)"
+        />
+        <ui-dropdown
+          class="mr-3"
+          isDropdown="isDropdown"
+          size="medium"
+          [dropdownList]="statusList"
+          [selectedValue]="selectedStatus"
+          (selectionChange)="onStatusSelectionChange($event)"
+        />
+        <ui-range-calendar
+          class="mr-3"
+          (dateRangeSelected)="onDateRangeSelected($event)"
+        ></ui-range-calendar>
+        <ui-button
+          variant="primary"
+          size="small"
+          label="Apply"
+          (click)="applyFilter()"
+        />
+        <div class="small-heading filter ml-10" (click)="clearFilters()">
+          Clear
+        </div>
       </div>
 
       <div class="right pr-12">
         <div class="paggination">
-          <ui-button variant="secondary" size="small" shape="round"
-            iconRight="../../../../assets/images/icons/arrow-left.svg" (click)="goToPreviousPage()"
-            [disabled]="currentPage === 1" />
-          <input type="text" [(ngModel)]="tempPage" value="{{currentPage}}" (keypress)="onEnterPress($event)"
-            class="current ml-10 mr-10" min="1" [max]="totalPages" />
+          <ui-button
+            variant="secondary"
+            size="small"
+            shape="round"
+            iconRight="../../../../assets/images/icons/arrow-left.svg"
+            (click)="goToPreviousPage()"
+            [disabled]="currentPage === 1"
+          />
+          <input
+            type="text"
+            [(ngModel)]="tempPage"
+            value="{{ currentPage }}"
+            (keypress)="onEnterPress($event)"
+            class="current ml-10 mr-10"
+            min="1"
+            [max]="totalPages"
+          />
 
           <div class="no-of mr-10">of {{ totalPages }}</div>
-          <ui-button variant="secondary" size="small" shape="round"
-            iconRight="../../../../assets/images/icons/arrow-right.svg" (click)="goToNextPage()"
-            [disabled]="currentPage === totalPages" />
+          <ui-button
+            variant="secondary"
+            size="small"
+            shape="round"
+            iconRight="../../../../assets/images/icons/arrow-right.svg"
+            (click)="goToNextPage()"
+            [disabled]="currentPage === totalPages"
+          />
         </div>
       </div>
     </div>
-
-
-
-
 
     <div class="table-container">
       <table>
@@ -127,10 +230,11 @@
             <th width="1px">#</th>
             <th width="5.3%">
               <div class="selectAll">
-                <ui-checkbox (change)="selectAll($event)" [checked]="areAllRowsChecked()"></ui-checkbox>
-                <div>
-                  TYPE
-                </div>
+                <ui-checkbox
+                  (change)="selectAll($event)"
+                  [checked]="areAllRowsChecked()"
+                ></ui-checkbox>
+                <div>TYPE</div>
               </div>
             </th>
             <th (click)="sortSessions('vehicleNo')">
@@ -138,45 +242,54 @@
               <!-- <ui-icon *ngIf="getSortIcon('vehicleType')" [icon]="getSortIcon('vehicleNo')" /> -->
             </th>
             <th (click)="sortSessions('booking')">
-              BOOKING {{ getSortIcon('booking') }}
+              BOOKING {{ getSortIcon("booking") }}
             </th>
             <th (click)="sortSessions('timeIn')">
-              IN TIME {{ getSortIcon('timeIn') }}
+              IN TIME {{ getSortIcon("timeIn") }}
             </th>
             <th (click)="sortSessions('timeOut')">
-              TIME OUT {{ getSortIcon('timeOut') }}
+              TIME OUT {{ getSortIcon("timeOut") }}
             </th>
             <th (click)="sortSessions('advance')">
-              ADVANCE {{ getSortIcon('advance') }}
+              ADVANCE {{ getSortIcon("advance") }}
             </th>
             <th (click)="sortSessions('totalTime')">
-              TOTAL TIME {{ getSortIcon('totalTime') }}
+              TOTAL TIME {{ getSortIcon("totalTime") }}
             </th>
             <th (click)="sortSessions('collection')">
-              COLLECTION {{ getSortIcon('collection') }}
+              COLLECTION {{ getSortIcon("collection") }}
             </th>
             <th (click)="sortSessions('refund')">
-              REFUND {{ getSortIcon('refund') }}
+              REFUND {{ getSortIcon("refund") }}
             </th>
             <th (click)="sortSessions('total')">
-              TOTAL {{ getSortIcon('total') }}
+              TOTAL {{ getSortIcon("total") }}
             </th>
             <th (click)="sortSessions('mode')">
-              MODE {{ getSortIcon('mode') }}
+              MODE {{ getSortIcon("mode") }}
             </th>
             <th (click)="sortSessions('reference')">
-              REFERENCE {{ getSortIcon('reference') }}
+              REFERENCE {{ getSortIcon("reference") }}
             </th>
             <th></th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let session of paginatedSessions; let i = index" [ngClass]="{'highlight': isRowChecked(i)}">
+          <tr
+            *ngFor="let session of paginatedSessions; let i = index"
+            [ngClass]="{ highlight: isRowChecked(i) }"
+          >
             <td>{{ (currentPage - 1) * rowsPerPage + i + 1 }}</td>
             <td class="selectAll">
-              <ui-checkbox [checked]="isRowChecked(i)" (change)="onCheckboxChange($event, i)">
+              <ui-checkbox
+                [checked]="isRowChecked(i)"
+                (change)="onCheckboxChange($event, i)"
+              >
               </ui-checkbox>
-              <ui-vehicle [vehicle]="session.vehicleType" [vehicleIcon]="session.vehicleIcon"></ui-vehicle>
+              <ui-vehicle
+                [vehicle]="session.vehicleType"
+                [vehicleIcon]="session.vehicleIcon"
+              ></ui-vehicle>
             </td>
             <td>{{ session.vehicleNo }}</td>
             <td>{{ session.booking }}</td>
@@ -203,24 +316,35 @@
       </div>
       <div class="right pr-12">
         <div class="paggination">
-          <ui-button variant="secondary" size="small" shape="round"
-            iconRight="../../../../assets/images/icons/arrow-left.svg" (click)="goToPreviousPage()"
-            [disabled]="currentPage === 1" />
-          <input type="text" [(ngModel)]="tempPage" value="{{currentPage}}" (keypress)="onEnterPress($event)"
-            class="current ml-10 mr-10" min="1" [max]="totalPages" />
-
+          <ui-button
+            variant="secondary"
+            size="small"
+            shape="round"
+            iconRight="../../../../assets/images/icons/arrow-left.svg"
+            (click)="goToPreviousPage()"
+            [disabled]="currentPage === 1"
+          />
+          <input
+            type="text"
+            [(ngModel)]="tempPage"
+            value="{{ currentPage }}"
+            (keypress)="onEnterPress($event)"
+            class="current ml-10 mr-10"
+            min="1"
+            [max]="totalPages"
+          />
 
           <div class="no-of mr-10">of {{ totalPages }}</div>
-          <ui-button variant="secondary" size="small" shape="round"
-            iconRight="../../../../assets/images/icons/arrow-right.svg" (click)="goToNextPage()"
-            [disabled]="currentPage === totalPages" />
+          <ui-button
+            variant="secondary"
+            size="small"
+            shape="round"
+            iconRight="../../../../assets/images/icons/arrow-right.svg"
+            (click)="goToNextPage()"
+            [disabled]="currentPage === totalPages"
+          />
         </div>
       </div>
     </div>
-
-
-
-
-
   </main>
 </div>

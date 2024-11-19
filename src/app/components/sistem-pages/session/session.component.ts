@@ -15,6 +15,7 @@ import {
   CalendarComponent,
   DoubleCalendarComponent,
   ModalComponent,
+  SnackbarComponent,
 } from 'sistem';
 
 interface SessionData {
@@ -57,6 +58,7 @@ interface SessionData {
     CalendarComponent,
     DoubleCalendarComponent,
     ModalComponent,
+    SnackbarComponent,
   ],
   templateUrl: './session.component.html',
   styleUrls: ['./session.component.css'],

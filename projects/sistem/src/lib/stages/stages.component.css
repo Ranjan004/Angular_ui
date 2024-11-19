@@ -18,7 +18,7 @@
   color: var(--heading);
 }
 
-.stage-button:hover{
+.stage-button:hover {
   background-color: #00c000;
 }
 
@@ -39,8 +39,7 @@ span div {
 }
 
 .active span div {
-
-  opacity: .5;
+  opacity: 0.5;
 }
 
 .stage-button.complete {
@@ -65,14 +64,18 @@ span div {
   background-color: var(--stage-pending-circle);
 }
 
-.lead .stage-icon{
+.lead .stage-icon {
   margin-left: 8px;
   margin-right: 0;
 }
 
-.stage-button.lead{
+.stage-button.lead {
   padding-right: 3px;
   padding-left: 18px;
+}
+.lead {
+  display: flex;
+  flex-direction: row-reverse;
 }
 
 .stage-button.lead {
@@ -82,5 +85,3 @@ span div {
 .stage-button.lead .stage-icon {
   background-color: var(--stage-complete-circle);
 }
-
-

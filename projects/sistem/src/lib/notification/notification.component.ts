@@ -1,14 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { icons } from '../icons'; // Ensure this import points to your correct icons library
+import { icons } from '../icons';
 
 @Component({
   selector: 'ui-notification',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './notification.component.html',
-  styleUrls: ['./notification.component.css']
+  styleUrls: ['./notification.component.css'],
 })
 export class NotificationComponent {
   constructor(private sanitizer: DomSanitizer) {}

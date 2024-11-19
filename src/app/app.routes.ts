@@ -9,7 +9,6 @@ export const routes: Routes = [
   { path: 'session', component: SessionComponent },
   { path: 'style-guid', component: StyleGuidComponent },
   { path: 'sidebar', component: SidenavComponent },
-
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
 
