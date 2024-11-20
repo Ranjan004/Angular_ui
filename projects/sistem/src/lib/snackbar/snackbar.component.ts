@@ -16,16 +16,31 @@ export class SnackbarComponent {
   @Input() action?: string = 'Undo';
   @Input() icon?: string = '../../assets/images/icons/snack.svg';
   showIcon = true;
+  @Input() time: string | number = 5000;
+  @Input() position:
+    | 'bottom-left'
+    | 'bottom-right'
+    | 'bottom-center'
+    | 'top-left'
+    | 'top-right'
+    | 'top-center' = 'bottom-left';
 
   showSnackbar = true;
 
   ngOnInit() {
     this.hideSnackBar();
   }
-  hideSnackBar() {
-    this.showSnackbar = true;
+
+  hideSnackBar(): void {
+    const duration =
+      typeof this.time === 'string' ? parseInt(this.time, 10) : this.time;
     setTimeout(() => {
-      this.showSnackbar = true;
-    }, 5000);
+      this.showSnackbar = false;
+    }, duration || 5000);
+  }
+
+  // Allow manual closing of the snackbar
+  closeSnackbar(): void {
+    this.showSnackbar = false;
   }
 }

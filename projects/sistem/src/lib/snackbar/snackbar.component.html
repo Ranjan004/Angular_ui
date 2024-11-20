@@ -1,5 +1,6 @@
 <div
-  class="snackbar-position bottom-left"
+  class="snackbar-position"
+  [class]="position"
   *ngIf="showSnackbar"
   (click)="hideSnackBar()"
 >
