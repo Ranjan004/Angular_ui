@@ -46,7 +46,9 @@
   --stage-complete-circle: rgba(48, 209, 88, 1);
   --stage-pending: rgba(23, 30, 39, 1);
   --stage-pending-circle: #18273c;
-  --overlay-background-color: rgba(28, 36, 46, 1);
+  --overlay-background-color: rgba(28, 36, 46, 0.5);
+  --loading-animation: rgba(33, 53, 80, 1);
+  --loading-animation-sec: rgb(36, 58, 87);
 }
 
 .dark-theme label {

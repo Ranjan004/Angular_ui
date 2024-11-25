@@ -56,5 +56,7 @@
   --stage-complete-circle: rgba(48, 209, 88, 1);
   --stage-active-circle: rgba(100, 210, 255, 1);
   --stage-pending-circle: #f8f9fa;
-  --overlay-background-color: rgba(248, 249, 250, 1);
+  --overlay-background-color: rgba(248, 249, 250, 0.5);
+  --loading-animation: rgba(237, 241, 245, 1);
+  --loading-animation-sec: rgb(230, 236, 242);
 }

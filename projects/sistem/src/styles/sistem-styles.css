@@ -245,6 +245,9 @@ button.primary svg {
 .flex-shrink-0 {
   flex-shrink: 0;
 }
+.d-none {
+  display: none;
+}
 
 .ui-grid {
   box-sizing: border-box;
@@ -339,6 +342,9 @@ button.primary svg {
 
 .space-between {
   justify-content: space-between;
+  align-items: center;
+}
+.flex-align-items {
   align-items: center;
 }
 
@@ -3300,6 +3306,15 @@ button.primary svg {
 
 .ui-tooltip.top {
   transform: translateX(-48%);
+}
+
+.click-active .icon-container {
+  background-color: var(--disable) !important;
+}
+
+button.split .icon-left svg,
+button.split .icon-right svg {
+  stroke: var(--white);
 }
 
 @media (max-width: 1200px) {

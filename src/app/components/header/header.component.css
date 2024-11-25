@@ -224,3 +224,135 @@
     display: inline-block;
   }
 }
+
+.position {
+  position: relative;
+}
+
+.notification-box {
+  position: absolute;
+  top: 31px;
+  right: 0;
+  z-index: 1000;
+  min-width: 400px;
+  max-height: 480px;
+  overflow-y: scroll;
+  background-color: var(--list-bg);
+  box-shadow: 0 3px 36px 0 var(--shadow);
+  color: var(--white);
+  font-size: 14px;
+  border-radius: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.notification-head {
+  padding: 20px 20px 20px 20px;
+  border-bottom: 0.5px solid var(--border);
+}
+
+.notification-item {
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  padding: 15px;
+  border-bottom: 0.5px solid var(--border);
+  cursor: pointer;
+}
+.notification-item:hover {
+  background-color: var(--secondary);
+}
+.notification-item:last-child {
+  border-bottom: none;
+}
+.notification-item .notification-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 15px;
+  position: relative;
+}
+.notification-item .notification-icon img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.notification-content {
+  word-wrap: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: 15px;
+}
+
+.notification-title {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  margin-bottom: 3px;
+  color: var(--heading);
+  text-decoration: none;
+  transition: color 0.3s ease;
+  cursor: pointer;
+}
+
+.notification-description {
+  font-size: 14px;
+  line-height: 18px;
+  margin-bottom: 6px;
+  color: var(--text);
+  transition: color 0.3s ease;
+}
+
+.notification-date span {
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--text);
+  transition: color 0.3s ease;
+  font-weight: 400;
+}
+.notification-date span:first-child {
+  color: var(--heading);
+  font-weight: 500;
+}
+.notification-date > div {
+  background-color: var(--text);
+  font-size: 20px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  margin: 0 5px;
+}
+
+.notification-box::-webkit-scrollbar {
+  display: none;
+}
+
+.notification-box {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.latest-notification {
+  background-color: var(--secondary);
+  position: relative;
+}
+
+.latest-notification .notification-icon::after {
+  content: "";
+  position: absolute;
+  top: 7%;
+  width: 10px;
+  height: 10px;
+  left: 80%;
+  background-color: var(--stage-complete-circle);
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px var(--secondary);
+}
+
+.notification-head {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--secondary);
+}

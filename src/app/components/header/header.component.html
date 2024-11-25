@@ -29,10 +29,48 @@
       />
     </div>
 
-    <div class="ui-col-3 center justify-end">
+    <div class="ui-col-3 justify-end flex flex-align-items">
       <!-- avatar icon -->
+      <ui-notification
+        size="md"
+        shape="circle"
+        class="mr-10"
+        icon="bell"
+        [alert]="isAlertActive"
+        (click)="showNotifications()"
+        [ngClass]="{ 'click-active': isNotificationsOpen }"
+      ></ui-notification>
 
-      <ui-notification size="md" shape="circle" class="mr-10" icon="bell" />
+      <div class="position mr-10">
+        <div class="notification-box" *ngIf="isNotificationsOpen">
+          <div class="notification-head">
+            <h6>Notification</h6>
+          </div>
+          <div
+            class="notification-item"
+            *ngFor="let notification of notifications; let i = index"
+            [ngClass]="{
+              'latest-notification': i === 0 && !latestNotificationClicked
+            }"
+            (click)="onNotificationClick(i)"
+          >
+            <div class="notification-icon">
+              <img src="{{ notification.icon }}" alt="Notification" />
+            </div>
+            <div class="notification-content">
+              <div class="notification-title">{{ notification.title }}</div>
+              <div class="notification-description">
+                {{ notification.description }}
+              </div>
+              <div class="notification-date flex flex-align-items">
+                <span>{{ notification.update }}</span>
+                <div></div>
+                <span>{{ notification.time }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <ui-notification
         size="md"

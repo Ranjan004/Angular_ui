@@ -1,13 +1,36 @@
-import { Component, AfterViewInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
+import {
+  Component,
+  AfterViewInit,
+  ViewChild,
+  ElementRef,
+  Renderer2,
+} from '@angular/core';
 import { ThemeService } from '../../theme.service';
-import { NotificationComponent, ToggleComponent,AvatarComponent,SideNavigationComponent, IconComponent, SearchComponent } from 'sistem';
+import {
+  NotificationComponent,
+  ToggleComponent,
+  AvatarComponent,
+  SideNavigationComponent,
+  IconComponent,
+  SearchComponent,
+} from 'sistem';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [ToggleComponent,SearchComponent, SearchComponent, AvatarComponent, NotificationComponent, SideNavigationComponent,IconComponent],
+  imports: [
+    ToggleComponent,
+    SearchComponent,
+    SearchComponent,
+    AvatarComponent,
+    NotificationComponent,
+    SideNavigationComponent,
+    IconComponent,
+    CommonModule,
+  ],
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements AfterViewInit {
   isMobileMenuOpen: boolean = false;
@@ -40,8 +63,10 @@ export class HeaderComponent implements AfterViewInit {
   showScrollButtonPrev: boolean = false;
   isDarkMode: boolean = false;
 
-
-  constructor(private themeService: ThemeService, private renderer: Renderer2) {}
+  constructor(
+    private themeService: ThemeService,
+    private renderer: Renderer2
+  ) {}
 
   ngAfterViewInit(): void {
     // this.checkScrollButtons();
@@ -64,22 +89,23 @@ export class HeaderComponent implements AfterViewInit {
     container.scrollBy({ left: -100, behavior: 'smooth' });
   }
 
-
   // get dark theme
   ngOnInit() {
     this.setInitialTheme();
   }
 
   setInitialTheme() {
-    const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const prefersDarkMode =
+      window.matchMedia &&
+      window.matchMedia('(prefers-color-scheme: dark)').matches;
     this.toggleTheme(prefersDarkMode);
   }
 
   toggleTheme(isChecked: boolean) {
     if (isChecked) {
-      document.documentElement.classList.add('dark-theme'); 
+      document.documentElement.classList.add('dark-theme');
     } else {
-      document.documentElement.classList.remove('dark-theme'); 
+      document.documentElement.classList.remove('dark-theme');
     }
   }
 
@@ -131,16 +157,28 @@ export class HeaderComponent implements AfterViewInit {
   }
 
   tabs = [
-    { id: 1, title: 'Session', content: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit.' },
-    { id: 2, title: 'Movie', content: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit.' },
-    { id: 3, title: 'Hall', content: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit.' }
+    {
+      id: 1,
+      title: 'Session',
+      content: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit.',
+    },
+    {
+      id: 2,
+      title: 'Movie',
+      content: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit.',
+    },
+    {
+      id: 3,
+      title: 'Hall',
+      content: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit.',
+    },
   ];
 
   breadcrumbs = [
     { label: 'Home', url: '/' },
     { label: 'Products', url: '/products' },
     { label: 'Electronics', url: '/products/electronics' },
-    { label: 'Televisions' }
+    { label: 'Televisions' },
   ];
 
   menuLinks = [
@@ -166,15 +204,15 @@ export class HeaderComponent implements AfterViewInit {
 
   toggleMobileMenu(): void {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
-   this.updateBodyScroll()
+    this.updateBodyScroll();
   }
 
   closeMobileMenu(): void {
     this.isMobileMenuOpen = false;
-    this.updateBodyScroll()
+    this.updateBodyScroll();
   }
 
-   updateBodyScroll(): void {
+  updateBodyScroll(): void {
     if (this.isMobileMenuOpen) {
       this.renderer.addClass(document.body, 'no-scroll');
     } else {
@@ -182,12 +220,167 @@ export class HeaderComponent implements AfterViewInit {
     }
   }
 
-
   contactData = [
-    { name: 'Sudesh kumar', role: 'Contact', company: 'Aadinath Retails', category: 'Sales', image: 'assets/images/icons/Avatar.svg', description: 'Description' },
-    { name: 'Anita Rao', role: 'Contact', company: 'Global Trade', category: 'eCommerce', image: 'assets/images/icons/Avatar.svg', description: 'Description' },
+    {
+      name: 'Sudesh kumar',
+      role: 'Contact',
+      company: 'Aadinath Retails',
+      category: 'Sales',
+      image: 'assets/images/icons/Avatar.svg',
+      description: 'Description',
+    },
+    {
+      name: 'Anita Rao',
+      role: 'Contact',
+      company: 'Global Trade',
+      category: 'eCommerce',
+      image: 'assets/images/icons/Avatar.svg',
+      description: 'Description',
+    },
   ];
 
   collapsIcon = 'assets/images/icons/Loader.svg';
-}
 
+  // NotificationService
+  isNotificationsOpen = false;
+  latestNotificationClicked = false;
+  isAlertActive: boolean = true;
+
+  showNotifications() {
+    this.isNotificationsOpen = !this.isNotificationsOpen;
+    this.updateBodyScroll();
+    console.log('isNotificationsOpen:', this.isNotificationsOpen);
+    this.isAlertActive = false;
+  }
+
+  onNotificationClick(index: number): void {
+    if (index === 0) {
+      this.latestNotificationClicked = true;
+    }
+    console.log(`Notification ${index} clicked!`);
+  }
+
+  notifications = [
+    {
+      title: 'New order received',
+      description: 'A new order has been placed for the product.',
+      update: 'System Update',
+      time: '30 min ago',
+      status: 'pending',
+      icon: '../../../assets/images/icons/avatar-2.svg',
+    },
+    {
+      title: 'New order received',
+      description: 'A new order has been placed for the product.',
+      update: 'System Update',
+      time: '30 min ago',
+      status: 'pending',
+      icon: '../../../assets/images/icons/avatar-2.svg',
+    },
+    {
+      title: 'New order received',
+      description: 'A new order has been placed for the product.',
+      update: 'System Update',
+      time: '30 min ago',
+      status: 'pending',
+      icon: '../../../assets/images/icons/avatar-2.svg',
+    },
+    {
+      title: 'New order received',
+      description: 'A new order has been placed for the product.',
+      update: 'System Update',
+      time: '30 min ago',
+      status: 'pending',
+      icon: '../../../assets/images/icons/avatar-2.svg',
+    },
+    {
+      title: 'New order received',
+      description: 'A new order has been placed for the product.',
+      update: 'System Update',
+      time: '30 min ago',
+      status: 'pending',
+      icon: '../../../assets/images/icons/avatar-2.svg',
+    },
+    {
+      title: 'New order received',
+      description: 'A new order has been placed for the product.',
+      update: 'System Update',
+      time: '30 min ago',
+      status: 'pending',
+      icon: '../../../assets/images/icons/avatar-2.svg',
+    },
+    {
+      title: 'New order received',
+      description: 'A new order has been placed for the product.',
+      update: 'System Update',
+      time: '30 min ago',
+      status: 'pending',
+      icon: '../../../assets/images/icons/avatar-2.svg',
+    },
+    {
+      title: 'New order received',
+      description: 'A new order has been placed for the product.',
+      update: 'System Update',
+      time: '30 min ago',
+      status: 'pending',
+      icon: '../../../assets/images/icons/avatar-2.svg',
+    },
+    {
+      title: 'New order received',
+      description: 'A new order has been placed for the product.',
+      update: 'System Update',
+      time: '30 min ago',
+      status: 'pending',
+      icon: '../../../assets/images/icons/avatar-2.svg',
+    },
+    {
+      title: 'New order received',
+      description: 'A new order has been placed for the product.',
+      update: 'System Update',
+      time: '30 min ago',
+      status: 'pending',
+      icon: '../../../assets/images/icons/avatar-2.svg',
+    },
+    {
+      title: 'New order received',
+      description: 'A new order has been placed for the product.',
+      update: 'System Update',
+      time: '30 min ago',
+      status: 'pending',
+      icon: '../../../assets/images/icons/avatar-2.svg',
+    },
+    {
+      title: 'New order received',
+      description: 'A new order has been placed for the product.',
+      update: 'System Update',
+      time: '30 min ago',
+      status: 'pending',
+      icon: '../../../assets/images/icons/avatar-2.svg',
+    },
+    {
+      title: 'New order received',
+      description: 'A new order has been placed for the product.',
+      update: 'System Update',
+      time: '30 min ago',
+      status: 'pending',
+      icon: '../../../assets/images/icons/avatar-2.svg',
+    },
+    {
+      title: 'New order received',
+      description: 'A new order has been placed for the product.',
+      update: 'System Update',
+      time: '30 min ago',
+      status: 'pending',
+      icon: '../../../assets/images/icons/avatar-2.svg',
+    },
+    {
+      title: 'Order Shipped',
+      description: 'Your order has been shipped.',
+      update: 'Logistics',
+      time: '1 hour ago',
+      status: 'pending',
+      icon: '../../../assets/images/icons/Avatar.svg',
+    },
+    // Add more notifications here
+  ];
+}

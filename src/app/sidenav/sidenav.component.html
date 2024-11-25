@@ -11,18 +11,20 @@
           <div class="icon"><ui-icon icon="chevron-double-left"></ui-icon></div>
         </button>
       </li>
-      <li class="active">
-        <a href="index.html">
+
+      <li [routerLink]="'/'" routerLinkActive="active">
+        <a>
           <div class="icon"><ui-icon icon="home"></ui-icon></div>
           <span>Home</span>
         </a>
       </li>
-      <li>
-        <a href="dashboard.html">
+      <li [routerLink]="'/style-guid'" routerLinkActive="active">
+        <a>
           <div class="icon"><ui-icon icon="lifebuoy"></ui-icon></div>
-          <span>Dashboard</span>
+          <span>Style</span>
         </a>
       </li>
+
       <li>
         <button
           class="dropdown-btn"
@@ -80,13 +82,13 @@
         </ul>
       </li>
       <li>
-        <a href="calendar.html">
+        <a href="">
           <div class="icon"><ui-icon icon="calendar-days"></ui-icon></div>
           <span>Calendar</span>
         </a>
       </li>
       <li>
-        <a href="profile.html">
+        <a href="">
           <div class="icon"><ui-icon icon="user"></ui-icon></div>
           <span>Profile</span>
         </a>
@@ -122,14 +124,6 @@
           iconRight="user"
         />
         <ui-button
-          variant="primary"
-          size="medium"
-          label="Text"
-          class="mr-10"
-          iconLeft="user"
-          iconRight="user"
-        />
-        <ui-button
           variant="secondary"
           size="medium"
           label="Text"
@@ -138,11 +132,29 @@
           iconRight="user"
         />
         <ui-button
-          variant="primary"
+          variant="split"
           size="medium"
-          shape="round"
-          iconLeft="plus"
+          label="Text"
+          class="mr-10"
+          iconRight="arrow-right"
         />
+
+        <ui-modal footerText="Demo Text" cancelText="Cancel" size="small" />
+        <ui-button
+          variant="secondary"
+          shape="round"
+          iconLeft="share"
+          size="medium"
+          (click)="modal.openModal(modalContentOne)"
+        />
+
+        <ng-template #modalContentOne>
+          <h5>Modal Text</h5>
+          <P
+            >Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+            Voluptate, molestias.</P
+          >
+        </ng-template>
       </div>
     </div>
     <!-- filter list -->
@@ -227,51 +239,98 @@
       <table>
         <thead>
           <tr>
-            <th width="1px">#</th>
-            <th width="5.3%">
-              <div class="selectAll">
+            <th width="3.3%">
+              <div
+                class="number ml-7"
+                [ngClass]="{ skeleton: isSkeletonVisible }"
+              >
+                <span>#</span>
+              </div>
+            </th>
+            <th width="6.5%">
+              <div
+                class="selectAll check"
+                [ngClass]="{ skeleton: isSkeletonVisible }"
+              >
                 <ui-checkbox
                   (change)="selectAll($event)"
                   [checked]="areAllRowsChecked()"
-                ></ui-checkbox>
-                <div>TYPE</div>
+                  [ngClass]="{ skeleton: isSkeletonVisible }"
+                  class="mr-3 mt-7 hide"
+                />
+                <div [ngClass]="{ skeleton: isSkeletonVisible }">
+                  <span>TYPE</span>
+                </div>
               </div>
             </th>
-            <th (click)="sortSessions('vehicleNo')">
-              VEHICLE NO.
+            <th width="7.92%" (click)="sortSessions('vehicleNo')">
+              <div [ngClass]="{ skeleton: isSkeletonVisible }">
+                <span>VEHICLE NO.</span>
+              </div>
               <!-- <ui-icon *ngIf="getSortIcon('vehicleType')" [icon]="getSortIcon('vehicleNo')" /> -->
             </th>
-            <th (click)="sortSessions('booking')">
-              BOOKING {{ getSortIcon("booking") }}
+            <th width="6.93%" (click)="sortSessions('booking')">
+              <div [ngClass]="{ skeleton: isSkeletonVisible }">
+                <span> BOOKING {{ getSortIcon("booking") }}</span>
+              </div>
             </th>
-            <th (click)="sortSessions('timeIn')">
-              IN TIME {{ getSortIcon("timeIn") }}
+            <th width="8.92%" (click)="sortSessions('timeIn')">
+              <div [ngClass]="{ skeleton: isSkeletonVisible }">
+                <span>IN TIME {{ getSortIcon("timeIn") }}</span>
+              </div>
             </th>
-            <th (click)="sortSessions('timeOut')">
-              TIME OUT {{ getSortIcon("timeOut") }}
+            <th width="8.92%" (click)="sortSessions('timeOut')">
+              <div [ngClass]="{ skeleton: isSkeletonVisible }">
+                <span>TIME OUT {{ getSortIcon("timeOut") }}</span>
+              </div>
             </th>
-            <th (click)="sortSessions('advance')">
-              ADVANCE {{ getSortIcon("advance") }}
+            <th width="	6.93%" (click)="sortSessions('advance')">
+              <div [ngClass]="{ skeleton: isSkeletonVisible }">
+                <span> ADVANCE {{ getSortIcon("advance") }}</span>
+              </div>
             </th>
-            <th (click)="sortSessions('totalTime')">
-              TOTAL TIME {{ getSortIcon("totalTime") }}
+            <th width="8.91%" (click)="sortSessions('totalTime')">
+              <div [ngClass]="{ skeleton: isSkeletonVisible }">
+                <span> TOTAL TIME {{ getSortIcon("totalTime") }}</span>
+              </div>
             </th>
-            <th (click)="sortSessions('collection')">
-              COLLECTION {{ getSortIcon("collection") }}
+            <th width="8.91%" (click)="sortSessions('collection')">
+              <div [ngClass]="{ skeleton: isSkeletonVisible }">
+                <span>COLLECTION {{ getSortIcon("collection") }}</span>
+              </div>
             </th>
-            <th (click)="sortSessions('refund')">
-              REFUND {{ getSortIcon("refund") }}
+            <th width="8.91%" (click)="sortSessions('refund')">
+              <div [ngClass]="{ skeleton: isSkeletonVisible }">
+                <span> REFUND {{ getSortIcon("refund") }}</span>
+              </div>
             </th>
-            <th (click)="sortSessions('total')">
-              TOTAL {{ getSortIcon("total") }}
+            <th width="5.94%" (click)="sortSessions('total')">
+              <div [ngClass]="{ skeleton: isSkeletonVisible }">
+                <span> TOTAL {{ getSortIcon("total") }}</span>
+              </div>
             </th>
-            <th (click)="sortSessions('mode')">
-              MODE {{ getSortIcon("mode") }}
+            <th width="5.94%" (click)="sortSessions('mode')">
+              <div [ngClass]="{ skeleton: isSkeletonVisible }">
+                <span>MODE {{ getSortIcon("mode") }}</span>
+              </div>
             </th>
-            <th (click)="sortSessions('reference')">
-              REFERENCE {{ getSortIcon("reference") }}
+            <th width="5.94%" (click)="sortSessions('reference')">
+              <div [ngClass]="{ skeleton: isSkeletonVisible }">
+                <span>REFERENCE {{ getSortIcon("reference") }}</span>
+              </div>
             </th>
-            <th></th>
+            <th width="5.94%">
+              <div
+                class="blank"
+                [ngClass]="{ skeleton: isSkeletonVisible }"
+              ></div>
+            </th>
+            <th>
+              <div
+                class="blank"
+                [ngClass]="{ skeleton: isSkeletonVisible }"
+              ></div>
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -279,35 +338,104 @@
             *ngFor="let session of paginatedSessions; let i = index"
             [ngClass]="{ highlight: isRowChecked(i) }"
           >
-            <td>{{ (currentPage - 1) * rowsPerPage + i + 1 }}</td>
-            <td class="selectAll">
-              <ui-checkbox
-                [checked]="isRowChecked(i)"
-                (change)="onCheckboxChange($event, i)"
+            <td>
+              <div
+                class="number ml-7"
+                [ngClass]="{ skeleton: isSkeletonVisible }"
               >
-              </ui-checkbox>
-              <ui-vehicle
-                [vehicle]="session.vehicleType"
-                [vehicleIcon]="session.vehicleIcon"
-              ></ui-vehicle>
+                <span>{{ (currentPage - 1) * rowsPerPage + i + 1 }}</span>
+              </div>
             </td>
-            <td>{{ session.vehicleNo }}</td>
-            <td>{{ session.booking }}</td>
-            <td>{{ session.timeIn }}</td>
-            <td>{{ session.timeOut }}</td>
-            <td>₹{{ session.advance }}</td>
-            <td>{{ session.totalTime }}</td>
-            <td>₹{{ session.collection }}</td>
-            <td>₹{{ session.refund }}</td>
-            <td>{{ session.total }}</td>
-            <td>{{ session.mode }}</td>
-            <td>{{ session.reference }}</td>
-            <td>...</td>
+            <td class="selectAll">
+              <span [ngClass]="{ skeleton: isSkeletonVisible }" class="check">
+                <ui-checkbox
+                  [checked]="isRowChecked(i)"
+                  (change)="onCheckboxChange($event, i)"
+                  class="mr-3 hide"
+                />
+              </span>
+
+              <span class="vehicle" [ngClass]="{ skeleton: isSkeletonVisible }"
+                ><ui-vehicle
+                  [vehicle]="session.vehicleType"
+                  [vehicleIcon]="session.vehicleIcon"
+                  class="hide"
+              /></span>
+            </td>
+            <td>
+              <div [ngClass]="{ skeleton: isSkeletonVisible }">
+                <span> {{ session.vehicleNo }}</span>
+              </div>
+            </td>
+            <td>
+              <div [ngClass]="{ skeleton: isSkeletonVisible }">
+                <span> {{ session.booking }}</span>
+              </div>
+            </td>
+            <td>
+              <div [ngClass]="{ skeleton: isSkeletonVisible }">
+                <span> {{ session.timeIn }}</span>
+              </div>
+            </td>
+            <td>
+              <div [ngClass]="{ skeleton: isSkeletonVisible }">
+                <span> {{ session.timeOut }}</span>
+              </div>
+            </td>
+            <td>
+              <div [ngClass]="{ skeleton: isSkeletonVisible }">
+                <span>₹{{ session.advance }}</span>
+              </div>
+            </td>
+            <td>
+              <div [ngClass]="{ skeleton: isSkeletonVisible }">
+                <span> {{ session.totalTime }}</span>
+              </div>
+            </td>
+            <td>
+              <div [ngClass]="{ skeleton: isSkeletonVisible }">
+                <span>₹{{ session.collection }}</span>
+              </div>
+            </td>
+            <td>
+              <div [ngClass]="{ skeleton: isSkeletonVisible }">
+                <span>₹{{ session.total }}</span>
+              </div>
+            </td>
+            <td>
+              <div [ngClass]="{ skeleton: isSkeletonVisible }">
+                <span>{{ session.refund }}</span>
+              </div>
+            </td>
+            <td>
+              <div [ngClass]="{ skeleton: isSkeletonVisible }">
+                <span>{{ session.mode }}</span>
+              </div>
+            </td>
+            <td>
+              <div [ngClass]="{ skeleton: isSkeletonVisible }">
+                <span> {{ session.reference }}</span>
+              </div>
+            </td>
+            <td>
+              <div class="flex flex-around flex-align-items">
+                <span [ngClass]="{ skeleton: isSkeletonVisible }">
+                  <ui-notification
+                    icon="user"
+                    size="sm"
+                    shape="circle"
+                    class="hide"
+                  />
+                </span>
+                <div [ngClass]="{ skeleton: isSkeletonVisible }">
+                  <span>...</span>
+                </div>
+              </div>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
-
     <div class="filter-list pl-20">
       <div class="left">
         <div class="breadcrum">

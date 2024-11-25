@@ -17,6 +17,7 @@ export class NotificationComponent {
   @Input() variant: 'primary' | 'secondary' = 'secondary';
   @Input() shape: 'default' | 'circle' = 'default';
   @Input() icon?: string;
+  @Input() alert?: any;
   defaultIcon: string = '../assets/images/icons/info.svg';
 
   // Check if icon path is an SVG file or icon URL

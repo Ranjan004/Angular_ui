@@ -59,6 +59,7 @@ interface SessionData {
     DoubleCalendarComponent,
     ModalComponent,
     SnackbarComponent,
+    ModalComponent,
   ],
   templateUrl: './session.component.html',
   styleUrls: ['./session.component.css'],

@@ -5,7 +5,7 @@ import { StyleGuidComponent } from './style-guid/style-guid.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 
 export const routes: Routes = [
-  { path: '', component: SessionComponent },
+  { path: '', component: SidenavComponent },
   { path: 'session', component: SessionComponent },
   { path: 'style-guid', component: StyleGuidComponent },
   { path: 'sidebar', component: SidenavComponent },

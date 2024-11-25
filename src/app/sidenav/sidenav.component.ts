@@ -1,7 +1,20 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { BreadcrumbsComponent, ButtonsComponent, CheckboxComponent, DoubleCalendarComponent, DropdownComponent, IconComponent, NotificationComponent, SearchComponent, VehicalComponent } from 'sistem';
+import { RouterModule } from '@angular/router';
+import {
+  BreadcrumbsComponent,
+  ButtonsComponent,
+  CheckboxComponent,
+  DoubleCalendarComponent,
+  DropdownComponent,
+  IconComponent,
+  NotificationComponent,
+  SearchComponent,
+  VehicalComponent,
+  AvatarComponent,
+  ModalComponent,
+} from 'sistem';
 
 interface SessionData {
   vehicleNo: string;
@@ -27,9 +40,24 @@ interface SessionData {
 @Component({
   selector: 'app-sidenav',
   standalone: true,
-  imports: [IconComponent, CommonModule,BreadcrumbsComponent, ButtonsComponent, NotificationComponent, SearchComponent, DropdownComponent, DoubleCalendarComponent, FormsModule, VehicalComponent, CheckboxComponent],
+  imports: [
+    IconComponent,
+    CommonModule,
+    BreadcrumbsComponent,
+    ButtonsComponent,
+    NotificationComponent,
+    SearchComponent,
+    DropdownComponent,
+    DoubleCalendarComponent,
+    FormsModule,
+    VehicalComponent,
+    CheckboxComponent,
+    AvatarComponent,
+    ModalComponent,
+    RouterModule,
+  ],
   templateUrl: './sidenav.component.html',
-  styleUrls: ['./sidenav.component.css']
+  styleUrls: ['./sidenav.component.css'],
 })
 export class SidenavComponent {
   isSidebarClosed = false;
@@ -45,10 +73,10 @@ export class SidenavComponent {
 
   toggleSubMenu(index: number): void {
     if (this.subMenusState[index]) {
-      this.subMenusState[index] = false; 
+      this.subMenusState[index] = false;
     } else {
-      this.closeAllSubMenus(); 
-      this.subMenusState[index] = true; 
+      this.closeAllSubMenus();
+      this.subMenusState[index] = true;
     }
 
     // If any submenu is open, remove the 'close' class from the sidebar
@@ -61,10 +89,8 @@ export class SidenavComponent {
     this.subMenusState = {};
   }
 
-
-
   constructor(private cdr: ChangeDetectorRef) {}
-  selectedRange: { startDate: Date | null, endDate: Date | null } | null = null;
+  selectedRange: { startDate: Date | null; endDate: Date | null } | null = null;
   topTag: { label: string; url: string }[] = [];
   bottomtag: { label: string; url: string }[] = [];
   sessionTypes = ['type', 'Car', 'Bike', 'Cycle', 'Truck'];
@@ -83,29 +109,78 @@ export class SidenavComponent {
   checkedRows: Set<number> = new Set();
   tempPage: number | null = this.currentPage;
   errorMessage: string | null = null;
-  sortField: string | null = null; 
-  sortOrder: 'asc' | 'desc' = 'asc'; 
+  sortField: string | null = null;
+  sortOrder: 'asc' | 'desc' = 'asc';
 
+  isSkeletonVisible: boolean = true;
   ngOnInit() {
     this.paginat();
     this.totalSessions = this.sessions.length;
     this.updatePagination();
+    this.loadData();
+  }
+
+  // loading data animations
+  loadData(): void {
+    this.simulateAsyncOperation().then(() => {
+      this.isSkeletonVisible = false;
+    });
+  }
+
+  simulateAsyncOperation(): Promise<void> {
+    return new Promise((resolve) => {
+      setTimeout(() => resolve(), 2000);
+    });
   }
 
   menuItems = [
     { route: '/session', label: 'Session', icon: 'bell' },
-    { route: '/radio-button', label: 'Radio btn', icon: '../../../assets/images/icons/dark.svg' },
-    { route: '/checkbox', label: 'Checkbox', icon: '../../../assets/images/icons/dark.svg' },
-    { route: '/toggle', label: 'Toggle', icon: '../../../assets/images/icons/dark.svg' },
-    { route: '/text', label: 'Text', icon: '../../../assets/images/icons/dark.svg' },
-    { route: '/otp', label: 'OTP', icon: '../../../assets/images/icons/dark.svg' },
-    { route: '/calendar', label: 'Calendar', icon: '../../../assets/images/icons/dark.svg' },
-    { route: '/number', label: 'Number', icon: '../../../assets/images/icons/dark.svg' },
-    { route: '/search', label: 'Search', icon: '../../../assets/images/icons/dark.svg' },
-    { route: '/sidebar', label: 'Sidebar', icon: '../../../assets/images/icons/dark.svg' },
+    {
+      route: '/radio-button',
+      label: 'Radio btn',
+      icon: '../../../assets/images/icons/dark.svg',
+    },
+    {
+      route: '/checkbox',
+      label: 'Checkbox',
+      icon: '../../../assets/images/icons/dark.svg',
+    },
+    {
+      route: '/toggle',
+      label: 'Toggle',
+      icon: '../../../assets/images/icons/dark.svg',
+    },
+    {
+      route: '/text',
+      label: 'Text',
+      icon: '../../../assets/images/icons/dark.svg',
+    },
+    {
+      route: '/otp',
+      label: 'OTP',
+      icon: '../../../assets/images/icons/dark.svg',
+    },
+    {
+      route: '/calendar',
+      label: 'Calendar',
+      icon: '../../../assets/images/icons/dark.svg',
+    },
+    {
+      route: '/number',
+      label: 'Number',
+      icon: '../../../assets/images/icons/dark.svg',
+    },
+    {
+      route: '/search',
+      label: 'Search',
+      icon: '../../../assets/images/icons/dark.svg',
+    },
+    {
+      route: '/sidebar',
+      label: 'Sidebar',
+      icon: '../../../assets/images/icons/dark.svg',
+    },
   ];
-
-
 
   // sessions: SessionData[] = [
   //   {
@@ -126,16 +201,17 @@ export class SidenavComponent {
   //     operator: 'operator 1',
   //   },
   // ];
-  
+
   sessions: SessionData[] = Array.from({ length: 60 }, (_, index) => {
     const vehicleTypes: ('bike' | 'car' | 'cycle')[] = ['bike', 'car', 'cycle'];
     const vehicleIcons: { bike: string; car: string; cycle: string } = {
       bike: '../../../../assets/images/icons/bike.svg',
       car: '../../../../assets/images/icons/car.svg',
-      cycle: '../../../../assets/images/icons/cycle.svg'
+      cycle: '../../../../assets/images/icons/cycle.svg',
     };
-  
-    const randomVehicleType = vehicleTypes[Math.floor(Math.random() * vehicleTypes.length)];
+
+    const randomVehicleType =
+      vehicleTypes[Math.floor(Math.random() * vehicleTypes.length)];
 
     // Generate random start and end dates
     const baseDate = new Date();
@@ -147,8 +223,14 @@ export class SidenavComponent {
     return {
       vehicleNo: `uk07${String(3000 + index).padStart(4, '0')}`,
       booking: Math.random() > 0.5 ? 'yes' : 'no',
-      timeIn: `${Math.floor(9 + index % 12)}:${Math.floor(Math.random() * 60).toString().padStart(2, '0')} ${Math.random() > 0.5 ? 'AM' : 'PM'}`,
-      timeOut: `${Math.floor(10 + (index + 1) % 12)}:${Math.floor(Math.random() * 60).toString().padStart(2, '0')} ${Math.random() > 0.5 ? 'AM' : 'PM'}`,
+      timeIn: `${Math.floor(9 + (index % 12))}:${Math.floor(Math.random() * 60)
+        .toString()
+        .padStart(2, '0')} ${Math.random() > 0.5 ? 'AM' : 'PM'}`,
+      timeOut: `${Math.floor(10 + ((index + 1) % 12))}:${Math.floor(
+        Math.random() * 60
+      )
+        .toString()
+        .padStart(2, '0')} ${Math.random() > 0.5 ? 'AM' : 'PM'}`,
       advance: `${Math.floor(Math.random() * 100)}`,
       totalTime: `${Math.floor(15 + Math.random() * 45)} mins`,
       collection: `${Math.floor(100 + Math.random() * 400)}`,
@@ -164,10 +246,6 @@ export class SidenavComponent {
       endDate: endDate.toISOString().split('T')[0], // format as YYYY-MM-DD
     };
   });
-
-
-
-  
 
   paginat() {
     this.totalPages = Math.ceil(this.sessions.length / this.rowsPerPage);
@@ -188,6 +266,12 @@ export class SidenavComponent {
     const startIndex = (this.currentPage - 1) * this.rowsPerPage;
     const endIndex = startIndex + this.rowsPerPage;
     this.paginatedSessions = this.sessions.slice(startIndex, endIndex);
+    this.isSkeletonVisible = true;
+    setTimeout(() => {
+      this.filterSessions();
+      this.updatePaginatedSessions();
+      this.isSkeletonVisible = false;
+    }, 2000);
   }
 
   goToPreviousPage() {
@@ -195,6 +279,12 @@ export class SidenavComponent {
       this.currentPage--;
       this.updatePaginatedSessions();
     }
+    this.isSkeletonVisible = true;
+    setTimeout(() => {
+      this.filterSessions();
+      this.updatePaginatedSessions();
+      this.isSkeletonVisible = false;
+    }, 2000);
   }
 
   goToNextPage() {
@@ -202,6 +292,12 @@ export class SidenavComponent {
       this.currentPage++;
       this.updatePaginatedSessions();
     }
+    this.isSkeletonVisible = true;
+    setTimeout(() => {
+      this.filterSessions();
+      this.updatePaginatedSessions();
+      this.isSkeletonVisible = false;
+    }, 2000);
   }
 
   onTypeSelectionChange(selectedType: any) {
@@ -216,41 +312,59 @@ export class SidenavComponent {
     this.selectedStatus = selectedStatus;
   }
 
-  onDateRangeSelected(range: { startDate: Date | null, endDate: Date | null }) {
+  onDateRangeSelected(range: { startDate: Date | null; endDate: Date | null }) {
     this.selectedRange = range;
-    console.log("Selected Date Range:", this.selectedRange);
+    console.log('Selected Date Range:', this.selectedRange);
   }
- 
+
   applyFilter() {
     this.filterSessions();
+    this.isSkeletonVisible = true;
+    setTimeout(() => {
+      this.filterSessions();
+      this.updatePaginatedSessions();
+      this.isSkeletonVisible = false;
+    }, 2000);
   }
 
   filterSessions() {
     this.paginatedSessions = [...this.sessions];
-  
-    const isTypeFiltered = this.selectedType && this.selectedType !== this.sessionTypes[0];
-    const isOperatorFiltered = this.selectedOperator && this.selectedOperator !== this.operatorList[0];
-    const isStatusFiltered = this.selectedStatus && this.selectedStatus !== this.statusList[0];
-    const isDateRangeFiltered = this.selectedRange && this.selectedRange.startDate && this.selectedRange.endDate;
-  
+
+    const isTypeFiltered =
+      this.selectedType && this.selectedType !== this.sessionTypes[0];
+    const isOperatorFiltered =
+      this.selectedOperator && this.selectedOperator !== this.operatorList[0];
+    const isStatusFiltered =
+      this.selectedStatus && this.selectedStatus !== this.statusList[0];
+    const isDateRangeFiltered =
+      this.selectedRange &&
+      this.selectedRange.startDate &&
+      this.selectedRange.endDate;
+
     if (isTypeFiltered) {
       this.paginatedSessions = this.paginatedSessions.filter((session) => {
-        return session.vehicleType.toLowerCase() === this.selectedType.toLowerCase();
+        return (
+          session.vehicleType.toLowerCase() === this.selectedType.toLowerCase()
+        );
       });
     }
-  
+
     if (isOperatorFiltered) {
       this.paginatedSessions = this.paginatedSessions.filter((session) => {
-        return session.operator.toLowerCase() === this.selectedOperator.toLowerCase();
+        return (
+          session.operator.toLowerCase() === this.selectedOperator.toLowerCase()
+        );
       });
     }
-  
+
     if (isStatusFiltered) {
       this.paginatedSessions = this.paginatedSessions.filter((session) => {
-        return session.status.toLowerCase() === this.selectedStatus.toLowerCase();
+        return (
+          session.status.toLowerCase() === this.selectedStatus.toLowerCase()
+        );
       });
     }
-  
+
     // Filter by date range
     if (isDateRangeFiltered && this.selectedRange) {
       const { startDate, endDate } = this.selectedRange;
@@ -259,15 +373,13 @@ export class SidenavComponent {
         return sessionDate >= startDate! && sessionDate <= endDate!;
       });
     }
-  
+
     // Update total sessions and pages based on the filtered result
     this.totalSessions = this.paginatedSessions.length;
     this.totalPages = Math.ceil(this.totalSessions / this.rowsPerPage);
-  
+
     this.updateTags();
   }
-  
-  
 
   clearFilters() {
     // Reset filter selections
@@ -275,118 +387,118 @@ export class SidenavComponent {
     this.selectedOperator = this.operatorList[0]; // Default operator
     this.selectedStatus = this.statusList[0]; // Default status
     this.selectedRange = { startDate: null, endDate: null }; // Reset date range
-  
+
     // Reset filtered and paginated sessions
     this.filteredSessions = [...this.sessions]; // Reset to all sessions
     this.currentPage = 1; // Reset to the first page
     this.updatePaginatedSessions(); // Update paginated data
-  
+
     // Update total counts and tags
     this.totalSessions = this.filteredSessions.length;
     this.updateTags();
-  
-
   }
-  
-  
 
   updateTags() {
     this.topTag = [
       { label: `${this.totalSessions} items`, url: '/' },
       { label: 'Sorted by CREATED AT', url: '/' },
     ];
-    this.bottomtag = [{ label: `Total: ${this.totalSessions} items`, url: '/' }];
+    this.bottomtag = [
+      { label: `Total: ${this.totalSessions} items`, url: '/' },
+    ];
   }
 
-// Method to handle "Select All" checkbox change
-selectAll(event: any): void {
-  const checked = event?.target?.checked;
+  // Method to handle "Select All" checkbox change
+  selectAll(event: any): void {
+    const checked = event?.target?.checked;
 
-  if (checked) {
-    // Add all indices for the current page to checkedRows
-    this.paginatedSessions.forEach((_, i) => {
-      const globalIndex = (this.currentPage - 1) * this.rowsPerPage + i;
+    if (checked) {
+      // Add all indices for the current page to checkedRows
+      this.paginatedSessions.forEach((_, i) => {
+        const globalIndex = (this.currentPage - 1) * this.rowsPerPage + i;
+        this.checkedRows.add(globalIndex);
+      });
+    } else {
+      // Remove all indices for the current page from checkedRows
+      this.paginatedSessions.forEach((_, i) => {
+        const globalIndex = (this.currentPage - 1) * this.rowsPerPage + i;
+        this.checkedRows.delete(globalIndex);
+      });
+    }
+  }
+
+  // Check if a specific row is checked
+  isRowChecked(index: number): boolean {
+    const globalIndex = (this.currentPage - 1) * this.rowsPerPage + index;
+    return this.checkedRows.has(globalIndex);
+  }
+
+  // Method to handle individual checkbox change
+  onCheckboxChange(event: any, index: number): void {
+    const checked = event?.target?.checked;
+    const globalIndex = (this.currentPage - 1) * this.rowsPerPage + index;
+
+    if (checked) {
       this.checkedRows.add(globalIndex);
-    });
-  } else {
-    // Remove all indices for the current page from checkedRows
-    this.paginatedSessions.forEach((_, i) => {
-      const globalIndex = (this.currentPage - 1) * this.rowsPerPage + i;
+    } else {
       this.checkedRows.delete(globalIndex);
+    }
+  }
+
+  // Check if all rows on the current page are checked
+  areAllRowsChecked(): boolean {
+    return this.paginatedSessions.every((_, i) =>
+      this.checkedRows.has((this.currentPage - 1) * this.rowsPerPage + i)
+    );
+  }
+
+  onEnterPress(event: KeyboardEvent) {
+    if (event.key === 'Enter') {
+      this.tempPage = this.tempPage
+        ? Math.max(1, Math.min(this.tempPage, this.totalPages))
+        : 1;
+      this.goToPage(this.tempPage);
+    }
+  }
+
+  goToPage(page: number) {
+    if (isNaN(page) || page < 1) {
+      this.currentPage = 1;
+    } else if (page > this.totalPages) {
+      this.currentPage = this.totalPages;
+    } else {
+      this.currentPage = page;
+    }
+    this.updatePaginatedSessions();
+  }
+
+  // data shorting
+  sortSessions(field: keyof SessionData) {
+    if (this.sortField === field) {
+      this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.sortField = field;
+      this.sortOrder = 'asc';
+    }
+    this.paginatedSessions.sort((a, b) => {
+      const valueA = a[field] ?? '';
+      const valueB = b[field] ?? '';
+
+      if (valueA < valueB) return this.sortOrder === 'asc' ? -1 : 1;
+      if (valueA > valueB) return this.sortOrder === 'asc' ? 1 : -1;
+      return 0;
     });
   }
-}
 
-// Check if a specific row is checked
-isRowChecked(index: number): boolean {
-  const globalIndex = (this.currentPage - 1) * this.rowsPerPage + index;
-  return this.checkedRows.has(globalIndex);
-}
-
-// Method to handle individual checkbox change
-onCheckboxChange(event: any, index: number): void {
-  const checked = event?.target?.checked;
-  const globalIndex = (this.currentPage - 1) * this.rowsPerPage + index;
-
-  if (checked) {
-    this.checkedRows.add(globalIndex);
-  } else {
-    this.checkedRows.delete(globalIndex);
+  getSortIcon(field: keyof SessionData): string {
+    if (this.sortField === field) {
+      return this.sortOrder === 'asc' ? '↑' : '↓';
+    }
+    return '';
   }
-}
 
-// Check if all rows on the current page are checked
-areAllRowsChecked(): boolean {
-  return this.paginatedSessions.every((_, i) =>
-    this.checkedRows.has((this.currentPage - 1) * this.rowsPerPage + i)
-  );
-}
-
-onEnterPress(event: KeyboardEvent) {
-  if (event.key === 'Enter') {
-    this.tempPage = this.tempPage ? Math.max(1, Math.min(this.tempPage, this.totalPages)) : 1;
-    this.goToPage(this.tempPage);
+  @ViewChild(ModalComponent) modal!: ModalComponent;
+  openTemplateOne(modalContentOne: any) {
+    this.modal.openModal(modalContentOne);
   }
-}
-
-goToPage(page: number) {
-  if (isNaN(page) || page < 1) {
-    this.currentPage = 1;
-  } else if (page > this.totalPages) {
-    this.currentPage = this.totalPages;
-  } else {
-    this.currentPage = page;
-  }
-  this.updatePaginatedSessions();
-}
-
-// data shorting
-sortSessions(field: keyof SessionData) {
-  if (this.sortField === field) {
-    this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
-  } else {
-    this.sortField = field;
-    this.sortOrder = 'asc';
-  }
-  this.paginatedSessions.sort((a, b) => {
-    const valueA = a[field] ?? ''; 
-    const valueB = b[field] ?? ''; 
-
-    if (valueA < valueB) return this.sortOrder === 'asc' ? -1 : 1;
-    if (valueA > valueB) return this.sortOrder === 'asc' ? 1 : -1;
-    return 0;
-  });
-}
-
-
-getSortIcon(field: keyof SessionData): string {
-  if (this.sortField === field) {
-    return this.sortOrder === 'asc' ? '↑' : '↓';
-  }
-  return '';
-}
-
-
-
-
 }

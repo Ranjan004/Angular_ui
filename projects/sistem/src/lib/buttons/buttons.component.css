@@ -204,6 +204,98 @@ button.disabled img {
     brightness(96%) contrast(87%);
   mix-blend-mode: multiply;
 }
+button.split {
+  padding: 0;
+  background-color: var(--secondary);
+  border-radius: 40px;
+}
+
+button.split.large .icon-right {
+  width: 29px;
+  height: 29px;
+  background: var(--primary);
+  border-radius: 50%;
+  padding: 7.5px;
+  margin: 3.5px -3.5px;
+}
+button.split.large .icon-left {
+  width: 29px;
+  height: 29px;
+  background: var(--primary);
+  border-radius: 50%;
+  padding: 7.5px;
+  margin: -3.5px;
+}
+
+button.split.medium .icon-right {
+  width: 21px;
+  height: 21px;
+  background: var(--primary);
+  border-radius: 50%;
+  padding: 7.5px;
+  margin: 3.5px -3.5px;
+}
+button.split.medium .icon-left {
+  width: 21px;
+  height: 21px;
+  background: var(--primary);
+  border-radius: 50%;
+  padding: 7.5px;
+  margin: 3.5px -3.5px;
+}
+button.split .btn-lable {
+  color: var(--heading);
+  margin: 0 10px !important;
+}
+
+button.split.small .icon-right {
+  width: 21px;
+  height: 21px;
+  background: var(--primary);
+  border-radius: 50%;
+  padding: 6.5px;
+  margin: 2.5px -4.5px;
+}
+button.split.small .icon-left {
+  width: 21px;
+  height: 21px;
+  background: var(--primary);
+  border-radius: 50%;
+  padding: 6.5px;
+  margin: 2.5px -4.5px;
+}
+
+button.split.xsmall .icon-right {
+  width: 21px;
+  height: 21px;
+  background: var(--primary);
+  border-radius: 50%;
+  padding: 6.5px;
+  margin: 2.5px -4.5px;
+}
+button.split.xsmall .icon-left {
+  width: 21px;
+  height: 21px;
+  background: var(--primary);
+  border-radius: 50%;
+  padding: 6.5px;
+  margin: 2.5px -4.5px;
+}
+
+button.split:has(.icon-right) {
+  padding-left: 16px;
+}
+button.split:has(.icon-left) {
+  padding-right: 16px;
+}
+button.split:has(.loader-icon, .icon-right) {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+button.split:has(.loader-icon, .icon-left) {
+  padding-left: 8px;
+  padding-right: 8px;
+}
 
 /* animate loader */
 .loader-icon {
@@ -221,6 +313,11 @@ button.disabled img {
 /* Secoundary buttons */
 
 button.secondary .loader-icon {
+  filter: invert(29%) sepia(100%) saturate(6197%) hue-rotate(344deg)
+    brightness(100%) contrast(101%);
+}
+
+button.split .loader-icon {
   filter: invert(29%) sepia(100%) saturate(6197%) hue-rotate(344deg)
     brightness(100%) contrast(101%);
 }
