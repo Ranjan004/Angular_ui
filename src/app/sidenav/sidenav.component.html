@@ -196,6 +196,7 @@
           size="small"
           label="Apply"
           (click)="applyFilter()"
+          time="1000"
         />
         <div class="small-heading filter ml-10" (click)="clearFilters()">
           Clear
@@ -439,7 +440,7 @@
     <div class="filter-list pl-20">
       <div class="left">
         <div class="breadcrum">
-          <ui-breadcrumbs [breadcrumbs]="bottomtag" />
+          <ui-breadcrumbs [breadcrumbs]="bottomTag" />
         </div>
       </div>
       <div class="right pr-12">

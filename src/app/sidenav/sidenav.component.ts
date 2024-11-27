@@ -92,7 +92,7 @@ export class SidenavComponent {
   constructor(private cdr: ChangeDetectorRef) {}
   selectedRange: { startDate: Date | null; endDate: Date | null } | null = null;
   topTag: { label: string; url: string }[] = [];
-  bottomtag: { label: string; url: string }[] = [];
+  bottomTag: { label: string; url: string }[] = [];
   sessionTypes = ['type', 'Car', 'Bike', 'Cycle', 'Truck'];
   operatorList = ['operator', 'operator 1', 'operator 2', 'operator 3'];
   statusList = ['Status', 'in vehicle', 'out vehicle', 'booking'];
@@ -262,14 +262,26 @@ export class SidenavComponent {
     this.totalPages = Math.ceil(this.totalSessions / this.rowsPerPage);
   }
 
+  // updatePaginatedSessions() {
+  //   const startIndex = (this.currentPage - 1) * this.rowsPerPage;
+  //   const endIndex = startIndex + this.rowsPerPage;
+  //   this.paginatedSessions = this.sessions.slice(startIndex, endIndex);
+  // this.isSkeletonVisible = true;
+  // setTimeout(() => {
+  //   this.filterSessions();
+  //   this.updatePaginatedSessions();
+  //   this.isSkeletonVisible = false;
+  // }, 2000);
+  // }
+
   updatePaginatedSessions() {
     const startIndex = (this.currentPage - 1) * this.rowsPerPage;
     const endIndex = startIndex + this.rowsPerPage;
-    this.paginatedSessions = this.sessions.slice(startIndex, endIndex);
+    this.paginatedSessions = this.filteredSessions.slice(startIndex, endIndex);
     this.isSkeletonVisible = true;
     setTimeout(() => {
       this.filterSessions();
-      this.updatePaginatedSessions();
+      // this.updatePaginatedSessions();
       this.isSkeletonVisible = false;
     }, 2000);
   }
@@ -328,7 +340,7 @@ export class SidenavComponent {
   }
 
   filterSessions() {
-    this.paginatedSessions = [...this.sessions];
+    this.filteredSessions = [...this.sessions]; // Reset to all sessions first
 
     const isTypeFiltered =
       this.selectedType && this.selectedType !== this.sessionTypes[0];
@@ -341,41 +353,41 @@ export class SidenavComponent {
       this.selectedRange.startDate &&
       this.selectedRange.endDate;
 
+    // Filter by type
     if (isTypeFiltered) {
-      this.paginatedSessions = this.paginatedSessions.filter((session) => {
-        return (
+      this.filteredSessions = this.filteredSessions.filter(
+        (session) =>
           session.vehicleType.toLowerCase() === this.selectedType.toLowerCase()
-        );
-      });
+      );
     }
 
+    // Filter by operator
     if (isOperatorFiltered) {
-      this.paginatedSessions = this.paginatedSessions.filter((session) => {
-        return (
+      this.filteredSessions = this.filteredSessions.filter(
+        (session) =>
           session.operator.toLowerCase() === this.selectedOperator.toLowerCase()
-        );
-      });
+      );
     }
 
+    // Filter by status
     if (isStatusFiltered) {
-      this.paginatedSessions = this.paginatedSessions.filter((session) => {
-        return (
+      this.filteredSessions = this.filteredSessions.filter(
+        (session) =>
           session.status.toLowerCase() === this.selectedStatus.toLowerCase()
-        );
-      });
+      );
     }
 
     // Filter by date range
     if (isDateRangeFiltered && this.selectedRange) {
       const { startDate, endDate } = this.selectedRange;
-      this.paginatedSessions = this.paginatedSessions.filter((session) => {
+      this.filteredSessions = this.filteredSessions.filter((session) => {
         const sessionDate = new Date(session.startDate);
         return sessionDate >= startDate! && sessionDate <= endDate!;
       });
     }
 
-    // Update total sessions and pages based on the filtered result
-    this.totalSessions = this.paginatedSessions.length;
+    // Update total sessions and pages based on filtered data
+    this.totalSessions = this.filteredSessions.length;
     this.totalPages = Math.ceil(this.totalSessions / this.rowsPerPage);
 
     this.updateTags();
@@ -403,7 +415,7 @@ export class SidenavComponent {
       { label: `${this.totalSessions} items`, url: '/' },
       { label: 'Sorted by CREATED AT', url: '/' },
     ];
-    this.bottomtag = [
+    this.bottomTag = [
       { label: `Total: ${this.totalSessions} items`, url: '/' },
     ];
   }

@@ -381,6 +381,5 @@ export class HeaderComponent implements AfterViewInit {
       status: 'pending',
       icon: '../../../assets/images/icons/Avatar.svg',
     },
-    // Add more notifications here
   ];
 }

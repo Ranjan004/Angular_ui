@@ -20,6 +20,7 @@ export class ButtonsComponent {
   @Input() label?: string;
   @Input() loader: string = '../../assets/images/icons/Loader.svg';
   @Input() disabled = false;
+  @Input() time: any = '1000';
 
   isLoading: boolean = false;
 
@@ -30,7 +31,7 @@ export class ButtonsComponent {
     this.isLoading = true;
     setTimeout(() => {
       this.isLoading = false;
-    }, 2000);
+    }, this.time);
   }
 
   // Check if icon path is an SVG file or icon name

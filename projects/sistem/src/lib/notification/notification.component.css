@@ -97,7 +97,7 @@ img {
   background-color: var(--disable);
 }
 
-.nofication-container .xsm img {
+.notification-container .xsm img {
   width: 15px;
   height: 15px;
 }
@@ -110,21 +110,33 @@ img {
 .icon-container.xl .icon {
   width: 25px;
   height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .icon-container.md .icon {
   width: 21.5px;
   height: 21.5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .icon-container.sm .icon {
   width: 17px;
   height: 17px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .icon-container.xsm .icon {
   width: 15px;
   height: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .notification-number {

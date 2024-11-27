@@ -1,4 +1,10 @@
-import { Component, Output, EventEmitter, HostListener, ElementRef } from '@angular/core';
+import {
+  Component,
+  Output,
+  EventEmitter,
+  HostListener,
+  ElementRef,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NotificationComponent } from '../notification/notification.component';
@@ -7,9 +13,9 @@ import { IconComponent } from '../icon/icon.component';
 @Component({
   selector: 'ui-range-calendar',
   standalone: true,
-  imports: [CommonModule, FormsModule, NotificationComponent,IconComponent],
+  imports: [CommonModule, FormsModule, NotificationComponent, IconComponent],
   templateUrl: './double-calendar.component.html',
-  styleUrls: ['./double-calendar.component.css']
+  styleUrls: ['./double-calendar.component.css'],
 })
 export class DoubleCalendarComponent {
   startDate: Date | null = null;
@@ -19,9 +25,11 @@ export class DoubleCalendarComponent {
   showCalendar: boolean = false;
   today: Date = new Date();
   hoveredDate: Date | null = null;
-  @Output() dateRangeSelected = new EventEmitter<{ startDate: Date | null, endDate: Date | null }>();
-  constructor(private elementRef: ElementRef) { }
-
+  @Output() dateRangeSelected = new EventEmitter<{
+    startDate: Date | null;
+    endDate: Date | null;
+  }>();
+  constructor(private elementRef: ElementRef) {}
 
   toggleCalendar() {
     this.showCalendar = !this.showCalendar;
@@ -29,7 +37,6 @@ export class DoubleCalendarComponent {
       setTimeout(() => this.adjustCalendarPosition(), 100); // Slight delay to ensure rendering
     }
   }
-
 
   adjustCalendarPosition() {
     const calendarElement = document.querySelector('.calendar-container');
@@ -46,7 +53,6 @@ export class DoubleCalendarComponent {
     }
   }
 
-
   onDateSelect(date: Date) {
     if (!this.startDate || (this.startDate && this.endDate)) {
       this.startDate = date;
@@ -54,7 +60,10 @@ export class DoubleCalendarComponent {
     } else if (this.startDate && !this.endDate && date > this.startDate) {
       this.endDate = new Date(date);
       this.endDate.setHours(23, 59, 59, 999);
-      this.dateRangeSelected.emit({ startDate: this.startDate, endDate: this.endDate });
+      this.dateRangeSelected.emit({
+        startDate: this.startDate,
+        endDate: this.endDate,
+      });
       this.showCalendar = false;
     } else {
       this.startDate = date;
@@ -63,12 +72,19 @@ export class DoubleCalendarComponent {
   }
 
   isInRange(date: Date): boolean {
-    return !!(this.startDate && this.endDate && date > this.startDate && date < this.endDate);
+    return !!(
+      this.startDate &&
+      this.endDate &&
+      date > this.startDate &&
+      date < this.endDate
+    );
   }
 
   isSelected(date: Date): boolean {
-    return !!((this.startDate && date.getTime() === this.startDate.getTime()) ||
-      (this.endDate && date.getTime() === this.endDate.getTime()));
+    return !!(
+      (this.startDate && date.getTime() === this.startDate.getTime()) ||
+      (this.endDate && date.getTime() === this.endDate.getTime())
+    );
   }
 
   isToday(date: Date): boolean {
@@ -84,7 +100,9 @@ export class DoubleCalendarComponent {
     const yearToCheck = this.currentYear + Math.floor(monthToCheck / 12);
     const monthNormalized = monthToCheck % 12;
 
-    return date.getMonth() !== monthNormalized || date.getFullYear() !== yearToCheck;
+    return (
+      date.getMonth() !== monthNormalized || date.getFullYear() !== yearToCheck
+    );
   }
 
   changeMonth(delta: number, offset: number) {
