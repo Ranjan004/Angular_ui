@@ -11,8 +11,13 @@ import { icons } from '../icons'; // Adjust the import path to the icons library
   styleUrls: ['./buttons.component.css'],
 })
 export class ButtonsComponent {
-  @Input() variant: 'primary' | 'secondary' | 'outlined' | 'text' | 'split' =
-    'primary';
+  @Input() variant:
+    | 'primary'
+    | 'secondary'
+    | 'outlined'
+    | 'text'
+    | 'split'
+    | 'splitBorder' = 'primary';
   @Input() size: 'xsmall' | 'small' | 'medium' | 'large' = 'large';
   @Input() shape: 'round' | 'corner' | 'ovel' = 'ovel';
   @Input() iconLeft?: string;

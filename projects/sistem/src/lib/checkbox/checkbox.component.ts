@@ -1,11 +1,17 @@
-import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 
 @Component({
   selector: 'ui-checkbox',
   standalone: true,
   templateUrl: './checkbox.component.html',
   styleUrls: ['./checkbox.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush  // Use OnPush to minimize re-renders
+  changeDetection: ChangeDetectionStrategy.OnPush, // Use OnPush to minimize re-renders
 })
 export class CheckboxComponent {
   @Input() size: 'large' | 'small' = 'small';
@@ -16,9 +22,9 @@ export class CheckboxComponent {
 
   onChange(event: Event) {
     const target = event.target as HTMLInputElement;
-    if (target.checked !== this.checked) {  // Check if state actually changed
+    if (target.checked !== this.checked) {
       this.checked = target.checked;
-      this.change.emit(this.checked);  // Emit the new checked state
+      this.change.emit(this.checked);
     }
   }
 }

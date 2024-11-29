@@ -1,6 +1,9 @@
 :root.dark-theme {
   --background-color: #171e27;
   --primary: #ff3b30;
+  --primary-btn-hover: rgba(243, 58, 49, 1);
+  --secondary-btn-hover: rgba(36, 50, 70, 1);
+  --tertiary-btn-hover: rgba(35, 41, 50, 1);
   --secondary: #18273c;
   --heading: #ffffff;
   --text: #b9c1cc;
@@ -49,6 +52,8 @@
   --overlay-background-color: rgba(28, 36, 46, 0.5);
   --loading-animation: rgba(33, 53, 80, 1);
   --loading-animation-sec: rgb(36, 58, 87);
+  --bg-split: rgba(33, 53, 80, 1);
+  --split-text: rgba(86, 104, 129, 1);
 }
 
 .dark-theme label {

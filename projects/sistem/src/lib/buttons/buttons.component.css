@@ -8,6 +8,7 @@ button {
   padding-top: 6px;
   padding-bottom: 6px;
   cursor: pointer;
+  position: relative;
 }
 
 button.text {
@@ -17,6 +18,7 @@ button.text {
   border: 0px solid var(--disable-text);
   color: var(--primary);
 }
+
 button.text:hover {
   color: var(--primary);
 }
@@ -30,11 +32,13 @@ button.primary {
   color: var(--white);
   border-radius: 40px;
 }
+
 button.secondary {
   background: var(--secondary);
   color: var(--primary);
   border-radius: 40px;
 }
+
 button.outlined {
   background: transparent;
   color: var(--heading);
@@ -42,9 +46,90 @@ button.outlined {
   border: 2px solid var(--disable-text);
 }
 
+button.splitBorder {
+  background: transparent;
+  color: var(--heading);
+  border-radius: 40px;
+  border: 2px solid var(--disable-text);
+  padding-left: 6.3px;
+  padding-right: 6.3px;
+}
+
+button.splitBorder.large .icon-right {
+  width: 42px;
+  height: 42px;
+  background: var(--primary);
+  border-radius: 50%;
+  padding: 0 7.5px;
+  margin: 3.5px -3.5px;
+}
+
+button.splitBorder.large .icon-left {
+  width: 42px;
+  height: 42px;
+  background: var(--primary);
+  border-radius: 50%;
+  padding: 0 7.5px;
+  margin: -3.5px;
+}
+
+button.splitBorder.medium .icon-right {
+  width: 34px;
+  height: 34px;
+  background: var(--primary);
+  border-radius: 50%;
+  padding: 0 7.5px;
+  margin: 3.5px -3.5px;
+}
+
+button.splitBorder.medium .icon-left {
+  width: 34px;
+  height: 34px;
+  background: var(--primary);
+  border-radius: 50%;
+  padding: 0 7.5px;
+  margin: 3.5px -3.5px;
+}
+
+button.splitBorder.small .icon-right {
+  width: 26px;
+  height: 26px;
+  background: var(--primary);
+  border-radius: 50%;
+  padding: 0 6.5px;
+  margin: 2.5px -4.5px;
+}
+
+button.splitBorder.small .icon-left {
+  width: 26px;
+  height: 26px;
+  background: var(--primary);
+  border-radius: 50%;
+  padding: 0 6.5px;
+  margin: 2.5px -4.5px;
+}
+
+button.splitBorder.xsmall .icon-right {
+  width: 18px;
+  height: 18px;
+  background: var(--primary);
+  border-radius: 50%;
+  padding: 0 4px;
+  margin: 2.5px -4.5px;
+}
+
+button.splitBorder.xsmall .icon-left {
+  width: 18px;
+  height: 18px;
+  background: var(--primary);
+  border-radius: 50%;
+  padding: 0 4px;
+  margin: 2.5px -4.5px;
+}
+
 button.large {
   width: auto;
-  min-height: 52px;
+  height: 52px;
 }
 
 button.large img {
@@ -78,7 +163,7 @@ button.xsmall .icon-right {
 
 button.medium {
   width: auto;
-  min-height: 44px;
+  height: 44px;
 }
 
 button.medium img {
@@ -88,7 +173,7 @@ button.medium img {
 
 button.small {
   width: auto;
-  min-height: 36px;
+  height: 36px;
 }
 
 button.small img {
@@ -98,7 +183,7 @@ button.small img {
 
 button.xsmall {
   width: auto;
-  min-height: 28px;
+  height: 28px;
 }
 
 button.xsmall img {
@@ -106,7 +191,7 @@ button.xsmall img {
   height: 20px;
 }
 
-button:not(.round):not(.corner) .btn-lable {
+button:not(.round):not(.corner, .text) .btn-lable {
   margin: 0 8px;
 }
 
@@ -141,7 +226,22 @@ button.round .icon-left,
 }
 
 button.large.round {
-  padding: 16px;
+  padding: 14px;
+}
+
+button.large.round.outlined {
+  padding: 12px;
+}
+button.medium.round.outlined {
+  padding: 9.25px;
+}
+
+button.small.round.outlined {
+  padding: 5.25px;
+}
+
+button.xsmall.round.outlined {
+  padding: 2px;
 }
 
 button.medium.round {
@@ -153,7 +253,7 @@ button.small.round {
 }
 
 button.xsmall.round {
-  padding: 3.25px;
+  padding: 4px;
 }
 
 button.corner {
@@ -163,27 +263,40 @@ button.corner {
 button.corner img {
   margin: 0;
 }
+
 button.corner .icon-left,
 .icon-right {
   margin: 0;
 }
 
 button.large.corner {
-  padding: 16px;
+  padding: 14px;
 }
 
+button.outlined.large.corner {
+  padding: 12px;
+}
 button.medium.corner {
   padding: 11.25px;
+}
+button.outlined.medium.corner {
+  padding: 9.25px;
 }
 
 button.small.corner {
   padding: 7.25px;
 }
-
-button.xsmall.corner {
-  padding: 3.25px;
+button.outlined.small.corner {
+  padding: 5.25px;
 }
 
+button.xsmall.corner {
+  padding: 4px;
+}
+
+button.outlined.xsmall.corner {
+  padding: 2px;
+}
 .loading.round .icon-left,
 .loading.round .icon-right {
   display: none;
@@ -193,125 +306,174 @@ button.xsmall.corner {
 .loading.corner .icon-right {
   display: none;
 }
+
 /* for disable */
 button.disabled {
   background-color: var(--disable);
   cursor: not-allowed;
   color: var(--disable-text);
 }
+
 button.disabled img {
   filter: invert(74%) sepia(9%) saturate(180%) hue-rotate(171deg)
     brightness(96%) contrast(87%);
   mix-blend-mode: multiply;
 }
+
 button.split {
   padding: 0;
-  background-color: var(--secondary);
+  background-color: transparent;
   border-radius: 40px;
 }
 
 button.split.large .icon-right {
-  width: 29px;
-  height: 29px;
+  width: 44px;
+  height: 44px;
   background: var(--primary);
   border-radius: 50%;
-  padding: 7.5px;
+  padding: 0 7.5px;
   margin: 3.5px -3.5px;
 }
+
 button.split.large .icon-left {
-  width: 29px;
-  height: 29px;
+  width: 44px;
+  height: 44px;
   background: var(--primary);
   border-radius: 50%;
-  padding: 7.5px;
+  padding: 0 7.5px;
   margin: -3.5px;
 }
 
 button.split.medium .icon-right {
-  width: 21px;
-  height: 21px;
+  width: 36px;
+  height: 36px;
   background: var(--primary);
   border-radius: 50%;
-  padding: 7.5px;
+  padding: 0 7.5px;
   margin: 3.5px -3.5px;
 }
+
 button.split.medium .icon-left {
-  width: 21px;
-  height: 21px;
+  width: 36px;
+  height: 36px;
   background: var(--primary);
   border-radius: 50%;
-  padding: 7.5px;
+  padding: 0 7.5px;
   margin: 3.5px -3.5px;
 }
+
 button.split .btn-lable {
   color: var(--heading);
   margin: 0 10px !important;
 }
+button.split.disabled .btn-lable {
+  color: var(--split-text);
+}
+button.splitBorder.disabled .btn-lable {
+  color: var(--split-text);
+}
 
 button.split.small .icon-right {
-  width: 21px;
-  height: 21px;
+  width: 28px;
+  height: 28px;
   background: var(--primary);
   border-radius: 50%;
-  padding: 6.5px;
+  padding: 0 6.5px;
   margin: 2.5px -4.5px;
 }
+
 button.split.small .icon-left {
-  width: 21px;
-  height: 21px;
+  width: 28px;
+  height: 28px;
   background: var(--primary);
   border-radius: 50%;
-  padding: 6.5px;
+  padding: 0 6.5px;
   margin: 2.5px -4.5px;
 }
 
 button.split.xsmall .icon-right {
-  width: 21px;
-  height: 21px;
+  width: 20px;
+  height: 20px;
   background: var(--primary);
   border-radius: 50%;
-  padding: 6.5px;
+  padding: 0 4px;
   margin: 2.5px -4.5px;
 }
+
 button.split.xsmall .icon-left {
-  width: 21px;
-  height: 21px;
+  width: 20px;
+  height: 20px;
   background: var(--primary);
   border-radius: 50%;
-  padding: 6.5px;
+  padding: 0 4px;
   margin: 2.5px -4.5px;
+}
+button.split.disabled .icon-right,
+button.split.disabled .icon-left {
+  background-color: var(--bg-split);
+}
+button.split.disabled {
+  background-color: var(--secondary-btn-hover);
+  color: var(--split-text);
+}
+
+button.splitBorder.disabled .icon-right,
+button.splitBorder.disabled .icon-left {
+  background-color: var(--bg-split);
+}
+button.splitBorder.disabled {
+  background-color: var(--loading-animation);
+  color: var(--split-text);
 }
 
 button.split:has(.icon-right) {
   padding-left: 16px;
 }
+
 button.split:has(.icon-left) {
   padding-right: 16px;
 }
+
 button.split:has(.loader-icon, .icon-right) {
   padding-left: 8px;
   padding-right: 8px;
 }
+
 button.split:has(.loader-icon, .icon-left) {
   padding-left: 8px;
   padding-right: 8px;
+}
+button.text {
+  height: auto;
+  padding: 0;
+}
+button.text .btn-lable {
+  margin: 0;
+}
+button.text.large .btn-lable {
+  font-size: 16px;
+}
+
+button.text.small .btn-lable {
+  font-size: 14px;
 }
 
 /* animate loader */
 .loader-icon {
   animation: rotateScale 3s infinite ease-in-out;
 }
+
 @keyframes rotateScale {
   0% {
     transform: rotate(0deg) scale(1);
   }
+
   100% {
     transform: rotate(3600deg) scale(1);
   }
 }
 
-/* Secoundary buttons */
-
+/* secondary buttons */
 button.secondary .loader-icon {
   filter: invert(29%) sepia(100%) saturate(6197%) hue-rotate(344deg)
     brightness(100%) contrast(101%);
@@ -325,4 +487,48 @@ button.split .loader-icon {
 button.outlined .loader-icon {
   filter: invert(29%) sepia(100%) saturate(6197%) hue-rotate(344deg)
     brightness(100%) contrast(101%);
+}
+button.splitBorder .loader-icon {
+  filter: invert(29%) sepia(100%) saturate(6197%) hue-rotate(344deg)
+    brightness(100%) contrast(101%);
+}
+
+/* is loading */
+button.primary.loading {
+  background: var(--primary-btn-hover);
+}
+
+button.secondary.loading {
+  background: var(--secondary-btn-hover);
+}
+
+button.outlined.loading {
+  background: var(--tertiary-btn-hover);
+}
+
+button.split.loading {
+  background: var(--secondary-btn-hover);
+}
+button.splitBorder.loading {
+  background: var(--secondary-btn-hover);
+}
+button.splitBorder:hover {
+  background: var(--secondary-btn-hover);
+}
+
+button.disabled:hover {
+  background: var(--disable);
+}
+
+/* for hover */
+button.primary:hover {
+  background: var(--primary-btn-hover);
+}
+
+button.outlined:hover {
+  background: var(--tertiary-btn-hover);
+}
+
+button.split:hover {
+  background: var(--secondary-btn-hover);
 }

@@ -2,7 +2,6 @@
   <nav id="sidebar" [class.close]="isSidebarClosed">
     <ul>
       <li>
-        <span class="logo"></span>
         <button
           id="toggle-btn"
           [class.rotate]="isSidebarClosed"
@@ -100,7 +99,7 @@
     <!-- top Heading -->
     <div class="list-header">
       <div class="left">
-        <h2 class="heading pb-2">All Sessions</h2>
+        <h2 class="heading">All Sessions</h2>
         <div class="breadcrum">
           <ui-breadcrumbs [breadcrumbs]="topTag" />
         </div>
@@ -109,15 +108,15 @@
       <div class="right">
         <ui-button
           variant="primary"
-          size="medium"
+          size="small"
           shape="round"
           class="mr-10"
           iconLeft="plus"
         />
-        <ui-button variant="primary" size="medium" label="Text" class="mr-10" />
+        <ui-button variant="primary" size="small" label="Text" class="mr-10" />
         <ui-button
           variant="outlined"
-          size="medium"
+          size="small"
           label="Text"
           class="mr-10"
           iconLeft="user"
@@ -125,7 +124,7 @@
         />
         <ui-button
           variant="secondary"
-          size="medium"
+          size="small"
           label="Text"
           class="mr-10"
           iconLeft="user"
@@ -133,7 +132,7 @@
         />
         <ui-button
           variant="split"
-          size="medium"
+          size="small"
           label="Text"
           class="mr-10"
           iconRight="arrow-right"
@@ -144,7 +143,7 @@
           variant="secondary"
           shape="round"
           iconLeft="share"
-          size="medium"
+          size="small"
           (click)="modal.openModal(modalContentOne)"
         />
 

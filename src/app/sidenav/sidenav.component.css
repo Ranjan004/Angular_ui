@@ -34,8 +34,8 @@
 }
 
 #sidebar > ul > li:first-child {
-  display: flex;
-  justify-content: flex-end;
+  /* display: flex;
+  justify-content: flex-end; */
   margin-bottom: 16px;
 
   .logo {

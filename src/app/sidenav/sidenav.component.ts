@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 import {
   BreadcrumbsComponent,
   ButtonsComponent,
@@ -89,7 +90,8 @@ export class SidenavComponent {
     this.subMenusState = {};
   }
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(private cdr: ChangeDetectorRef, private title: Title) {}
+
   selectedRange: { startDate: Date | null; endDate: Date | null } | null = null;
   topTag: { label: string; url: string }[] = [];
   bottomTag: { label: string; url: string }[] = [];
@@ -114,6 +116,8 @@ export class SidenavComponent {
 
   isSkeletonVisible: boolean = true;
   ngOnInit() {
+    // set title
+    this.title.setTitle('Sistem - Sessions');
     this.paginat();
     this.totalSessions = this.sessions.length;
     this.updatePagination();

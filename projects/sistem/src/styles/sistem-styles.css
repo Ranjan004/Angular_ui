@@ -3317,6 +3317,20 @@ button.split .icon-right svg {
   stroke: var(--white);
 }
 
+button.splitBorder .icon-left svg,
+button.splitBorder .icon-right svg {
+  stroke: var(--white);
+}
+
+button.splitBorder.disabled .icon-left svg,
+button.splitBorder.disabled .icon-right svg {
+  stroke: var(--split-text);
+}
+button.split.disabled .icon-left svg,
+button.split.disabled .icon-right svg {
+  stroke: var(--split-text);
+}
+
 @media (max-width: 1200px) {
   .ui-md-container {
     max-width: 100%;
