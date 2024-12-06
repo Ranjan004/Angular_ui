@@ -263,43 +263,83 @@
                 </div>
               </div>
             </th>
-            <th width="7.92%" (click)="sortSessions('vehicleNo')">
+            <th width="8.92%" (click)="sortSessions('vehicleNo')">
               <div [ngClass]="{ skeleton: isSkeletonVisible }">
-                <span>VEHICLE NO.</span>
+                <span
+                  >VEHICLE NO.
+                  <span
+                    class="sort"
+                    [innerHTML]="getSortIcon('vehicleNo')"
+                  ></span
+                ></span>
               </div>
-              <!-- <ui-icon *ngIf="getSortIcon('vehicleType')" [icon]="getSortIcon('vehicleNo')" /> -->
             </th>
-            <th width="6.93%" (click)="sortSessions('booking')">
+            <th width="6.92%" (click)="sortSessions('helmet')">
+              <div [ngClass]="{ skeleton: isSkeletonVisible }">
+                <span>HELMETS</span>
+              </div>
+            </th>
+            <!-- <th width="5.93%" (click)="sortSessions('booking')">
               <div [ngClass]="{ skeleton: isSkeletonVisible }">
                 <span> BOOKING {{ getSortIcon("booking") }}</span>
               </div>
-            </th>
-            <th width="8.92%" (click)="sortSessions('timeIn')">
+            </th> -->
+            <th width="12.92%" (click)="sortSessions('timeIn')">
               <div [ngClass]="{ skeleton: isSkeletonVisible }">
-                <span>IN TIME {{ getSortIcon("timeIn") }}</span>
+                <span
+                  >IN TIME
+                  <span class="sort" [innerHTML]="getSortIcon('timeIn')"></span
+                ></span>
               </div>
             </th>
-            <th width="8.92%" (click)="sortSessions('timeOut')">
+            <th width="12.92%" (click)="sortSessions('timeOut')">
               <div [ngClass]="{ skeleton: isSkeletonVisible }">
-                <span>TIME OUT {{ getSortIcon("timeOut") }}</span>
+                <span
+                  >OUT TIME
+                  <span class="sort" [innerHTML]="getSortIcon('timeOut')"></span
+                ></span>
               </div>
             </th>
-            <th width="	6.93%" (click)="sortSessions('advance')">
+            <th width="	4.93%" (click)="sortSessions('pass')">
               <div [ngClass]="{ skeleton: isSkeletonVisible }">
-                <span> ADVANCE {{ getSortIcon("advance") }}</span>
+                <span>
+                  PASS
+                  <span class="sort" [innerHTML]="getSortIcon('pass')"></span
+                ></span>
               </div>
             </th>
-            <th width="8.91%" (click)="sortSessions('totalTime')">
+            <th width="8.5%" (click)="sortSessions('helmetAmt')">
               <div [ngClass]="{ skeleton: isSkeletonVisible }">
-                <span> TOTAL TIME {{ getSortIcon("totalTime") }}</span>
+                <span
+                  >HELMETS AMT
+                  <span
+                    class="sort"
+                    [innerHTML]="getSortIcon('helmetAmt')"
+                  ></span
+                ></span>
               </div>
             </th>
-            <th width="8.91%" (click)="sortSessions('collection')">
+            <th width="8.5%" (click)="sortSessions('vehicleAmt')">
+              <div [ngClass]="{ skeleton: isSkeletonVisible }">
+                <span
+                  >VEHICLE AMT<span
+                    class="sort"
+                    [innerHTML]="getSortIcon('vehicleAmt')"
+                  ></span
+                ></span>
+              </div>
+            </th>
+            <th width="8.91%" (click)="sortSessions('totalAmt')">
+              <div [ngClass]="{ skeleton: isSkeletonVisible }">
+                <span> TOTAL AMT {{ getSortIcon("totalAmt") }}</span>
+              </div>
+            </th>
+            <!-- <th width="8.91%" (click)="sortSessions('collection')">
               <div [ngClass]="{ skeleton: isSkeletonVisible }">
                 <span>COLLECTION {{ getSortIcon("collection") }}</span>
               </div>
-            </th>
-            <th width="8.91%" (click)="sortSessions('refund')">
+            </th> -->
+            <!-- <th width="5.91%" (click)="sortSessions('refund')">
               <div [ngClass]="{ skeleton: isSkeletonVisible }">
                 <span> REFUND {{ getSortIcon("refund") }}</span>
               </div>
@@ -308,23 +348,23 @@
               <div [ngClass]="{ skeleton: isSkeletonVisible }">
                 <span> TOTAL {{ getSortIcon("total") }}</span>
               </div>
-            </th>
-            <th width="5.94%" (click)="sortSessions('mode')">
+            </th> -->
+            <th width="6.94%" (click)="sortSessions('mode')">
               <div [ngClass]="{ skeleton: isSkeletonVisible }">
                 <span>MODE {{ getSortIcon("mode") }}</span>
               </div>
             </th>
-            <th width="5.94%" (click)="sortSessions('reference')">
+            <th width="3.94%" (click)="sortSessions('remarks')">
               <div [ngClass]="{ skeleton: isSkeletonVisible }">
-                <span>REFERENCE {{ getSortIcon("reference") }}</span>
+                <span>REMARKS {{ getSortIcon("remarks") }}</span>
               </div>
             </th>
-            <th width="5.94%">
+            <!-- <th width="6.94%">
               <div
                 class="blank"
                 [ngClass]="{ skeleton: isSkeletonVisible }"
               ></div>
-            </th>
+            </th> -->
             <th>
               <div
                 class="blank"
@@ -335,9 +375,11 @@
         </thead>
         <tbody>
           <tr
-            *ngFor="let session of paginatedSessions; let i = index"
+            *ngFor="let session of sessions; let i = index"
             [ngClass]="{ highlight: isRowChecked(i) }"
           >
+            <!-- <p>Demojjjkhgj: {{ session.operator }}</p> -->
+
             <td>
               <div
                 class="number ml-7"
@@ -369,47 +411,56 @@
             </td>
             <td>
               <div [ngClass]="{ skeleton: isSkeletonVisible }">
-                <span> {{ session.booking }}</span>
+                <span> {{ session.helmet }}</span>
               </div>
             </td>
             <td>
               <div [ngClass]="{ skeleton: isSkeletonVisible }">
-                <span> {{ session.timeIn }}</span>
+                <span appTooltip="{{ session.timeIn }}" placement="top">
+                  {{ session.timeIn | trimText : 14 }}</span
+                >
               </div>
             </td>
             <td>
               <div [ngClass]="{ skeleton: isSkeletonVisible }">
-                <span> {{ session.timeOut }}</span>
+                <span appTooltip="{{ session.timeOut }}" placement="top">
+                  {{ session.timeOut | trimText : 14 }}</span
+                >
               </div>
             </td>
             <td>
               <div [ngClass]="{ skeleton: isSkeletonVisible }">
-                <span>₹{{ session.advance }}</span>
+                <span>{{ session.pass }}</span>
               </div>
             </td>
             <td>
               <div [ngClass]="{ skeleton: isSkeletonVisible }">
-                <span> {{ session.totalTime }}</span>
+                <span> ₹{{ session.helmetAmt }}/-</span>
               </div>
             </td>
             <td>
               <div [ngClass]="{ skeleton: isSkeletonVisible }">
-                <span>₹{{ session.collection }}</span>
+                <span>₹{{ session.collection }}/-</span>
               </div>
             </td>
             <td>
               <div [ngClass]="{ skeleton: isSkeletonVisible }">
-                <span>₹{{ session.total }}</span>
-              </div>
-            </td>
-            <td>
-              <div [ngClass]="{ skeleton: isSkeletonVisible }">
-                <span>{{ session.refund }}</span>
+                <span>
+                  <span *ngIf="session.totalAmt > 0"
+                    >₹{{ session.totalAmt }}/-</span
+                  >
+                  <span *ngIf="session.totalAmt <= 0">-</span>
+                </span>
               </div>
             </td>
             <td>
               <div [ngClass]="{ skeleton: isSkeletonVisible }">
                 <span>{{ session.mode }}</span>
+              </div>
+            </td>
+            <td>
+              <div [ngClass]="{ skeleton: isSkeletonVisible }">
+                <span>{{ session.remarks }}</span>
               </div>
             </td>
             <td>
@@ -425,10 +476,13 @@
                     size="sm"
                     shape="circle"
                     class="hide"
+                    appTooltip="{{ session.operator }}"
+                    placement="top"
                   />
                 </span>
+
                 <div [ngClass]="{ skeleton: isSkeletonVisible }">
-                  <span>...</span>
+                  <!-- <span>...</span> -->
                 </div>
               </div>
             </td>
@@ -476,3 +530,11 @@
     </div>
   </main>
 </div>
+
+<ui-snackbar
+  icon="../../assets/images/icons/avatar-2.svg"
+  msg="Demo data"
+  text="Some Action performe"
+  action="Undo"
+  time="100"
+/>

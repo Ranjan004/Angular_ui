@@ -38,6 +38,9 @@ button.secondary {
   color: var(--primary);
   border-radius: 40px;
 }
+button.secondary:hover {
+  background-color: var(--secondary-btn-hover);
+}
 
 button.outlined {
   background: transparent;
@@ -523,6 +526,9 @@ button.disabled:hover {
 /* for hover */
 button.primary:hover {
   background: var(--primary-btn-hover);
+}
+button.disabled:hover {
+  background: var(--disable);
 }
 
 button.outlined:hover {

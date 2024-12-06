@@ -265,7 +265,7 @@ ul li span {
 }
 
 #sidebar.close a {
-  width: 28px;
+  width: 36px;
 }
 
 /* list-header */
@@ -363,6 +363,9 @@ th span {
   font-weight: 500;
   font-size: 12px;
   line-height: 15.73px;
+  display: flex;
+  justify-content: space-between;
+  gap: 0.2px;
 }
 
 th {
@@ -377,8 +380,8 @@ tr:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 25px;
-  height: 25px;
+  width: 30px;
+  height: auto;
 }
 
 table thead th {
@@ -481,6 +484,15 @@ span.check {
 }
 .skeleton .hide {
   opacity: 0;
+}
+th > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+th > div .sort {
+  width: 15px;
+  display: inline-block;
 }
 
 /* Shimmer Animation */

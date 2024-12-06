@@ -218,3 +218,8 @@ ul li {
   width: auto;
   min-height: 44px;
 }
+.text {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}

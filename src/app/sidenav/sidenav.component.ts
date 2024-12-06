@@ -1,8 +1,11 @@
 import { CommonModule } from '@angular/common';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { RouterModule, ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { environment } from '../../environments/environment';
+import { UserService } from '../services/user.service';
 import {
   BreadcrumbsComponent,
   ButtonsComponent,
@@ -15,7 +18,10 @@ import {
   VehicalComponent,
   AvatarComponent,
   ModalComponent,
+  SnackbarComponent,
+  TooltipDirective,
 } from 'sistem';
+import { TrimTextPipe } from '../trim-text.pipe';
 
 interface SessionData {
   vehicleNo: string;
@@ -23,11 +29,17 @@ interface SessionData {
   timeIn: string;
   timeOut: string;
   advance: string;
+  pass: string;
+  vehicleAmt: string;
+  helmetAmt: string;
+  totalAmt: number;
+  helmet: string;
   totalTime: string;
   collection: string;
   refund: string;
   total: string;
   mode: string;
+  remarks: string;
   reference: string;
   vehicleType: string;
   vehicleIcon: string;
@@ -56,11 +68,17 @@ interface SessionData {
     AvatarComponent,
     ModalComponent,
     RouterModule,
+    SnackbarComponent,
+    TrimTextPipe,
+    TooltipDirective,
   ],
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.css'],
 })
 export class SidenavComponent {
+  baseUrl = environment.baseUrl;
+  sessions: SessionData[] = [];
+
   isSidebarClosed = false;
   subMenusState: Record<number, boolean> = {};
   // topTag: { label: string; url: string }[] = [];
@@ -90,7 +108,13 @@ export class SidenavComponent {
     this.subMenusState = {};
   }
 
-  constructor(private cdr: ChangeDetectorRef, private title: Title) {}
+  constructor(
+    private cdr: ChangeDetectorRef,
+    private title: Title,
+    private userService: UserService,
+    private route: ActivatedRoute,
+    private sanitizer: DomSanitizer
+  ) {}
 
   selectedRange: { startDate: Date | null; endDate: Date | null } | null = null;
   topTag: { label: string; url: string }[] = [];
@@ -103,7 +127,7 @@ export class SidenavComponent {
   selectedStatus = this.statusList[0];
   filteredSessions: SessionData[] = [];
   paginatedSessions: SessionData[] = [];
-  totalSessions: number = 0;
+  totalSessions: any;
   currentPage: number = 1;
   rowsPerPage: number = 25;
   totalPages: number = 1;
@@ -113,15 +137,137 @@ export class SidenavComponent {
   errorMessage: string | null = null;
   sortField: string | null = null;
   sortOrder: 'asc' | 'desc' = 'asc';
+  parking_id = '';
 
   isSkeletonVisible: boolean = true;
   ngOnInit() {
+    this.route.params.subscribe((params) => {
+      this.parking_id = params['id'] || '';
+    });
     // set title
     this.title.setTitle('Sistem - Sessions');
     this.paginat();
-    this.totalSessions = this.sessions.length;
+    // this.totalSessions = this.sessions.length;
     this.updatePagination();
     this.loadData();
+    this.fetchVehicleData();
+    this.getParkingUserDetails();
+  }
+
+  fetchVehicleData() {
+    const parkingId = this.parking_id || '';
+    const page = this.currentPage || 1;
+    const orderBy = 'createdAt:DESC';
+    const limit = this.rowsPerPage;
+
+    this.userService.vehicleList(parkingId, page, orderBy, limit).subscribe(
+      (response) => {
+        console.log(response.count);
+        this.totalSessions = response.count;
+        if (response && Array.isArray(response.rows)) {
+          this.sessions = response.rows.map((item: any) => {
+            const vehicle = item.vehicle || {};
+            const formatDate = (dateString: string) => {
+              if (!dateString) return 'N/A';
+              const date = new Date(dateString);
+              const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+              const months = [
+                'Jan',
+                'Feb',
+                'Mar',
+                'Apr',
+                'May',
+                'Jun',
+                'Jul',
+                'Aug',
+                'Sep',
+                'Oct',
+                'Nov',
+                'Dec',
+              ];
+              const day = days[date.getDay()];
+              const dateNum = date.getDate().toString().padStart(2, '0');
+              const month = months[date.getMonth()];
+              const year = date.getFullYear().toString().slice(-2);
+              const hours = date.getHours();
+              const minutes = date.getMinutes().toString().padStart(2, '0');
+              const amPm = hours >= 12 ? 'PM' : 'AM';
+              const formattedHours = hours % 12 || 12;
+
+              return `${day} ${dateNum} ${month} ${year} ${formattedHours}:${minutes}${amPm}`;
+            };
+
+            const totalHelmetAmt = Array.isArray(item.helmets)
+              ? item.helmets.reduce(
+                  (sum: number, helmet: any) => sum + (helmet.total || 0),
+                  0
+                )
+              : '-';
+
+            return {
+              vehicleNo: vehicle.regNumber || '',
+              booking: item.bookingTime ? 'yes' : 'no',
+              pass: item.vehicleInPass || '-',
+              timeIn: formatDate(item.inTime),
+              remarks: item.remarks || '-',
+              timeOut: formatDate(item.outTime),
+              advance: item.advance || '0',
+              totalTime: item.hours ? `${item.hours} hrs` : '0 mins',
+              collection: item.total || '0',
+              refund: item.refund || '0',
+              total: item.total || '0',
+              mode: item.paymentMode || '-',
+              reference: item.refNumber || '',
+              vehicleType: item.vehicleTypes,
+              vehicleIcon:
+                item.type === 'bike'
+                  ? '../../../../assets/images/icons/bike.svg'
+                  : '../../../../assets/images/icons/car.svg',
+              status: item.status || '-',
+              operator:
+                (item.inBy?.firstName || '') +
+                ' ' +
+                (item.inBy?.lastName || 'N/A'),
+              helmet:
+                Array.isArray(item.helmets) && item.helmets.length > 0
+                  ? item.helmets.length
+                  : '-',
+
+              helmetAmt: totalHelmetAmt,
+              totalAmt: totalHelmetAmt + item.total,
+              startDate: formatDate(item.createdAt),
+              endDate: formatDate(item.updatedAt),
+            };
+          });
+          this.updatePagination();
+          // this.cdr.detectChanges();
+          this.updateTags();
+        } else {
+          console.warn('No valid rows found in response:', response);
+        }
+      },
+      (error) => {
+        console.error('Error fetching vehicle data:', error);
+      }
+    );
+
+    // console.log('sessions loaded', this.sessions);
+  }
+
+  getParkingUserDetails() {
+    // Call API to get parking user details
+    this.userService.parkingUserDetail().subscribe(
+      (response) => {
+        this.operatorList = [
+          'Operator',
+          ...response.map((res: any) => `${res.firstName} ${res.lastName}`),
+        ];
+        // console.log(this.operatorList);
+      },
+      (error) => {
+        console.error('Error fetching parking user details:', error);
+      }
+    );
   }
 
   // loading data animations
@@ -186,77 +332,12 @@ export class SidenavComponent {
     },
   ];
 
-  // sessions: SessionData[] = [
-  //   {
-  //     vehicleNo: 'uk073035',
-  //     booking: 'yes',
-  //     timeIn: '10:00 AM',
-  //     timeOut: '10:30 AM',
-  //     advance: '10',
-  //     totalTime: '30 mins',
-  //     collection: '100',
-  //     refund: '10',
-  //     total: '90',
-  //     mode:'cash',
-  //     reference: 'Ref 1',
-  //     vehicleType: 'bike',
-  //     vehicleIcon: '../../../../assets/images/icons/bike.svg',
-  //     status: 'in vehicle',
-  //     operator: 'operator 1',
-  //   },
-  // ];
-
-  sessions: SessionData[] = Array.from({ length: 60 }, (_, index) => {
-    const vehicleTypes: ('bike' | 'car' | 'cycle')[] = ['bike', 'car', 'cycle'];
-    const vehicleIcons: { bike: string; car: string; cycle: string } = {
-      bike: '../../../../assets/images/icons/bike.svg',
-      car: '../../../../assets/images/icons/car.svg',
-      cycle: '../../../../assets/images/icons/cycle.svg',
-    };
-
-    const randomVehicleType =
-      vehicleTypes[Math.floor(Math.random() * vehicleTypes.length)];
-
-    // Generate random start and end dates
-    const baseDate = new Date();
-    const startDate = new Date(baseDate);
-    startDate.setDate(baseDate.getDate() - Math.floor(Math.random() * 30)); // up to 30 days in the past
-    const endDate = new Date(startDate);
-    endDate.setDate(startDate.getDate() + Math.floor(Math.random() * 5)); // up to 5 days after startDate
-
-    return {
-      vehicleNo: `uk07${String(3000 + index).padStart(4, '0')}`,
-      booking: Math.random() > 0.5 ? 'yes' : 'no',
-      timeIn: `${Math.floor(9 + (index % 12))}:${Math.floor(Math.random() * 60)
-        .toString()
-        .padStart(2, '0')} ${Math.random() > 0.5 ? 'AM' : 'PM'}`,
-      timeOut: `${Math.floor(10 + ((index + 1) % 12))}:${Math.floor(
-        Math.random() * 60
-      )
-        .toString()
-        .padStart(2, '0')} ${Math.random() > 0.5 ? 'AM' : 'PM'}`,
-      advance: `${Math.floor(Math.random() * 100)}`,
-      totalTime: `${Math.floor(15 + Math.random() * 45)} mins`,
-      collection: `${Math.floor(100 + Math.random() * 400)}`,
-      refund: `${Math.floor(Math.random() * 50)}`,
-      total: `${Math.floor(80 + Math.random() * 420)}`,
-      mode: Math.random() > 0.5 ? 'cash' : 'card',
-      reference: `Ref ${index + 1}`,
-      vehicleType: randomVehicleType,
-      vehicleIcon: vehicleIcons[randomVehicleType],
-      status: Math.random() > 0.5 ? 'in vehicle' : 'out vehicle',
-      operator: `operator ${Math.floor(1 + Math.random() * 5)}`,
-      startDate: startDate.toISOString().split('T')[0], // format as YYYY-MM-DD
-      endDate: endDate.toISOString().split('T')[0], // format as YYYY-MM-DD
-    };
-  });
-
   paginat() {
     this.totalPages = Math.ceil(this.sessions.length / this.rowsPerPage);
     this.totalSessions = this.sessions.length;
     this.filteredSessions = [...this.sessions];
     this.updateTags();
-    this.updatePaginatedSessions();
+    // this.updatePaginatedSessions();
   }
 
   updatePagination(): void {
@@ -264,19 +345,8 @@ export class SidenavComponent {
     const endIndex = startIndex + this.rowsPerPage;
     this.paginatedSessions = this.sessions.slice(startIndex, endIndex);
     this.totalPages = Math.ceil(this.totalSessions / this.rowsPerPage);
+    // console.log('Paginated Sessions:', this.sessions);
   }
-
-  // updatePaginatedSessions() {
-  //   const startIndex = (this.currentPage - 1) * this.rowsPerPage;
-  //   const endIndex = startIndex + this.rowsPerPage;
-  //   this.paginatedSessions = this.sessions.slice(startIndex, endIndex);
-  // this.isSkeletonVisible = true;
-  // setTimeout(() => {
-  //   this.filterSessions();
-  //   this.updatePaginatedSessions();
-  //   this.isSkeletonVisible = false;
-  // }, 2000);
-  // }
 
   updatePaginatedSessions() {
     const startIndex = (this.currentPage - 1) * this.rowsPerPage;
@@ -294,6 +364,7 @@ export class SidenavComponent {
     if (this.currentPage > 1) {
       this.currentPage--;
       this.updatePaginatedSessions();
+      this.fetchVehicleData();
     }
     this.isSkeletonVisible = true;
     setTimeout(() => {
@@ -307,6 +378,7 @@ export class SidenavComponent {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
       this.updatePaginatedSessions();
+      this.fetchVehicleData();
     }
     this.isSkeletonVisible = true;
     setTimeout(() => {
@@ -330,7 +402,7 @@ export class SidenavComponent {
 
   onDateRangeSelected(range: { startDate: Date | null; endDate: Date | null }) {
     this.selectedRange = range;
-    console.log('Selected Date Range:', this.selectedRange);
+    // console.log('Selected Date Range:', this.selectedRange);
   }
 
   applyFilter() {
@@ -344,7 +416,7 @@ export class SidenavComponent {
   }
 
   filterSessions() {
-    this.filteredSessions = [...this.sessions]; // Reset to all sessions first
+    this.filteredSessions = [...this.sessions];
 
     const isTypeFiltered =
       this.selectedType && this.selectedType !== this.sessionTypes[0];
@@ -357,7 +429,7 @@ export class SidenavComponent {
       this.selectedRange.startDate &&
       this.selectedRange.endDate;
 
-    // Filter by type
+    // Filter by vehicle type
     if (isTypeFiltered) {
       this.filteredSessions = this.filteredSessions.filter(
         (session) =>
@@ -394,7 +466,12 @@ export class SidenavComponent {
     this.totalSessions = this.filteredSessions.length;
     this.totalPages = Math.ceil(this.totalSessions / this.rowsPerPage);
 
+    // Update tags (e.g., the number of filtered items)
     this.updateTags();
+
+    // Reset pagination to page 1 after filtering
+    this.currentPage = 1;
+    this.updatePaginatedSessions();
   }
 
   clearFilters() {
@@ -486,31 +563,48 @@ export class SidenavComponent {
       this.currentPage = page;
     }
     this.updatePaginatedSessions();
+    this.fetchVehicleData();
   }
+  sortColumn: string = '';
+  sortDirection: 'asc' | 'desc' = 'asc';
 
   // data shorting
-  sortSessions(field: keyof SessionData) {
-    if (this.sortField === field) {
-      this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
+  sortSessions(column: string): void {
+    if (this.sortColumn === column) {
+      // Toggle sort direction
+      this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
     } else {
-      this.sortField = field;
-      this.sortOrder = 'asc';
+      // Change column and reset direction
+      this.sortColumn = column;
+      this.sortDirection = 'asc';
     }
-    this.paginatedSessions.sort((a, b) => {
-      const valueA = a[field] ?? '';
-      const valueB = b[field] ?? '';
 
-      if (valueA < valueB) return this.sortOrder === 'asc' ? -1 : 1;
-      if (valueA > valueB) return this.sortOrder === 'asc' ? 1 : -1;
+    // Perform the sorting
+    this.sessions = this.sessions.sort((a: any, b: any) => {
+      const valueA = a[column];
+      const valueB = b[column];
+
+      if (valueA < valueB) return this.sortDirection === 'asc' ? -1 : 1;
+      if (valueA > valueB) return this.sortDirection === 'asc' ? 1 : -1;
       return 0;
     });
   }
 
-  getSortIcon(field: keyof SessionData): string {
-    if (this.sortField === field) {
-      return this.sortOrder === 'asc' ? '↑' : '↓';
-    }
-    return '';
+  getSortIcon(column: string): SafeHtml {
+    if (this.sortColumn !== column) return '';
+
+    const ascendingIcon = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M3 4.5h14.25M3 9h9.75M3 13.5h9.75m4.5-4.5v12m0 0-3.75-3.75M17.25 21 21 17.25" />
+</svg>
+`;
+
+    const descendingIcon = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M3 4.5h14.25M3 9h9.75M3 13.5h5.25m5.25-.75L17.25 9m0 0L21 12.75M17.25 9v12" />
+</svg>
+`;
+
+    const icon = this.sortDirection === 'asc' ? ascendingIcon : descendingIcon;
+    return this.sanitizer.bypassSecurityTrustHtml(icon);
   }
 
   @ViewChild(ModalComponent) modal!: ModalComponent;

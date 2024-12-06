@@ -6,6 +6,8 @@ import {
   Renderer2,
 } from '@angular/core';
 import { ThemeService } from '../../theme.service';
+import { environment } from '../../../environments/environment';
+import { UserService } from '../../services/user.service';
 import {
   NotificationComponent,
   ToggleComponent,
@@ -33,6 +35,8 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements AfterViewInit {
+  parkingId: any;
+
   isMobileMenuOpen: boolean = false;
   @ViewChild('menuContainer', { static: false }) menuContainer!: ElementRef;
 
@@ -65,7 +69,8 @@ export class HeaderComponent implements AfterViewInit {
 
   constructor(
     private themeService: ThemeService,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private userService: UserService
   ) {}
 
   ngAfterViewInit(): void {
@@ -89,29 +94,86 @@ export class HeaderComponent implements AfterViewInit {
     container.scrollBy({ left: -100, behavior: 'smooth' });
   }
 
-  // get dark theme
   ngOnInit() {
-    this.setInitialTheme();
+    const savedTheme = localStorage.getItem('theme');
+    // console.log(savedTheme);
+    if (savedTheme === 'dark') {
+      document.documentElement.classList.add('dark-theme');
+    } else {
+      document.documentElement.classList.remove('dark-theme');
+    }
+
+    this.fetchParking();
   }
 
-  setInitialTheme() {
-    const prefersDarkMode =
-      window.matchMedia &&
-      window.matchMedia('(prefers-color-scheme: dark)').matches;
-    this.toggleTheme(prefersDarkMode);
+  categories: string[] = ['Select parking'];
+
+  contactData = [
+    {
+      name: '',
+      role: '',
+      company: '',
+      category: '',
+      image: '',
+      description: '',
+    },
+  ];
+
+  // Api Data
+  fetchParking() {
+    this.userService.parkedVehicleData().subscribe(
+      (data) => {
+        // get parking name
+        data.map((parkingId: any) => {
+          this.categories.push(parkingId.name);
+        });
+        // get parking details
+        if (Array.isArray(data)) {
+          // console.log(data);
+          this.contactData = data.map((parking: any) => ({
+            name: parking.name,
+            role: parking.address,
+            company: parking.company || 'Unknown',
+            category: parking.name || 'Uncategorized',
+            image: 'assets/images/icons/Avatar.svg',
+            description: this.trimText(
+              parking.description || 'No description provided',
+              80
+            ),
+          }));
+        } else {
+          // If the response is a single object, map it to contactData
+          this.contactData = [
+            {
+              name: data.name || 'Unknown',
+              role: data.address,
+              company: data.company || 'Unknown',
+              category: data.category || 'Uncategorized',
+              image: data.image || 'assets/images/icons/Avatar.svg',
+              description: data.description || 'No description provided',
+            },
+          ];
+        }
+      },
+      (error) => {
+        console.error('Error fetching vehicle data:', error);
+      }
+    );
+  }
+  // Method to trim text
+  trimText(value: string, limit: number = 100): string {
+    return value.length > limit ? value.substring(0, limit) + '...' : value;
   }
 
   toggleTheme(isChecked: boolean) {
     if (isChecked) {
       document.documentElement.classList.add('dark-theme');
+      localStorage.setItem('theme', 'dark');
     } else {
       document.documentElement.classList.remove('dark-theme');
+      localStorage.setItem('theme', 'light');
     }
   }
-
-  // toggleTheme(): void {
-  //   this.themeService.toggleTheme();
-  // }
 
   get isDarkTheme(): boolean {
     return this.themeService.currentTheme;
@@ -220,24 +282,24 @@ export class HeaderComponent implements AfterViewInit {
     }
   }
 
-  contactData = [
-    {
-      name: 'Sudesh kumar',
-      role: 'Contact',
-      company: 'Aadinath Retails',
-      category: 'Sales',
-      image: 'assets/images/icons/Avatar.svg',
-      description: 'Description',
-    },
-    {
-      name: 'Anita Rao',
-      role: 'Contact',
-      company: 'Global Trade',
-      category: 'eCommerce',
-      image: 'assets/images/icons/Avatar.svg',
-      description: 'Description',
-    },
-  ];
+  // contactData = [
+  //   {
+  //     name: 'Sudesh kumar',
+  //     role: 'Contact',
+  //     company: 'Aadinath Retails',
+  //     category: 'Sales',
+  //     image: 'assets/images/icons/Avatar.svg',
+  //     description: 'Description',
+  //   },
+  //   {
+  //     name: 'Anita Rao',
+  //     role: 'Contact',
+  //     company: 'Global Trade',
+  //     category: 'eCommerce',
+  //     image: 'assets/images/icons/Avatar.svg',
+  //     description: 'Description',
+  //   },
+  // ];
 
   collapsIcon = 'assets/images/icons/Loader.svg';
 
@@ -249,7 +311,7 @@ export class HeaderComponent implements AfterViewInit {
   showNotifications() {
     this.isNotificationsOpen = !this.isNotificationsOpen;
     this.updateBodyScroll();
-    console.log('isNotificationsOpen:', this.isNotificationsOpen);
+    // console.log('isNotificationsOpen:', this.isNotificationsOpen);
     this.isAlertActive = false;
   }
 
@@ -257,7 +319,7 @@ export class HeaderComponent implements AfterViewInit {
     if (index === 0) {
       this.latestNotificationClicked = true;
     }
-    console.log(`Notification ${index} clicked!`);
+    // console.log(`Notification ${index} clicked!`);
   }
 
   notifications = [

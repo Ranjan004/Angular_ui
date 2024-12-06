@@ -2,15 +2,14 @@ import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 
 @Directive({
   selector: '[appTooltip]',
-  standalone: true
+  standalone: true,
 })
 export class TooltipDirective {
-
-  @Input('appTooltip') tooltipTitle: string | null = '';  
-  @Input() placement: string = 'bottom';  // Default to 'bottom'
-  @Input() delay: number = 300; 
+  @Input('appTooltip') tooltipTitle: string | null = '';
+  @Input() placement: string = 'bottom'; // Default to 'bottom'
+  @Input() delay: number = 300;
   tooltip?: HTMLElement;
-  offset = 10;
+  offset = 5;
 
   constructor(private el: ElementRef) {}
 
@@ -35,14 +34,14 @@ export class TooltipDirective {
   }
 
   hide() {
-    this.tooltip?.classList.remove('ui-tooltip-show'); 
+    this.tooltip?.classList.remove('ui-tooltip-show');
     this.tooltip?.remove();
     this.tooltip = undefined;
   }
 
   create() {
     this.tooltip = document.createElement('span');
-    this.tooltip.classList.add('ui-tooltip', this.placement);  // Add placement class
+    this.tooltip.classList.add('ui-tooltip', this.placement); // Add placement class
     this.tooltip.textContent = this.tooltipTitle;
     document.body.appendChild(this.tooltip);
   }
@@ -52,7 +51,7 @@ export class TooltipDirective {
     const tooltipRect = this.tooltip?.getBoundingClientRect();
     if (!tooltipRect) return;
 
-    let left = elemRect.left + elemRect.width / 2;  
+    let left = elemRect.left + elemRect.width / 2;
     let top = 0;
 
     switch (this.placement) {
@@ -79,7 +78,7 @@ export class TooltipDirective {
         break;
 
       default:
-        top = elemRect.bottom + this.offset;  
+        top = elemRect.bottom + this.offset;
         this.tooltip?.classList.add('bottom');
         break;
     }
